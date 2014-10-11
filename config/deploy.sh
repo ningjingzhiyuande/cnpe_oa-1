@@ -18,13 +18,13 @@ deploy_dir= /home/www/apps/oa  # deploy dir
  
  
 echo "=======> Deploying to $deploy_dir <========"
-cd $deploy_dir && git stash && git pull   
+cd $deploy_dir && git pull   
 
 # Run migrations if any are pulled down
 if find Gemfile -type f -mmin -3 | grep '.*'
 then
   echo New gem found
-  bundle install
+  cd $deploy_dir  && bundle install
 else
   echo No new gem
 fi
