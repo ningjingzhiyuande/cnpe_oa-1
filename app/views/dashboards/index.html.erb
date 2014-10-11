@@ -1,0 +1,71 @@
+<%=render "shared/dashboard_left"%>
+
+<div id="main-wrapper">
+	<div id="main-content">
+		<%=render "shared/notice"%>
+        <div class="title">
+			<h3>控制台</h3>
+		</div>
+        
+
+		<div class="two-column">
+		<div class="column-fixed" style="width:45%">
+		<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all form-container">
+		<div class="portlet-header ui-widget-header">待审核</div>
+		<div class="portlet-content">
+
+<!--
+		<div class="column" style="width:60%">
+		-->
+        <div class="hastable">
+			<table> 
+               <% @pending_leaves.each_with_index do |leave,i| %>
+						<tr >
+							<td><%=i+1%></td> 
+						    <td><%= leave.title %></td> 
+						    <td><%= leave.total_days %>天</td>    
+						    <td><%= link_to "查看详情",leave %> </td> 					   			
+						</tr> 
+				<%end%>	
+
+			</table>
+						
+        </div>
+        </div>
+       </div>
+</div>
+
+<div class="column-fixed" style="width:54%">
+		<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all form-container">
+		<div class="portlet-header ui-widget-header">已审核</div>
+		<div class="portlet-content">
+
+<!--
+		<div class="column" style="width:60%">
+		-->
+        <div class="hastable">
+			<table> 
+				 <% @leaves.each_with_index do |leave,i| %>
+						<tr >
+							<td><%=i+1%></td> 
+						    <td><%= leave.title %></td> 
+						    <td><%= leave.total_days %>天</td> 
+						    <td><%= t leave.status %></td>  
+
+						    <td><%= link_to "查看详情",leave %> </td> 					   			
+						</tr> 
+				<%end%>	
+			</table>
+						
+        </div>
+        </div>
+       </div>
+</div>
+
+
+
+<div class="clearfix"></div>
+
+</div>
+</div>
+

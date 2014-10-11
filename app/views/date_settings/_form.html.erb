@@ -1,0 +1,118 @@
+<%content_for :header do%>
+   <%=javascript_include_tag "jquery-ui.multidatespicker", "data-turbolinks-track" => true %>
+   <%#=stylesheet_link_tag "jquery.datetimepicker"%>
+<%end%>
+<%= form_for(@date_setting,html: {:class=>"validate_form"}) do |f| %>
+  <% if @date_setting.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@date_setting.errors.count, "error") %> prohibited this date_setting from being saved:</h2>
+
+      <ul>
+      <% @date_setting.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%unless params[:id]%>
+	       
+	      
+     <div>
+		 选择设定的年份：<%= f.radio_button :year,Date.today.year,class: "date_setting_year" %> <%=Date.today.year%>
+         <%= f.radio_button :year,Date.today.year+1 ,class: "date_setting_year"%> <%=Date.today.year+1%>(选定年份,请标记该年份的日期)	
+	 </div>
+	  <%end%>
+    <div id="multi-calendar" style="margin:20px 40px">
+		  	
+	</div>
+	
+    
+
+  
+    <%= f.hidden_field :data %>
+    <%= f.hidden_field :work_status,:value=>@date_setting.work_status || "rest" %>
+
+
+  
+  <div class="actions">
+    <%= f.submit "提交" %>
+  </div>
+<% end %>
+
+
+<div class="clearfix"></div>
+
+<script type="text/javascript">
+  var y = <%=@date_setting.year || Date.today.year%>;
+  var str ="<%=@date_setting.send("data")%>";
+  $('#multi-calendar').multiDatesPicker({
+	        dateFormat: "yy/mm/dd",
+	        defaultDate: y+"/01/01",
+	        <%if !@date_setting.data.nil?%>
+	        addDates: str.split(","),
+	        <%end%>
+	        firstDay: 0,
+            numberOfMonths: [3,4],  
+            showWeeks: true,
+            showStatus: true,
+            highlightWeek: true,
+            showOtherMonths: true,
+            selectOtherMonths: true,
+            <% if @date_setting.work_status=="rest"%> 
+            beforeShowDay: $.datepicker.noWeekends,
+            <%end%>
+            altField: '#date_setting_data'
+          
+	});
+
+
+ $(".date_setting_year").change(function () {
+
+ 	 $("#multi-calendar").datepicker("destroy");
+ 
+ 	var year = $('.date_setting_year:checked').val();
+ 	$('#multi-calendar').multiDatesPicker('resetDates', 'disabled');
+     $('#multi-calendar').multiDatesPicker({
+	       dateFormat: "yy/mm/dd",
+	       defaultDate: year+"/01/01",
+	        firstDay: 0,
+            numberOfMonths: [3,4],  
+            showWeeks: true,
+            showStatus: true,
+            highlightWeek: true,
+            showOtherMonths: true,
+            selectOtherMonths: true,
+            <% if @date_setting.work_status=="rest"%> 
+            beforeShowDay: $.datepicker.noWeekends,
+            <%end%>
+            altField: '#date_setting_data'
+          
+	});
+     $("#multi-calendar").datepicker("refresh");
+
+
+ })
+
+
+
+
+
+
+  $(".validate_form").validate({   	    
+		errorElement: "b",
+		ignore: [],
+
+  	  rules:{
+  	  	"date_setting[year]": "required",
+  	  	"date_setting[data]": "required"
+
+  	  },
+  	  messages: {
+  	  	"date_setting[year]": "选择年份",
+  	  	"date_setting[data]": "请选择日期"
+  	  	
+  	  }
+  })
+
+</script>

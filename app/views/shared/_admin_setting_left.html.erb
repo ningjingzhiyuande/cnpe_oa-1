@@ -1,0 +1,70 @@
+	 <%=javascript_include_tag "jquery-ui.multidatespicker"%>
+	<div id="sidebar">
+			<div class="side-col ui-sortable">
+				<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">
+					<div class="portlet-header ui-widget-header">公司信息管理</div>
+					<div class="portlet-content">
+						<ul class="side-menu">
+							<li>
+								<a class="set_theme" id="default" href="/categories/kind/dept" title="Default Theme">部门组织图</a>
+							</li>
+							<!--<li>
+								<a class="set_theme" id="light_blue" href="/categories/kind/rank" title="Light Blue Theme">职位/职级设定</a>
+							</li>-->
+							
+						</ul>
+					</div>
+				</div>
+				<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">
+					<div class="portlet-header ui-widget-header">用户信息管理</div>
+					<div class="portlet-content">
+						<ul class="side-menu">
+							<li>
+								<a class="set_theme" id="default" href="/users" title="Default Theme">用户列表</a>
+							</li>
+
+							<li>
+								<a class="set_theme" id="default" href="/users/approve/yes" title="Default Theme">审核通过用户</a>
+							</li>
+							<li>
+								<a class="set_theme" id="light_blue" href="/users/approve/no" title="Light Blue Theme">未审核用户</a>
+							</li>
+							
+							
+						</ul>
+					</div>
+				</div>
+
+				<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">
+					<div class="portlet-header ui-widget-header">系统参数管理</div>
+					<div class="portlet-content">
+						<ul class="side-menu">
+							<li style="font-size:12px;letter-spacing : 2px; line-height:14px;padding-bottom:5px">
+								主要是标记每年的公休假其中包括周六日倒休上班的设定，用于请假系统的时间自动计算
+							</li>
+							<li style="margin-top:5px">
+								<a class="set_theme" id="light_blue" href="/date_settings/is_work/rest" title="Light Blue Theme">年公休假</a>
+							</li>
+							<li>
+								<a class="set_theme" id="light_blue" href="/date_settings/is_work/work" title="Light Blue Theme">工作日上班设定</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+		
+			
+				<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">
+					<div class="portlet-header ui-widget-header">日历</div>
+					<div class="portlet-content">
+						<div id="datepicker"></div>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+
+<script>
+ 	$('#datepicker').datepicker({
+  		inline: true
+    	});
+</script>

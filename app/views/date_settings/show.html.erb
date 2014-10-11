@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Year:</strong>
+  <%= @date_setting.year %>
+</p>
+
+<p>
+  <strong>Is work:</strong>
+  <%= @date_setting.is_work %>
+</p>
+
+<p>
+  <strong>Data:</strong>
+  <%= @date_setting.data %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @date_setting.user_id %>
+</p>
+
+<%= link_to 'Edit', edit_date_setting_path(@date_setting) %> |
+<%= link_to 'Back', date_settings_path %>

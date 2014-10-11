@@ -1,0 +1,102 @@
+<%=render "shared/leave_left"%>
+
+<div id="main-wrapper">
+	<div id="main-content">
+		<%=render "shared/notice"%>
+        <div class="title">
+			<h3>请假详情单</h3>
+		</div>
+	<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all show_container">
+       <div class="portlet-content">
+          <ul>
+          	<li> 
+		    <span class="width_align_right">请假者: </span> 
+            <span class="width_content">
+         	<%=@leave.applicant.name%>
+           </span>
+    	   </li>
+    	   <div class="clearfix"></div>
+    	   <li> 
+		    <span class="width_align_right">部门: </span> 
+            <span class="width_content">
+         	<%=@leave.applicant.department.name%>
+           </span>
+    	   </li>
+    	   <div class="clearfix"></div>
+
+			<li> 
+		    <span class="width_align_right">请假标题: </span> 
+            <span class="width_content">
+         	<%=@leave.title%>
+           </span>
+    	   </li>
+    	   <div class="clearfix"></div>
+    	   <%@leave.leave_details.each do |detail|%>
+    	   <li> 
+		     <span class="width_align_right"><%=t("leave_details.#{detail.kind}") %> </span>     
+             <span class="width_content">
+       	      从<%=detail.start_at.to_s(:db)%>
+       	      到<%=detail.end_at.to_s(:db)%>
+       	      <b class="choose_day">共计：<%=detail.days %> 天</b>
+              </span>
+	
+
+         </li>
+             <div class="clearfix"></div>
+          <%end%>
+
+          <li> 
+		    <span class="width_align_right">请假说明: </span> 
+            <span class="width_content">
+         	<%=@leave.info%>
+           </span>
+    	   </li>
+    	       <div class="clearfix"></div>
+    	      <li> 
+		    <span class="width_align_right">附件: </span> 
+            <span class="width_content">
+         	<%= image_tag @leave.image_url,width:100,height:100%>
+           </span>
+    	   </li>
+    	       <div class="clearfix"></div>
+    	    <li>
+
+    	    	<span class="width_align_right">审核状态: </span> 
+            <span class="width_content">
+
+            	<%if @leave.is_reporter?(current_user.id) && @leave.status=="auditting"%>
+            <%['accept','reject'].each do |e|%>
+               <div class="f1 f"> <%=form_for :leave,:url=>auddit_leave_url(@leave,e: e) do |f|%>
+                   <%=f.submit "#{t(e)}",class: "btn_no_text btn ui-state-default ui-corner-all tooltip" %>
+                  
+                <%end%>
+               </div>
+
+            <%end%>
+             <%else%>
+               <div class="f1 f">  <%=t(@leave.status)%></div>
+        <%end%>
+         <%if @leave.is_last_reporter?(current_user.id) && @leave.has_approved%>
+            <%['last_accept','last_reject'].each do |e|%>
+               <div class="f1 f"> <%=form_for :leave,:url=>auddit_leave_url(@leave,e: e) do |f|%>
+                   <%=f.submit "#{t(e)}",class: "btn_no_text btn ui-state-default ui-corner-all tooltip"%>
+                   
+                <%end%>
+                </div>
+            <%end%>
+        <%end%>
+
+         	
+           </span>
+
+    	    </li>
+    	</ul>
+        </div>
+
+	
+    	</div>
+
+	<div class="clearfix"></div>
+
+</div>
+</div>

@@ -1,0 +1,70 @@
+<%=render "shared/admin_setting_left"%>
+
+<div id="main-wrapper">
+	<div id="main-content">
+		<%=render "shared/notice"%>
+        <div class="title">
+			<h3><%=I18n.t("category_title.#{@kind}_title")%></h3>
+		</div>
+
+		<div class="two-column">
+		<div class="column" style="width:60%">
+        <div class="hastable">
+					
+						<table> 
+						<thead> 
+						<tr>
+							<th>#ID</th>
+						    <th><%=I18n.t("category_kinds.#{@kind}")%>编号</th> 
+						    <th>名称</th> 
+						    <th>状态</th> 
+							
+						</tr> 
+						</thead> 
+						<tbody> 
+						<% @categories.each do |category| %>
+						<tr class="category_row" data-id="<%=category.id%>">
+							<td class="center"><%=category.id%></td> 
+						    <td><%= category.item_num %></td> 
+						    <td><%= category.name %></td> 
+						    <td><%= I18n.t("category_status.#{category.status}") %></td> 					    
+						<!--
+						    <td>
+								<a class="btn_no_text btn ui-state-default ui-corner-all tooltip" title="Edit this example" href="/categories?c_id=<%=category.id%>">
+									<span class="ui-icon ui-icon-wrench"></span>
+								</a>
+							
+								<a class="btn_no_text btn ui-state-default ui-corner-all tooltip" title="Delete this example" href="/categories/<%=category.id%>" data-confirm="Are you sure?" data-method="delete">
+									<span class="ui-icon ui-icon-circle-close"></span>
+								</a>
+							</td>
+						-->
+						</tr> 
+					   <%end%>			
+						</tbody>
+						</table>
+						
+</div>
+</div>
+
+<div class="column" style="width:35%;float:right;padding-right:10px;">
+
+	<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all form-container">
+       <div class="portlet-content">
+            <%= render 'form' %>
+        </div>
+	</div>
+
+</div>
+
+<div class="clearfix"></div>
+
+</div>
+</div>
+<script type="text/javascript">
+$(".category_row").click(function(){
+	var c_id = $(this).attr("data-id");
+	 window.location.assign("/categories/kind/<%=@kind%>/"+c_id)
+	
+})
+</script>

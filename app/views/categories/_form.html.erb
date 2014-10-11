@@ -1,0 +1,79 @@
+
+<%= form_for(@category,html:{:class=>"validate_form"}) do |f| %>
+<% if @category.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@category.errors.count, "error") %> prohibited this category from being saved:</h2>
+
+      <ul>
+      <% @category.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+					<ul>
+						<li>
+							<label class="desc">编号*</label>
+							<div>
+								<%=f.text_field "item_num" ,class: "field text large"%>	
+								<%=f.hidden_field "kind",value: @kind %>		
+							</div>
+						</li>
+						<li>
+							<label class="desc"><%=I18n.t("category_kinds.#{@kind}")%>名称*</label>
+							<div>
+								<%=f.text_field "name" ,class: "field text large"%>
+								
+							</div>
+						</li>
+                        <li>
+                        	<label class="desc">排序</label>
+							<div>
+							    <%=f.text_field "position" ,class: "field text large"%>
+							</div>
+						</li>
+						 <li>
+						 	<label class="desc">状态</label>
+							<div>
+								<%=f.select "status" ,Category.statuses.map{|k,v|[I18n.t("category_status.#{k}"),k]},class: "field select large"%>				
+							</div>
+						</li>
+
+						<li class="buttons">
+							<input type="submit" value="提交" class="submit">
+                            <a href="/categories/kind/<%=@kind%>">重置新建</a>
+
+						</li>
+						
+						
+					</ul>
+<% end %>
+				<div class="clearfix"></div>
+
+
+<script type="text/javascript">
+
+
+
+
+  $(".validate_form").validate({   	
+       
+		errorElement: "b",
+
+  	  rules:{
+  	  	"category[item_num]": "required",
+  	  	"category[name]": "required"
+
+  	  },
+  	  messages: {
+  	  	"category[item_num]": "不能为空",
+  	  	"category[name]": "填写名称"
+  	  	
+  	  }
+  })
+
+</script>
+
+
+

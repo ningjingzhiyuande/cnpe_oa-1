@@ -1,0 +1,94 @@
+   <%=javascript_include_tag "jquery.datetimepicker", "data-turbolinks-track" => true%>
+   <%=stylesheet_link_tag "jquery.datetimepicker", "data-turbolinks-track" => true%>
+
+<%= form_for(@leave) do |f| %>
+  <% if @leave.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@leave.errors.count, "error") %> prohibited this leafe from being saved:</h2>
+
+      <ul>
+      <% @leave.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<ul>
+	<li> 
+		<span class="width_align_right">标题 </span> 
+       <span class="width_content">
+       	<%=f.text_field :title,class: "field error leave_title text large"%>
+       </span>
+    </li>
+    
+    <%= f.fields_for :leave_details,@leave.leave_details.build do |detail|%>   
+    <li> 
+		<span class="width_align_right">请假类型 </span>
+        <span class="width_content">
+            <%LeaveDetail.kinds.each do |k,v|%>
+               <%=check_box_tag "leave[leave_details_attributes][kind][]",v,false,{"data-id"=>v,class: "leave_kind"}%> <%=t("leave_details.#{k}")%>     	  
+        	 <%end%> 							
+		</span>
+
+    </li>
+
+     <%LeaveDetail.kinds.each do |k,v|%>
+    <li class="kind_<%=v%> date_choose">
+      <span class="width_align_right">&gt;</span>
+       <div>  
+       	      <%=detail.text_field "start_at",class: "field start_at_#{v.to_s} datetimepicker1  text" ,"data-id"=>v ,"data-value"=>"start_at_#{v.to_s}",name: "leave[leave_details_attributes][#{v}][start_at]",id: "start_at_#{v}"%>
+       	      <%=detail.text_field :end_at,class: "field end_at_#{v.to_s} datetimepicker1  text","data-id"=> v,"data-value"=>"end_at_#{v.to_s}",name: "leave[leave_details_attributes][#{v}][end_at]",id: "end_at_#{v}"%>
+       	      选择休 <%=t("leave_details.#{k}")%>  日期<b class="choose_day">共计：<%=detail.text_field :days,name: "leave[leave_details_attributes][#{v}][days]",id: "select_days_#{v}",class: "field tiny_field" %> 天</b><b class="errorr"></b>
+      </div>
+    </li>
+    <%end%>
+<%end%> 
+    <li> 
+		<span class="width_align_right">审批 </span> 
+       <span class="width_content">
+       	<%if current_user.rank_id=="chief"%>
+          <%=f.hidden_field :reporter1_id,:value=>current_user.id%>
+          <%= f.select :reporter2_id,current_user.last_report_user() %>
+        <%else%>
+         <%= f.select :reporter1_id, current_user.report_user %> -------> 
+          <%= f.select :reporter2_id, current_user.last_report_user%>
+          <%end%>
+
+       	
+       </span>
+
+
+    </li>
+    
+
+
+     <li> 
+		<span class="width_align_right">请假说明 </span>
+		<div><%=f.kindeditor :info , :width => 700, :height => 300 %></div>
+		
+        
+       
+    </li>
+     <li> 
+		<span class="width_align_right">附件 </span>
+        <div><%=f.file_field :image%>
+       </div>
+    </li>
+</ul>
+ 
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  var total_nj_day= <%=current_user.nj_days%>; //年假总数
+  var total_cj_day=10;//产假天数
+  var total_hj_day=15; //婚假天数
+  var total_sj_day=10;//丧假总天数
+  var rest_days = "<%=rest_days%>".split(",") 
+  
+  var work_days =  "<%=work_days%>".split(",")  //["2014-09-21"];//周末设定的上班的日期
+
+</script>
+<%=javascript_include_tag "leaves", "data-turbolinks-track" => true%>

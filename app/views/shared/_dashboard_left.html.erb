@@ -1,0 +1,46 @@
+	 <%=javascript_include_tag "jquery-ui.multidatespicker"%>
+	<div id="sidebar">
+			<div class="side-col ui-sortable">
+				<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">
+					<div class="portlet-header ui-widget-header">系统公告</div>
+					<div class="portlet-content">
+						<ul class="side-menu">
+							<li>
+								系统内测，有问题请及时联系
+							</li>
+							<!--<li>
+								<a class="set_theme" id="light_blue" href="/categories/kind/rank" title="Light Blue Theme">职位/职级设定</a>
+							</li>-->
+							
+						</ul>
+					</div>
+				</div>
+				<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">
+					<div class="portlet-header ui-widget-header">内部要闻</div>
+					<div class="portlet-content">
+						<ul class="side-menu">
+							
+							
+							
+						</ul>
+					</div>
+				</div>
+
+			
+		
+			
+				<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">
+					<div class="portlet-header ui-widget-header">日历</div>
+					<div class="portlet-content">
+						<div id="datepicker"></div>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+
+<script>
+ 	$('#datepicker').datepicker({
+  		inline: true
+    	});
+</script>

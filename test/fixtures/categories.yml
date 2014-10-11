@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  kind: 1
+  item_num: MyString
+  name: MyString
+  info: MyString
+  position: MyString
+  status: MyString
+
+two:
+  kind: 1
+  item_num: MyString
+  name: MyString
+  info: MyString
+  position: MyString
+  status: MyString

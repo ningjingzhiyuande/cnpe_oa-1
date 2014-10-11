@@ -1,0 +1,83 @@
+<%#=render "shared/leave_left"%>
+
+<div id="main-wrapper">
+	<div id="main-content">
+		<%#=render "shared/notice"%>
+        <div class="title">
+			<h3>请假详情单</h3>
+		</div>
+	<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all show_container">
+       <div class="portlet-content">
+          <ul>
+          	<li> 
+		    <span class="width_align_right">请假者: </span> 
+            <span class="width_content">
+         	<%=@leave.applicant.name%>
+           </span>
+    	   </li>
+    	   <div class="clearfix"></div>
+    	   <li> 
+		    <span class="width_align_right">部门: </span> 
+            <span class="width_content">
+         	<%=@leave.applicant.department.name%>
+           </span>
+    	   </li>
+    	   <div class="clearfix"></div>
+			<li> 
+		    <span class="width_align_right">请假标题: </span> 
+            <span class="width_content">
+         	<%=@leave.title%>
+           </span>
+    	   </li>
+    	   <div class="clearfix"></div>
+    	   <%@leave.leave_details.each do |detail|%>
+    	   <li> 
+		     <span class="width_align_right"><%=t("leave_details.#{detail.kind}") %> </span>      
+             <span class="width_content">
+       	      从<%=detail.start_at.to_s(:db)%>
+       	      到<%=detail.end_at.to_s(:db)%>
+       	      <b class="choose_day">共计：<%=detail.days %> 天</b>
+              </span>
+	
+
+         </li>
+             <div class="clearfix"></div>
+          <%end%>
+
+          <li> 
+		    <span class="width_align_right">请假说明: </span> 
+            <span class="width_content">
+         	<%=@leave.info%>
+           </span>
+    	   </li>
+    	       <div class="clearfix"></div>
+    	      <li> 
+		    <span class="width_align_right">附件: </span> 
+            <span class="width_content">
+         	<%= image_tag @leave.image_url,width:100,height:100%>
+           </span>
+    	   </li>
+    	       <div class="clearfix"></div>
+    	    <li>
+
+    	    	<span class="width_align_right">审核状态: </span> 
+    	    	
+            <span class="width_content">
+                 <%=t @leave.status%>  <br/>
+                 <a href="http://192.81.135.229/leaves/<%=@leave.id%>/auddit_from_mail?token=<%=Base64.encode64(@leave.chief.email)%>&e=<%=Base64.encode64('accept')%>">同意该申请</a> 
+                 <a href="http://192.81.135.229/leaves/<%=@leave.id%>/auddit_from_mail?token=<%=Base64.encode64(@leave.chief.email)%>&e=<%=Base64.encode64('reject')%>">拒绝该申请</a>   
+    </h3>
+         	
+           </span>
+
+    	    </li>
+    	</ul>
+        </div>
+
+	
+    	</div>
+
+	<div class="clearfix"></div>
+
+</div>
+</div>

@@ -1,0 +1,53 @@
+<%=render "shared/admin_setting_left"%>
+<div id="main-wrapper">
+	<div id="main-content">
+		<%=render "shared/notice"%>
+        <div class="title">
+			<h3><%=I18n.t("date_settings_title.#{@flag}_title")%></h3>
+		</div>
+
+
+        <div class="hastable">
+					
+						<table> 
+						<thead> 
+						<tr>
+							<th>#ID</th>
+						    <th>年</th> 
+						    <th>日期</th> 
+						    <th>操作</th> 
+							
+						</tr> 
+						</thead> 
+						<tbody> 
+						<% @date_settings.each do |setting| %>
+						<tr>
+							<td class="center"><%=setting.id%></td> 
+						    <td><%= setting.year %></td> 
+						    <td><%= setting.data %></td> 
+											    
+						
+						    <td>
+								<a class="btn_no_text btn ui-state-default ui-corner-all tooltip" title="Edit this example" href="/date_settings/<%=setting.id%>/edit">
+									<span class="ui-icon ui-icon-wrench"></span>
+								</a>
+							
+								<a class="btn_no_text btn ui-state-default ui-corner-all tooltip" title="Delete this example" href="/date_settings/<%=setting.id%>" data-confirm="Are you sure?" data-method="delete">
+									<span class="ui-icon ui-icon-circle-close"></span>
+								</a>
+							</td>
+					
+						</tr> 
+					   <%end%>			
+						</tbody>
+						</table>
+
+
+
+</div>
+</div>
+
+
+
+
+<%= link_to '   新增', new_date_setting_path(is_work: @flag ) %>

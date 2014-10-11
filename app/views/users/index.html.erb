@@ -1,0 +1,65 @@
+<%=render "shared/admin_setting_left"%>
+<div id="main-wrapper">
+	<div id="main-content">
+		<%=render "shared/notice"%>
+        <div class="title">
+			<h3>系统后台用户系统</h3>
+		</div>
+
+
+        <div class="hastable">
+					
+						<table> 
+						<thead> 
+						<tr>
+							<th>#ID</th>
+							<th>审核</th>
+							<th>邮件</th>
+						    <th>姓名</th> 
+						    <th>部门</th> 
+						    <th>级别</th> 
+						    <th>起始工作时间</th> 
+						    <th>操作</th> 
+							
+						</tr> 
+						</thead> 
+						<tbody> 
+						<% @users.each do |user| %>
+						<tr>
+							<td class="center"><%=user.id%></td> 
+							<td><%=user.is_approve ? "通过" : "未审核"%></td> 
+						    <td><%= user.email %></td> 
+						    <td><%= user.name %></td> 
+						    <td><%= user.department.try(:name) %></td>
+						    <td><%= t("user_roles.#{user.rank_id}") %></td>
+						    <td><%= user.work_at %></td> 
+											    
+						
+						    <td>
+								<a class="btn_no_text btn ui-state-default ui-corner-all tooltip" title="Edit this example" href="/users/<%=user.id%>/edit">修改
+								</a>
+							    <%if user.is_approve%>
+								<a class="btn_no_text btn ui-state-default ui-corner-all tooltip" title="Delete this example" href="/users/<%=user.id%>/approve" > 
+									审核不通过
+								</a>
+								<%else%>
+								   <a class="btn_no_text btn ui-state-default ui-corner-all tooltip" title="Delete this example" href="/users/<%=user.id%>/approve" > 
+									审核通过
+								   </a>
+								<%end%>
+							</td>
+					
+						</tr> 
+					   <%end%>			
+						</tbody>
+						</table>
+						<%=paginate @users%>
+
+
+
+</div>
+</div>
+
+
+
+

@@ -1,0 +1,161 @@
+<%=render "shared/admin_setting_left"%>
+<%=javascript_include_tag "jquery.datetimepicker"%>
+<%=stylesheet_link_tag "jquery.datetimepicker"%>
+<style type="text/css">
+.registration_form ul li{margin-top: 25px;margin-bottom: 20px}
+.registration_form ul li .width_align_right{width:18%;}
+.ui-widget-content .btn {
+  background: #3498db;
+  background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+  background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+  background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+  background-image: -o-linear-gradient(top, #3498db, #2980b9);
+  background-image: linear-gradient(to bottom, #3498db, #2980b9);
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 20px;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+}
+
+.ui-widget-content .btn:hover {
+  background: #3cb0fd;
+  background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+  text-decoration: none;
+}
+
+
+</style>
+
+<div id="main-wrapper">
+	<div id="main-content">
+		<%=render "shared/notice"%>
+        <div class="title">
+			<h3>用户信息修改</h3>
+		</div>
+	<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all form-container">
+       <div class="portlet-content">
+
+	<%= form_for(@user, :html => { :role => 'form',:class=>"registration_form", autocomplete: "off"}) do |f| %>
+ <%#= devise_error_messages! %>
+					
+
+  <div><span class="red"><%= flash[:notice]%></span></div>
+
+  	<ul>
+					
+    <li> 
+		<span class="width_align_right">您的RTX名字:</span>
+          <span class="width_content">
+            <%= f.text_field :username, :autofocus => true, :validate => true%>
+          </span>
+     </li>     
+     <li> 
+		<span class="width_align_right">您的邮箱:</span>
+         <span class="width_content">      
+           <%= f.text_field :email%>
+             </span>
+      </li>     
+     <li> 
+		<span class="width_align_right">您的名字:</span>
+         <span class="width_content">
+
+            <%= f.text_field :name, :autofocus => true, :validate => true%>
+             </span>
+            
+         </li>     
+     <li> 
+		<span class="width_align_right">科室:</span>
+         <span class="width_content">
+        
+          <%= f.select :department_id, Category.departments.map{|c|[c.name,c.id]}%>
+        </span>
+    </li>
+     <li> 
+		<span class="width_align_right">职位:</span>
+         <span class="width_content">
+          <%= f.select :rank_id, User.rank_ids.collect{|k,v|[I18n.t("user_roles.#{k}"),k]}%>
+        </span>
+       </li>
+
+        <li> 
+		<span class="width_align_right">工作起始时间:</span>
+         <span class="width_content">
+         <%= f.text_field :work_at,:class=>"datetimepicker"%>
+        </span>
+       </li>
+       <!--<li> 
+		<span class="width_align_right">密码:</span>
+         <span class="width_content">
+         <%#= f.password_field :password,autocomplete: "off"   %>
+        </span>
+       </li>
+       -->
+    
+        <li>
+   			<span class="width_align_right">&nbsp;</span> 
+   			<span class="width_content">
+   			<input type="submit" class="btn" value="修改"/>
+   			
+             </span>
+        </li>       
+       
+      </ul>
+ 
+  </div>
+
+  <% end %>
+   </div>
+	</div>
+	<div class="clearfix"></div>
+
+
+</div>
+</div>
+<script type="text/javascript">
+
+
+
+
+  $(".registration_form").validate({   	
+       
+		errorElement: "b",
+
+  	  rules:{
+  	  	"user[username]": "required",
+  	  	"user[work_at]": "required",
+  	  	"user[email]": "required",
+  	  	"user[name]": "required",
+  	  	"user[password]": "required",
+  	  	"user[password_confirmation]": "required"
+  	  },
+  	  messages: {
+  	  	"user[username]": "不能为空",
+  	  	"user[email]": "不能为空",
+  	  	"user[work_at]": "不能为空",
+  	  	"user[name]": "不能为空",
+  	  	"user[password]": "不能为空",
+  	  	"user[password_confirmation]": "不能为空"
+
+  	  	
+  	  }
+  })
+
+    $('.datetimepicker').datetimepicker({
+	        format: "Y/m/d",	        
+	        firstDay: 0,   
+	        lang: "ch",   
+	        timepicker: false,    
+            closeOnDateSelect: true    
+           
+            
+	});
+
+
+
+</script>
+

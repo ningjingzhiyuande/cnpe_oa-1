@@ -1,0 +1,63 @@
+<%=render "shared/leave_left"%>
+
+<div id="main-wrapper">
+	<div id="main-content">
+		<%=render "shared/notice"%>
+        <div class="title">
+			<h3>请假列表</h3>
+		</div>
+
+		
+	
+        <div class="hastable">
+					
+						<table> 
+						<thead> 
+						<tr>
+							<th>#ID</th>
+						    <th>请假标题</th> 
+						    <th>总天数</th> 
+						    <th>审批状态</th>
+						    <th>操作</th> 
+							
+						</tr> 
+						</thead> 
+						<tbody> 
+						<% @leaves.each do |leave| %>
+						<tr class="category_row" data-id="">
+							<td class="center"><%=leave.id%></td> 
+						    <td><%= leave.title %></td> 
+						    <td><%= leave.total_days %>天</td> 
+						    <td class="approve_td"> <%if leave.is_reporter?(current_user.id) && leave.status=="auditting"%>
+            <%['accept','reject'].each do |e|%>
+               <div class="f1 f"> <%=form_for :leave,:url=>auddit_leave_url(leave,e: e) do |f|%>
+                   <%=f.submit "#{t(e)}",class: "btn_no_text btn ui-state-default ui-corner-all tooltip" %>
+                  
+                <%end%>
+               </div>
+
+            <%end%>
+             <%else%>
+               <div class="f1 f">  <%=t(leave.status)%></div>
+        <%end%>
+         <%if leave.is_last_reporter?(current_user.id) && leave.has_approved%>
+            <%['last_accept','last_reject'].each do |e|%>
+               <div class="f1 f"> <%=form_for :leave,:url=>auddit_leave_url(leave,e: e) do |f|%>
+                   <%=f.submit "#{t(e)}",class: "btn_no_text btn ui-state-default ui-corner-all tooltip"%>
+                   
+                <%end%>
+                </div>
+            <%end%>
+        <%end%>
+    </td>
+						    <td><%= link_to "查看详情",leave %> </td> 					   			
+						</tr> 
+					   <%end%>			
+						</tbody>
+						</table>
+
+
+
+</div>
+</div>
+
