@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
  # private 
 
  rescue_from CanCan::AccessDenied do |exception|
+
   flash[:notice] = "您没有相关权限,请联系管理员."
   redirect_to root_url
 end
@@ -19,7 +20,7 @@ end
   	 #binding.pry
     
     unless current_user.is_approve
-    	#sign_out current_user
+    	sign_out current_user
     	render :text=>"您的账户还在审核中...." 
     end
 
