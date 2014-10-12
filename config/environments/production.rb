@@ -88,7 +88,7 @@ CnpeNew::Application.configure do
     #:domain               => "163.com",
     :user_name            => "cgboa",
     :password             => "password",
-    :authentication       => "login"
+    :authentication       => "login",
     :enable_starttls_auto => false
   }
 
