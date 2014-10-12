@@ -1,6 +1,6 @@
 GIT
-  remote: https://github.com/plataformatec/devise.git
-  revision: ce6e369ba85d3759474e468dd0b28735e7450a3d
+  remote: http://github.com/plataformatec/devise.git
+  revision: 1d8890b77372b9c4fd3ec8e9b4963d76774ed33c
   branch: lm-rails-4-2
   specs:
     devise (3.3.0)
@@ -12,7 +12,7 @@ GIT
       warden (~> 1.2.3)
 
 GEM
-  remote: https://rubygems.org/
+  remote: https://ruby.taobao.org/
   specs:
     aasm (3.4.0)
     actionmailer (4.2.0.beta1)

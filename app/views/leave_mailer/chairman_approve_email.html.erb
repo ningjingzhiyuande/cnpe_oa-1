@@ -62,8 +62,8 @@
     	    	
             <span class="width_content">
                  <%=t @leave.status%>  <br/>
-                 <a href="http://192.81.135.229/leaves/<%=@leave.id%>/auddit_from_mail?token=<%=Base64.encode64(@leave.chairman.email)%>&e=<%=Base64.encode64('accept')%>">同意该申请</a> 
-                 <a href="http://192.81.135.229/leaves/<%=@leave.id%>/auddit_from_mail?token=<%=Base64.encode64(@leave.chairman.email)%>&e=<%=Base64.encode64('reject')%>">拒绝该申请</a>   
+                 <a href="<%=@url%>/leaves/<%=@leave.id%>/auddit_from_mail?token=<%=Base64.encode64(@leave.chairman.email)%>&e=<%=Base64.encode64('accept')%>">同意该申请</a> 
+                 <a href="<%=@url%>/leaves/<%=@leave.id%>/auddit_from_mail?token=<%=Base64.encode64(@leave.chairman.email)%>&e=<%=Base64.encode64('reject')%>">拒绝该申请</a>   
     </h3>
          	
            </span>

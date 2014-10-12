@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'https://ruby.taobao.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0.beta1'
@@ -17,7 +17,7 @@ gem 'cancancan'
 # gem 'daemons'
 
 #gem 'devise'
-gem 'devise', :git => 'https://github.com/plataformatec/devise.git', :branch => 'lm-rails-4-2'
+gem 'devise', :git => 'http://github.com/plataformatec/devise.git', :branch => 'lm-rails-4-2'
 gem 'responders'
 
 gem 'mail'

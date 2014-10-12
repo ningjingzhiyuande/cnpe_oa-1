@@ -27,7 +27,7 @@ class LeavesController < ApplicationController
   end
 
   def auddit_from_mail
-  	return redirect_to leaves_url , notice: '该宴请已经被审批过了 :)'  if ["rejectting","rejectting","last_acceptting","last_rejectting","leave_agree","leave_reject"].include? @leave.status
+  	return redirect_to leaves_url , notice: '该宴请已经被审批过了 :)'  if ["acceptting","rejectting","last_acceptting","last_rejectting","leave_agree","leave_reject"].include? @leave.status
      email =  Base64.decode64(params["token"])
      motion =  Base64.decode64(params["e"])
      user = User.find_by(email: email)

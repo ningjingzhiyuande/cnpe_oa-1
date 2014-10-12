@@ -1,18 +1,18 @@
 class LeaveMailer < ActionMailer::Base
-  default from: "oreatial@163.com"
+  default from: "cgboa@cnpe.cc"
   #after_action :set_system_status
   
   def approve_email(obj)
   #	binding.pry
   	 @leave = ActiveModel::GlobalLocator.locate(obj) 
-  	 @url = "http://192.81.135.229"
+  	 @url = "http://cgbxm.cnpe.cc"
   	 #@leave.chief.email	 
   	 mail(to: @leave.chief.email, subject: @leave.applicant.name+": #{@leave.title},一共请假#{@leave.total_days}天,请您审批")
   end
 
   def  chairman_approve_email(obj)
   	 @leave = ActiveModel::GlobalLocator.locate(obj) 
-  	 @url = "http://192.81.135.229"
+  	 @url = "http://cgbxm.cnpe.cc"
   	 mail(to: @leave.chairman.email, subject: @leave.applicant.name+": #{@leave.title},一共请假#{@leave.total_days}天,请您审批")
   end
         

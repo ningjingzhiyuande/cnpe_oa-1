@@ -6,7 +6,7 @@ namespace :user do
 
     	puts  "导入用户的文件地址(绝对的地址)\n"
     	#file =  STDIN.gets.chomp
-    	file = "/Users/sgd/Desktop/CGBPDetail.xls"
+    	file = "/home/yang/Desktop/CGBPDetail.xls"
     	content = Roo::Spreadsheet.open(file)
     	#binding.pry
     	(2..481).to_a.each do |i|
@@ -17,7 +17,7 @@ namespace :user do
               hash["username"]=content.cell("B",i)
               category = Category.find_by("item_num=?",content.cell("C",i))
               hash["department_id"]=category.id
-              gender = content.cell("B",i).to_s=="男" ? 1 : 2
+              gender = content.cell("F",i).to_s=="男" ? 1 : 2
               hash["gender"] = gender
              #hash["rank_id"]=
               hash["password"]= "123456"  #content.cell("H",i).to_s[-6,6]
