@@ -21,7 +21,7 @@ class Ability
     	can :update,Leave
     	can :receive,Leave
     	can :auddit,Leave
-    	can :auddit_from_mail
+    	can :auddit_from_mail,Leave
 
     end
     if user.is_leader
@@ -31,7 +31,7 @@ class Ability
     	can :update,Leave
     	can :receive,Leave
     	can :auddit,Leave
-    	can :auddit_from_mail
+        can :auddit_from_mail,Leave
     end
     if user.is_admin?
     	can :manage, :all
