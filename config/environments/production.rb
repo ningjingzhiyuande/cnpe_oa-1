@@ -83,13 +83,13 @@ CnpeNew::Application.configure do
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.smtp_settings = {
-  	:address              => "smtp.163.com",
+  	:address              => "10.30.2.7",
     :port                 => 25,
-    :domain               => "163.com",
-    :user_name            => "oreatial",
-    :password             => "123456sgd",
-    :authentication       => "login",
-    :enable_starttls_auto => true
+    #:domain               => "163.com",
+    :user_name            => "cgboa",
+    :password             => "password",
+    :authentication       => "login"
+    :enable_starttls_auto => false
   }
 
 

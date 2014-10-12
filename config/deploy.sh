@@ -10,7 +10,7 @@
 # clone of the codebase from an upstream git repo. This script also assumes
 # you are using Passenger.
  
-deploy_dir= /home/www/apps/oa  # deploy dir
+deploy_dir= /home/Sites/oa  # deploy dir
  
 # You then can run deploy.sh  remotely with ssh:
 #
