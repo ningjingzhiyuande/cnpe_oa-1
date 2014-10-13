@@ -91,7 +91,9 @@ $(function() {
     $('.datetimepicker1').datetimepicker({
 	        format: "Y/m/d  H:i",	        
 	        firstDay: 0,   
-	        lang: "ch",       
+	        lang: "ch", 
+	        showAnim: '' ,  
+	        duration: '' ,  
             closeOnDateSelect: true,  
             defaultTime: "09:00",    
             onShow: changeMaxMinDay,
@@ -103,7 +105,7 @@ $(function() {
             	if(start_at!="" && end_at!=""){
             		 days = cal_diff_time(start_at,end_at)
             		 if(data_id=="0" && parseFloat(days)>parseFloat(total_nj_day)){
-            		 	alert("您一共有"+total_nj_day+"天年假，请重新选择");
+            		 	//alert("您一共有"+total_nj_day+"天年假，请重新选择");
 
             		 }
             		$("#select_days_"+data_id).val(days)
