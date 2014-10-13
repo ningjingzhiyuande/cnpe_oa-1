@@ -1,4 +1,4 @@
-source 'https://ruby.taobao.org'
+source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0.beta1'
@@ -82,8 +82,8 @@ end
 gem 'capistrano' #, group: :development
 
 
- #gem 'capistrano-rbenv'
-# gem 'capistrano-bundler'
+ gem 'capistrano-rbenv'
+gem 'capistrano-bundler'
  gem 'capistrano-rails'
 
 # Use debugger

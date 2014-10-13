@@ -21,7 +21,7 @@
 // require superfish
 //= require jquery-ui.min
 //= require date_format
-// require jquery.datetimepicker
+//= require jquery.datetimepicker
 // require jquery-ui.multidatespicker
 // require jquery-ui-timepicker-addon
 // require jquery-ui-sliderAccess

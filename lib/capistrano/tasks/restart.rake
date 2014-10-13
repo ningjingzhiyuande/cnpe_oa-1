@@ -2,7 +2,7 @@ namespace :deploy do
   desc 'Restart unicorn application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
-       "/etc/init.d/unicorn_#{fetch(:full_app_name)} restart"
+       sudo "/etc/init.d/unicorn_#{fetch(:full_app_name)} restart"
     end
   end
 
