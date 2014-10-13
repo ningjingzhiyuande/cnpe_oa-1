@@ -181,7 +181,7 @@ $('.new_leave').on('submit', function(e) {
  $('.leave_kind:checkbox:checked').each(function () {
  	       var d_id=$(this).attr("data-id");
  	       if(d_id=="0"){
- 	       $("#select_days_"+data_id).rules("add", {
+ 	       $("#select_days_0").rules("add", {
                 required: true,
                 cal_nj_days: true,
                  messages: {
