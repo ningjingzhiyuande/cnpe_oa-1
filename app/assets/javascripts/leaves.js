@@ -1,5 +1,6 @@
- $( document ).ready(function() {
- $(".leave_kind").click(function(){   
+$(function() {
+
+ 	 $(".leave_kind").click(function(){   
    	    data_id=$(this).attr("data-id");
         if($(this).prop("checked")){
           $("li.kind_"+data_id).show();
@@ -7,7 +8,7 @@
         	 $("li.kind_"+data_id).hide();
         }        
         
-   })
+   });
 //计算请假当天的日期处理是半天还是一天
   function cal_today_work_time(date_at){
   	 date = new Date(date_at)
@@ -214,5 +215,7 @@ $('.new_leave').on('submit', function(e) {
   	  	"leave[leave_details_attributes][kind][]": "选择请假类型"
   	  	
   	  }
-  })
+  });
+
+
 })
