@@ -12,7 +12,8 @@ module Approve #:nodoc:
           include Approve::InstanceMethods
           include AASM
           enum status: ["auditting","acceptting","rejectting","last_acceptting","last_rejectting","leader_agree","leader_reject"]
-          after_save  :add_to_approve
+           
+          after_save  :add_to_approve,:if => Proc.new{|c| Rails.env=="production"}
           aasm :column => :status, :enum => true do
            # state :applying
      	    state :auditting, :initial => true
@@ -61,7 +62,7 @@ module Approve #:nodoc:
      	 end
 
      	 def add_to_approve
-
+             begin 
      	 	 return if status=="leader_agree" || status== "leader_reject"
      	 	 method = self.class.class_variable_get("@@need_chairman_approve")
    
@@ -86,6 +87,8 @@ module Approve #:nodoc:
               	  self.save
 
               end
+          rescue 
+          end
               		
 
      	 	 #self.system_reject if ["rejectting","last_rejectting"].include? status

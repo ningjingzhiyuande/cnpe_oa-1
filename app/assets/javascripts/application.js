@@ -11,9 +11,6 @@
 // about supported directives.
 //
 //= require jquery
-
-
-
 //= require jquery_ujs
 //= require kindeditor
 // require turbolinks
@@ -21,7 +18,9 @@
 // require superfish
 //= require jquery-ui.min
 //= require date_format
-//= require jquery.datetimepicker
+//= require ./my97/WdatePicker
+//= require dataTables/jquery.dataTables 
+// require jquery.datetimepicker
 // require jquery-ui.multidatespicker
 // require jquery-ui-timepicker-addon
 // require jquery-ui-sliderAccess

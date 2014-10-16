@@ -20,6 +20,9 @@ gem 'cancancan'
 gem 'devise', :git => 'http://github.com/plataformatec/devise.git', :branch => 'lm-rails-4-2'
 gem 'responders'
 
+gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
+ gem 'jquery-ui-rails'
+
 gem 'mail'
 
 gem 'rolify'
