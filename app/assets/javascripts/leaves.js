@@ -102,14 +102,17 @@ $(function() {
   	var data_id=$(input).attr("data-id");
   	var checked_max_date = find_max_date(input)
   	date = new Date(checked_max_date);
+
    	return [date.format("yyyy/mm/dd")];
    }
 
-   function test_for_start_date(input){
-   	  
-     // if("start_at_"+data_id==data_value){
-   	  return  "%y/%M/%d 09:00:00"
+   function get_speical_date(){
+   //	alert(rest_days.concat(work_days))
+   	 array = rest_days.concat(work_days)
+   	 jQuery.map(array,function(c,i){if(c!=''){return c}})
    }
+
+  
 //显示时间的函数
 
    $('.datetimepicker1').click(function(){
@@ -122,16 +125,16 @@ $(function() {
        isShowClear: false,
        readOnly: true,
        autoPickDate: true,
-       //startDate: '%y/%M/%d',
+      // startDate: '%y/%M/{%d-2}',
        dateFmt:'yyyy/MM/dd HH:mm:ss',
-       alwaysUseStartDate:true,
+      // alwaysUseStartDate:true,
 
        //disabledDays:[0,6],
 
        
        //disabledDates: ["2014-11-17","2014-10-17"],
       // onpicking: can_choose_date,
-      // specialDays: [6],
+       specialDates: get_speical_date(),
        onpicked: cal_days_for_chose
 
       
@@ -209,7 +212,7 @@ var find_max_date=function find_checked_max_date(input){
      })
 
     if(array.length==0){
-    	return new Date() 
+    	return  new Date(new Date().setDate(new Date().getDate()-1));
     }
     console.log(array.sort())
     return new Date(array.sort()[array.length-1])
@@ -232,7 +235,7 @@ var max_date=function choosed_checked_max_date(ci){
    
     //array = array.join(",").split(",")
     if(array.length==0){
-    	return new Date() 
+    	return  new Date(new Date().setDate(new Date().getDate()-1));
     }
     console.log(array.sort())
     return new Date(array.sort()[array.length-1])
