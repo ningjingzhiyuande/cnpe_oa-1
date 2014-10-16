@@ -39,7 +39,7 @@ $(function() {
      for(i=0;i<diff_day;i++){
        //  var day = new Date(start_at.getFullYear()+"/"+(start_at.getMonth()+1)+"/"+(start_at.getDate()+i)+" 00:00:00");     
        var day = start_at.getFullYear()+"/"+(start_at.getMonth()+1)+"/"+(start_at.getDate()+i);  
-       $("#leave_title").val(day)
+       
        if(jQuery.inArray(day, rest_days)>=0){
          	rest=rest+1;
          }
@@ -130,7 +130,7 @@ $(function() {
 
        
        //disabledDates: ["2014-11-17","2014-10-17"],
-       onpicking: can_choose_date,
+      // onpicking: can_choose_date,
       // specialDays: [6],
        onpicked: cal_days_for_chose
 
@@ -190,10 +190,7 @@ function can_choose_date(){
     date = $dp.cal.getDateStr();
     a=["2014/10/12","2014/10/13","2014/10/14"]
     
-     if(jQuery.inArray("2014/10/13",a)>=0){
-         	$("#leave_title").val("ddddd")
-      }
-	
+   
 
 }
 
