@@ -106,9 +106,9 @@ $(function() {
    }
 
    function test_for_start_date(input){
-   	  var data_id=$(input).attr("data-id");
+   	  
      // if("start_at_"+data_id==data_value){
-   	  return '2014/10/17 09:00:00'
+   	  return  "%y/%M/%d 09:00:00"
    }
 //显示时间的函数
 
@@ -122,7 +122,7 @@ $(function() {
        isShowClear: false,
        readOnly: true,
        autoPickDate: true,
-       startDate: '%y/%M/%d 00:00:00',
+       startDate: '%y/%M/%d',
        dateFmt:'yyyy/MM/dd HH:mm:ss',
        alwaysUseStartDate:true,
 
