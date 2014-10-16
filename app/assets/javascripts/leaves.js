@@ -122,7 +122,7 @@ $(function() {
        isShowClear: false,
        readOnly: true,
        autoPickDate: true,
-       startDate: '%y/%M/%d',
+       //startDate: '%y/%M/%d',
        dateFmt:'yyyy/MM/dd HH:mm:ss',
        alwaysUseStartDate:true,
 
