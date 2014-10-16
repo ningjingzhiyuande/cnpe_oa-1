@@ -41,7 +41,7 @@ set :linked_dirs, %w{public/system public/uploads tmp/pids tmp/cache tmp/sockets
 set :linked_files ,%w{config/database.yml .ruby-version .rbenv-gemsets config/nginx.conf config/unicorn_init.sh}
 
 set :default_env, { path: "$HOME/.rbenv/shims:$HOME/.rbenv/bin:$PATH" }
-set :keep_releases, 2
+set :keep_releases, 5
 
 
 
