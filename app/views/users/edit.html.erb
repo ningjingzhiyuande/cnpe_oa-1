@@ -1,6 +1,7 @@
 <%=render "shared/admin_setting_left"%>
-<%=javascript_include_tag "jquery.datetimepicker"%>
-<%=stylesheet_link_tag "jquery.datetimepicker"%>
+  <%=javascript_include_tag "/my97/WdatePicker"%>
+<%#=javascript_include_tag "jquery.datetimepicker"%>
+<%#=stylesheet_link_tag "jquery.datetimepicker"%>
 <style type="text/css">
 .registration_form ul li{margin-top: 25px;margin-bottom: 20px}
 .registration_form ul li .width_align_right{width:18%;}
@@ -145,16 +146,28 @@
   	  }
   })
 
-    $('.datetimepicker').datetimepicker({
-	        format: "Y/m/d",	        
-	        firstDay: 0,   
-	        lang: "ch",   
-	        timepicker: false,    
-            closeOnDateSelect: true    
-           
-            
-	});
+$('.datetimepicker').click(function(){
 
+   	
+   	WdatePicker({
+
+       firstDayOfWeek: 0,
+
+       isShowClear: false,
+       readOnly: true,
+       autoPickDate: true,
+  
+       dateFmt:'yyyy/MM/dd'
+
+
+      
+
+
+   	});
+
+   })
+
+  
 
 
 </script>
