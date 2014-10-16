@@ -516,7 +516,8 @@ button { float: right; margin: .5em .4em .5em 0; cursor: pointer; padding: .2em 
 	/* Main content */
 
 #page-wrapper {
-
+  width:100%;
+  overflow: hidden;
 }
 
 #page-wrapper #main-wrapper {
