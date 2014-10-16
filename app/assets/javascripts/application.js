@@ -18,7 +18,7 @@
 // require superfish
 //= require jquery-ui.min
 //= require date_format
-//= require ./my97/WdatePicker
+// require ./my97/WdatePicker
 //= require dataTables/jquery.dataTables 
 // require jquery.datetimepicker
 // require jquery-ui.multidatespicker
