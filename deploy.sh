@@ -18,7 +18,7 @@ deploy_dir= /home/yang/Sites/oa  # deploy dir
  
  
 echo "=======> Deploying to $deploy_dir <========"
-cd $deploy_dir && git stash && git pull   
+cd $deploy_dir && git pull   
 
 echo 'update bundle'
 cd $deploy_dir  && bundle install
