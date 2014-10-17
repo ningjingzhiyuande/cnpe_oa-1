@@ -1,4 +1,4 @@
-root = "/home/www/apps/oa/current"
+root = "/home/yang/Sites/oa"
 working_directory root
 pid "#{root}/tmp/pids/unicorn_oa.pid"
 stderr_path "#{root}/log/unicorn_oa.stderr.log"
