@@ -6,10 +6,5 @@ namespace :deploy do
     end
   end
 
-  desc 'migrate'
-  task :migrate do 
-  	on roles(:app) do
-        execute_interactively "cd #{release_path} && RAILS_ENV=production bundle exec rake db:migrate"  
-    end
-  end
+
 end

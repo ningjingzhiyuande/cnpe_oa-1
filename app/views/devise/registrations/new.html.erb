@@ -10,11 +10,11 @@
    <%=stylesheet_link_tag "jquery.datetimepicker", "data-turbolinks-track" => true %>
   <%#= yield :header %>
 
+	   <%=javascript_include_tag "/my97/WdatePicker"%>
 	<!--[if IE 6]>
 	 
-	<link href="/assets/ie6.css" rel="stylesheet" media="all" />
-	
-	<script src="/assets/pngfix.js"></script>
+	<%= stylesheet_link_tag "ie6", "data-turbolinks-track" => true %>
+	<%= javascript_include_tag    "pngfix",  "data-turbolinks-track" => true %>
 	<script>
 	  /* EXAMPLE */
 	  DD_belatedPNG.fix('.logo, .other ul#dashboard-buttons li a');
@@ -22,8 +22,11 @@
 	</script>
 	<![endif]-->
 	<!--[if IE 7]>
-	<link href="/assets/ie7.css" rel="stylesheet" media="all" />
+
+	<%= stylesheet_link_tag "ie7", "data-turbolinks-track" => true %>
+	
 	<![endif]-->
+
 
 </head>
 <style type="text/css">
@@ -34,22 +37,32 @@
 .two-column .second_column h1{font-weight: bold;font-size: 3em;text-align: center;margin-top: 10px}
 .two-column .second_column input[type="text"] {height: 20px;}
 #login1{margin-top: 10px;}
-#login1 ul li{margin-top: 25px;margin-bottom: 20px}
+#login1 ul li{ height:26px;}
 #login1 ul li .width_align_right{width:20%;}
 .ui-widget-content .btn {
-  background: #3498db;
-  background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
-  background-image: -moz-linear-gradient(top, #3498db, #2980b9);
-  background-image: -ms-linear-gradient(top, #3498db, #2980b9);
-  background-image: -o-linear-gradient(top, #3498db, #2980b9);
-  background-image: linear-gradient(to bottom, #3498db, #2980b9);
-  font-family: Arial;
-  color: #ffffff;
-  font-size: 20px;
-  padding: 10px 20px 10px 20px;
-  text-decoration: none;
+	display:block;
+    background: #3498db;
+  background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+    font-family: Arial;
+    color: #ffffff;
+    font-size: 20px;
+    width:80px;
+	
+    float:left;
+	 margin-left:20px;
+	 display:inline;
+    text-decoration: none;
+	text-align:center;
+    border:none
 }
-
+.ui-widget-content input.btn{
+	height:40px;	
+	
+	}
 .ui-widget-content .btn:hover {
   background: #3cb0fd;
   background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
@@ -59,7 +72,6 @@
   background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
   text-decoration: none;
 }
-
 
 </style>
 <body>
@@ -152,6 +164,9 @@
   </div>
 
   <% end %>
+</div>
+</div>
+</div>
 
 
 <script type="text/javascript">
@@ -183,16 +198,27 @@
   	  }
   })
 
-    $('.datetimepicker').datetimepicker({
-	        format: "Y/m/d",	        
-	        firstDay: 0,   
-	        lang: "ch",   
-	        timepicker: false,    
-            closeOnDateSelect: true    
-           
-            
-	});
+   
+$('.datetimepicker').click(function(){
 
+   	
+   	WdatePicker({
+
+       firstDayOfWeek: 0,
+
+       isShowClear: false,
+       readOnly: true,
+       autoPickDate: true,
+  
+       dateFmt:'yyyy/MM/dd'
+
+
+      
+
+
+   	});
+
+   })
 
 
 </script>

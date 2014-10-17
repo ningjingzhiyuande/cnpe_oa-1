@@ -14,13 +14,13 @@ set :pty,true
 #set :bundle_flags, "--no-deployment"
 
 set :scm, "git"
-set :repo_url, "git@github.com:sundevilyang/cgboa-cnpe.git"
+set :repo_url, "git@github.com:shiguodong/cnpe_oa.git"
 set :branch, "master"
 set :keep_releases, 2
 
-#set :rbenv_type, :user # or :system, depends on your rbenv setup
-set :rbenv_ruby, ' 2.1.0-dev'
-#set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
+set :rbenv_type, :user # or :system, depends on your rbenv setup
+set :rbenv_ruby, '2.1.2'
+#set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} \ #{fetch(:rbenv_path)}/bin/rbenv exec"
 set :rbenv_map_bins, %w{rake gem bundle ruby rails}
 #set :rbenv_roles, :all # default value
 #set :default_environment, {
@@ -41,7 +41,7 @@ set :linked_dirs, %w{public/system public/uploads tmp/pids tmp/cache tmp/sockets
 set :linked_files ,%w{config/database.yml .ruby-version .rbenv-gemsets config/nginx.conf config/unicorn_init.sh}
 
 set :default_env, { path: "$HOME/.rbenv/shims:$HOME/.rbenv/bin:$PATH" }
-set :keep_releases, 2
+set :keep_releases, 5
 
 
 
@@ -78,7 +78,7 @@ namespace :deploy do
   # after 'deploy:updated', 'deploy:migrate'
    after :finishing, 'deploy:cleanup'
    #before :finished ,'deploy:generate_kindeditor' 
- #  before :finished ,'deploy:generate_kindeditor' 
+   before :finished ,'deploy:generate_kindeditor' 
    before :finished,'deploy:restart'
 
   

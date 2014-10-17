@@ -1,5 +1,17 @@
-   <%=javascript_include_tag "jquery.datetimepicker", "data-turbolinks-track" => true%>
-   <%=stylesheet_link_tag "jquery.datetimepicker", "data-turbolinks-track" => true%>
+   <%=javascript_include_tag "/my97/WdatePicker"%>
+   <%#=stylesheet_link_tag "jquery.datetimepicker" => true%>
+
+<script type="text/javascript">
+  var total_nj_day= <%=current_user.nj_days%>; //年假总数
+  var total_cj_day=10;//产假天数
+  var total_hj_day=15; //婚假天数
+  var total_sj_day=10;//丧假总天数
+  var rest_days = "<%=rest_days%>".split(",") 
+  
+  var work_days =  "<%=work_days%>".split(",")  //["2014-09-21"];//周末设定的上班的日期
+
+</script>
+<%=javascript_include_tag "leaves", "data-turbolinks-track" => true%>
 
 <%= form_for(@leave) do |f| %>
   <% if @leave.errors.any? %>
@@ -64,7 +76,7 @@
 
      <li> 
 		<span class="width_align_right">请假说明 </span>
-		<div><%=f.kindeditor :info , :width => 700, :height => 300 %></div>
+		<div><%=f.kindeditor :info , :simple_mode => true, :width => 700, :height => 300 %></div>
 		
         
        
@@ -81,14 +93,3 @@
   </div>
 <% end %>
 
-<script type="text/javascript">
-  var total_nj_day= <%=current_user.nj_days%>; //年假总数
-  var total_cj_day=10;//产假天数
-  var total_hj_day=15; //婚假天数
-  var total_sj_day=10;//丧假总天数
-  var rest_days = "<%=rest_days%>".split(",") 
-  
-  var work_days =  "<%=work_days%>".split(",")  //["2014-09-21"];//周末设定的上班的日期
-
-</script>
-<%=javascript_include_tag "leaves", "data-turbolinks-track" => true%>

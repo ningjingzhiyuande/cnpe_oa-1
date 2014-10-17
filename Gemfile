@@ -1,4 +1,4 @@
-source 'https://ruby.taobao.org'
+source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0.beta1'
@@ -19,6 +19,9 @@ gem 'cancancan'
 #gem 'devise'
 gem 'devise', :git => 'http://github.com/plataformatec/devise.git', :branch => 'lm-rails-4-2'
 gem 'responders'
+
+gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
+ gem 'jquery-ui-rails'
 
 gem 'mail'
 
@@ -82,8 +85,8 @@ end
 gem 'capistrano' #, group: :development
 
 
- #gem 'capistrano-rbenv'
-# gem 'capistrano-bundler'
+ gem 'capistrano-rbenv'
+gem 'capistrano-bundler'
  gem 'capistrano-rails'
 
 # Use debugger

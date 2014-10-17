@@ -9,9 +9,8 @@
 
 	<!--[if IE 6]>
 	 
-	<link href="/assets/ie6.css" rel="stylesheet" media="all" />
-	
-	<script src="/assets/pngfix.js"></script>
+	<%= stylesheet_link_tag "ie6", "data-turbolinks-track" => true %>
+	<%= javascript_include_tag    "pngfix",  "data-turbolinks-track" => true %>
 	<script>
 	  /* EXAMPLE */
 	  DD_belatedPNG.fix('.logo, .other ul#dashboard-buttons li a');
@@ -19,7 +18,9 @@
 	</script>
 	<![endif]-->
 	<!--[if IE 7]>
-	<link href="/assets/ie7.css" rel="stylesheet" media="all" />
+
+	<%= stylesheet_link_tag "ie7", "data-turbolinks-track" => true %>
+	
 	<![endif]-->
 
 </head>
@@ -33,22 +34,32 @@
 
 .two-column .second_column input[type="text"] {height: 25px;}
 #login1{margin-top: 20px;}
-#login1 ul li{margin-top: 60px;margin-bottom: 40px}
+#login1 ul li{ height:60px;}
 #login1 ul li .width_align_right{width:15%;}
 .ui-widget-content .btn {
-  background: #3498db;
-  background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
-  background-image: -moz-linear-gradient(top, #3498db, #2980b9);
-  background-image: -ms-linear-gradient(top, #3498db, #2980b9);
-  background-image: -o-linear-gradient(top, #3498db, #2980b9);
-  background-image: linear-gradient(to bottom, #3498db, #2980b9);
-  font-family: Arial;
-  color: #ffffff;
-  font-size: 20px;
-  padding: 10px 20px 10px 20px;
-  text-decoration: none;
+	display:block;
+    background: #3498db;
+ background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+    font-family: Arial;
+    color: #ffffff;
+    font-size: 20px;
+    width:80px;
+	
+    float:left;
+	 margin-left:40px;
+	 display:inline;
+    text-decoration: none;
+	text-align:center;
+    border:none
 }
-
+.ui-widget-content input.btn{
+	height:40px;	
+	
+	}
 .ui-widget-content .btn:hover {
   background: #3cb0fd;
   background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
@@ -58,7 +69,6 @@
   background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
   text-decoration: none;
 }
-
 
 </style>
 <body>

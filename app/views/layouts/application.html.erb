@@ -14,10 +14,9 @@
   
 </script>
 	<!--[if IE 6]>
-	 
-	<link href="/assets/ie6.css" rel="stylesheet" media="all" />
-	
-	<script src="/assets/pngfix.js"></script>
+	<%= stylesheet_link_tag "ie6", "data-turbolinks-track" => true %>
+	<%= javascript_include_tag    "pngfix",  "data-turbolinks-track" => true %>
+
 	<script>
 	  /* EXAMPLE */
 	  DD_belatedPNG.fix('.logo, .other ul#dashboard-buttons li a');
@@ -25,7 +24,8 @@
 	</script>
 	<![endif]-->
 	<!--[if IE 7]>
-	<link href="/assets/ie7.css" rel="stylesheet" media="all" />
+	<%= stylesheet_link_tag "ie7", "data-turbolinks-track" => true %>
+	
 	<![endif]-->
 
 </head>

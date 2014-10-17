@@ -9,6 +9,7 @@
 	font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 	padding: 8px;
 	padding-left: 0px;
+
 	padding-top: 2px;
 	position: absolute;
 	z-index: 9999;
@@ -215,7 +216,9 @@
 }
 .xdsoft_datetimepicker  .xdsoft_calendar table{
 	border-collapse:collapse;
-	width:100%;
+	
+	width:310px;
+	height: 205px;
 	
 }
 .xdsoft_datetimepicker  .xdsoft_calendar td > div{
@@ -304,3 +307,5 @@
 .xdsoft_scroller_box{
 position:relative;
 }
+* html .xdsoft_datetimepicker tbody a {background-image:none !important;}
+

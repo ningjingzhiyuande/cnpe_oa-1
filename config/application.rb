@@ -21,7 +21,7 @@ module CnpeNew
      config.i18n.default_locale = "zh-CN"
      config.active_record.raise_in_transactional_callbacks=true
      config.action_mailer.default_url_options = { host: 'http://192.81.135.229' }
-     config.assets.precompile += ['leaves.js',"jquery.datetimepicker.js","jquery.datetimepicker.css","jquery-ui.multidatespicker.js"]
+     config.assets.precompile += ['leaves.js',"jquery.datetimepicker.js","jquery.datetimepicker.css","jquery-ui.multidatespicker.js","ie7.css","ie6.css","pngfix.js"]
     # config.active_job.queue_adapter = :delayed_job
   end
 end

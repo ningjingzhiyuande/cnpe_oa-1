@@ -16,7 +16,7 @@
  *= require ui
  * require jquery.datetimepicker
  * require jquery-ui-timepicker-addon
-
+ *= require dataTables/jquery.dataTables  
  *= require forms
  *= require tables
 

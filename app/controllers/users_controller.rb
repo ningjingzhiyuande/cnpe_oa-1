@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+	
   load_and_authorize_resource
 
   def index
@@ -7,7 +8,7 @@ class UsersController < ApplicationController
        is_approve = params[:is_approve] == "yes" ? 1 : 0
        users = users.where("is_approve=?",is_approve)
     end
-    @users = users.page(params[:page]) 
+    @users = users
 
   end
 
