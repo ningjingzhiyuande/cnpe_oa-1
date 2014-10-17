@@ -31,7 +31,7 @@ class LeavesController < ApplicationController
      email =  Base64.decode64(params["token"])
      motion =  Base64.decode64(params["e"])
      user = User.find_by(email: email)
-      return redirect_to leaves_url , notice: '该请假已经被审批过了 :)'  if (["acceptting","rejectting"].include? @leave.status) && ["accept","reject"].include? motion
+      return redirect_to leaves_url , notice: '该请假已经被审批过了 :)'  if (["acceptting","rejectting"].include? @leave.status) && (["accept","reject"].include? motion)
       
      return render :text => "权限错误" unless user 
      #return render :text => "权限错误 " unless  [@leave.reporter1_id, @leave.reporter2_id].include? user.id 
