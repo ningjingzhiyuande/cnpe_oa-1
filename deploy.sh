@@ -20,28 +20,17 @@ deploy_dir= /home/yang/Sites/oa  # deploy dir
 echo "=======> Deploying to $deploy_dir <========"
 cd $deploy_dir && git stash && git pull   
 
-# Run migrations if any are pulled down
-if find Gemfile -type f -mmin -3 | grep '.*'
-then
-  echo New gem found
-  cd $deploy_dir  && bundle install
-else
-  echo No new gem
-fi
+echo 'update bundle'
+cd $deploy_dir  && bundle install
+
 
 echo asset precompile
 RAILS_ENV=production bundle exec rake assets:precompile
 RAILS_ENV=production bundle exec rake kindeditor:assets
 
-# Run migrations if any are pulled down
-if find db/migrate -type f -mmin -3 | grep '.*'
-then
-  echo New migrations found
-  RAILS_ENV=production bundle exec rake db:migrate 
-else
-  echo No new migrations
-fi
- 
+echo 'migrate'
+RAILS_ENV=production bundle exec rake db:migrate 
+
 # Uncomment if using ThinkingSphinx
 # RAILS_ENV=production bundle exec rake ts:rebuild
  
