@@ -17,11 +17,11 @@ class User < ActiveRecord::Base
 
   def report_user
   	#department_id: [department_id, 6100],
-     User.where(rank_id: 100).select(:id,:name).collect{|u|[u.name,u.id]}
+     User.where({rank_id: 100,department_id: department_id}).select(:id,:name).collect{|u|[u.name,u.id]}
   end
 
   def last_report_user
-  	User.where(rank_id: 200).select(:id,:name).collect{|u|[u.name,u.id]}
+  	User.where({rank_id: 100,department_id: department_id}).select(:id,:name).collect{|u|[u.name,u.id]}
   end
   #判断是不是领导
   def is_leader
