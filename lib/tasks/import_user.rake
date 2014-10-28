@@ -31,3 +31,12 @@ namespace :user do
     	
    end
 end
+
+namespace :cnpe do
+   desc 'truncate db' 
+   task :truncate => :environment do 
+          ActiveRecord::Base.connection.execute("truncate leaves")
+          ActiveRecord::Base.connection.execute("truncate leave_details")
+   end
+
+end
