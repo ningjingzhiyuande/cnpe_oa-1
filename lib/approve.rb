@@ -14,6 +14,7 @@ module Approve #:nodoc:
           enum status: ["auditting","acceptting","rejectting","last_acceptting","last_rejectting","leader_agree","leader_reject"]
            
           after_save  :add_to_approve,:if => Proc.new{|c| Rails.env=="production"}
+          after_save :sync_to_leave_detail
           aasm :column => :status, :enum => true do
            # state :applying
      	    state :auditting, :initial => true
@@ -93,6 +94,13 @@ module Approve #:nodoc:
 
      	 	 #self.system_reject if ["rejectting","last_rejectting"].include? status
 
+     	 end
+
+     	 def sync_to_leave_detail
+     	 	leave_details.each do |detail|
+               detail.status = Leave.statuses[status]
+               detail.save
+     	 	end
      	 end
         
      end

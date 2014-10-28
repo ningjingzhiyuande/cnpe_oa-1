@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141003143318) do
+ActiveRecord::Schema.define(version: 20141028020111) do
 
   create_table "categories", force: true do |t|
     t.integer  "kind",       default: 0
@@ -60,13 +60,15 @@ ActiveRecord::Schema.define(version: 20141003143318) do
     t.integer  "user_id"
     t.integer  "leave_id"
     t.string   "data"
-    t.decimal  "days",       precision: 5, scale: 1
+    t.decimal  "days",              precision: 5, scale: 1
     t.datetime "start_at"
     t.datetime "end_at"
     t.integer  "kind"
-    t.integer  "status",                             default: 0
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
+    t.integer  "status",                                    default: 0
+    t.datetime "created_at",                                            null: false
+    t.datetime "updated_at",                                            null: false
+    t.integer  "start_at_half_day"
+    t.integer  "end_at_half_day"
   end
 
   add_index "leave_details", ["kind"], name: "index_leave_details_on_kind", using: :btree
@@ -115,6 +117,7 @@ ActiveRecord::Schema.define(version: 20141003143318) do
     t.boolean  "is_admin",               default: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "born_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

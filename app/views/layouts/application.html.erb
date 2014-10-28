@@ -7,12 +7,7 @@
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= yield :header %>
 
-<script type="text/javascript">
-  var total_day=130; //年假总数
-  var rest_days = []; //公休假或者已经选择的假期
-  var work_days = [];//周末设定的上班的日期
-  
-</script>
+
 	<!--[if IE 6]>
 	<%= stylesheet_link_tag "ie6", "data-turbolinks-track" => true %>
 	<%= javascript_include_tag    "pngfix",  "data-turbolinks-track" => true %>
@@ -34,7 +29,7 @@
 		<div id="top-menu">
 				
 			<span>您好，<a href="#" title="Logged in as admin"><%=current_user.name%></a></span>
-			| <a href="/users/<%=current_user.id%>/edit" title="Edit profile">编辑资料</a>
+			| <a href="/users/<%=current_user.id%>" title="Edit profile">编辑资料</a>
 			| <a href="/users/logout" title="Logout">退出</a>
 		</div>
 		<div id="sitename">

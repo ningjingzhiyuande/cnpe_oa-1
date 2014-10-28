@@ -2,12 +2,13 @@
    <%#=stylesheet_link_tag "jquery.datetimepicker" => true%>
 
 <script type="text/javascript">
-  var total_nj_day= <%=current_user.nj_days%>; //年假总数
-  var total_cj_day=10;//产假天数
-  var total_hj_day=15; //婚假天数
-  var total_sj_day=10;//丧假总天数
-  var rest_days = "<%=rest_days%>".split(",") 
-  
+  var total_nj_day= <%=current_user.residual_annual_days%>; //剩余年假
+  var  is_annual=<%=current_user.is_annual%>//是否有年假
+  //var total_cj_day=10;//产假天数
+  var total_hj_day=<%=current_user.cj_days%>; //婚假天数
+  var total_sj_day=<%=current_user.shijia_days%>;//事假总天数 总得减已经请的
+  var total_sangj_day=<%=current_user.sangjia_days%>;//丧假假总天数 总得减已经请的
+  var rest_days= "<%=rest_days%>".split(",") 
   var work_days =  "<%=work_days%>".split(",")  //["2014-09-21"];//周末设定的上班的日期
 
 </script>
@@ -47,12 +48,26 @@
      <%LeaveDetail.kinds.each do |k,v|%>
     <li class="kind_<%=v%> date_choose">
       <span class="width_align_right">&gt;</span>
+      <span class="width_content">
        <div>  
-       	      <%=detail.text_field "start_at",class: "field start_at_#{v.to_s} datetimepicker1  text" ,"data-id"=>v ,"data-value"=>"start_at_#{v.to_s}",name: "leave[leave_details_attributes][#{v}][start_at]",id: "start_at_#{v}"%>
-       	      <%=detail.text_field :end_at,class: "field end_at_#{v.to_s} datetimepicker1  text","data-id"=> v,"data-value"=>"end_at_#{v.to_s}",name: "leave[leave_details_attributes][#{v}][end_at]",id: "end_at_#{v}"%>
-       	      选择休 <%=t("leave_details.#{k}")%>  日期<b class="choose_day">共计：<%=detail.text_field :days,name: "leave[leave_details_attributes][#{v}][days]",id: "select_days_#{v}",class: "field tiny_field" %> 天</b><b class="errorr"></b>
+       	      <%=detail.text_field "start_at",class: "small_field start_at_#{v.to_s} datetimepicker1 " ,"data-id"=>v ,"data-value"=>"start_at_#{v.to_s}",name: "leave[leave_details_attributes][#{v}][start_at]",id: "start_at_#{v}"%>
+
+       	      <%=detail.radio_button "start_at_half_day","1",{"checked"=>true,name: "leave[leave_details_attributes][#{v}][start_at_half_day]",class: "start_at_half_day_#{v.to_s} half_day_radio","data-id"=> v}%> 上午
+       	      <%unless ["4","5","6","8","9","10"].include? v.to_s%>
+       	      <%=detail.radio_button "start_at_half_day","2",{name: "leave[leave_details_attributes][#{v}][start_at_half_day]",class: "start_at_half_day_#{v.to_s} half_day_radio","data-id"=> v}%> 下午
+       	      <%end%>
+
+       	      <%=detail.text_field :end_at,class: "end_at_#{v.to_s} datetimepicker1  small_field","data-id"=> v,"data-value"=>"end_at_#{v.to_s}",name: "leave[leave_details_attributes][#{v}][end_at]",id: "end_at_#{v}"%>
+       	      <%unless ["4","5","6","8","9","10"].include? v.to_s%>
+       	          <%=detail.radio_button "end_at_half_day","1",{name: "leave[leave_details_attributes][#{v}][end_at_half_day]",class: "end_at_half_day_#{v.to_s} half_day_radio","data-id"=> v}%> 上午
+       	      <%end%>
+       	      <%=detail.radio_button "end_at_half_day","2",{"checked"=>true,name: "leave[leave_details_attributes][#{v}][end_at_half_day]",class: "end_at_half_day_#{v.to_s} half_day_radio","data-id"=> v}%> 下午
+       	      休<%=t("leave_details.#{k}")%><b class="choose_day">共计：<%=detail.text_field :days,name: "leave[leave_details_attributes][#{v}][days]",id: "select_days_#{v}",class: "field tiny_field" ,readonly: true%> 天</b><b class="errorr"></b>
       </div>
+     </span>
     </li>
+  
+
     <%end%>
 <%end%> 
     <li> 

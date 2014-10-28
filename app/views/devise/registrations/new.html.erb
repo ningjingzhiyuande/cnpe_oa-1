@@ -133,6 +133,13 @@
          <%= f.text_field :work_at,:class=>"datetimepicker"%>
         </span>
        </li>
+        <li> 
+		<span class="width_align_right">出生时间:</span>
+         <span class="width_content">
+         <%= f.text_field :born_at,:class=>"datetimepicker_1"%>
+        </span>
+       </li>
+
 
      <li> 
 		<span class="width_align_right">设置密码:</span>
@@ -181,6 +188,7 @@
   	  rules:{
   	  	"user[username]": "required",
   	  	"user[work_at]": "required",
+  	  	"user[born_at]": "required",
   	  	"user[email]": "required",
   	  	"user[name]": "required",
   	  	"user[password]": "required",
@@ -190,6 +198,7 @@
   	  	"user[username]": "不能为空",
   	  	"user[email]": "不能为空",
   	  	"user[work_at]": "不能为空",
+  	  	"user[born_at]": "不能为空",
   	  	"user[name]": "不能为空",
   	  	"user[password]": "不能为空",
   	  	"user[password_confirmation]": "不能为空"
@@ -209,7 +218,27 @@ $('.datetimepicker').click(function(){
        isShowClear: false,
        readOnly: true,
        autoPickDate: true,
-  
+       startDate:'2008-05-01',
+       dateFmt:'yyyy/MM/dd'
+
+
+      
+
+
+   	});
+
+   })
+$('.datetimepicker_1').click(function(){
+
+   	
+   	WdatePicker({
+
+       firstDayOfWeek: 0,
+
+       isShowClear: false,
+       readOnly: true,
+       autoPickDate: true,
+       startDate:'1985-05-01',
        dateFmt:'yyyy/MM/dd'
 
 
@@ -220,6 +249,8 @@ $('.datetimepicker').click(function(){
 
    })
 
+
+  
 
 </script>
 

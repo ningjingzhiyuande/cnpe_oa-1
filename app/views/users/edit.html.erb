@@ -89,6 +89,12 @@
          <%= f.text_field :work_at,:class=>"datetimepicker"%>
         </span>
        </li>
+       <li> 
+		<span class="width_align_right">出生时间:</span>
+         <span class="width_content">
+         <%= f.text_field :born_at,:class=>"datetimepicker_1"%>
+        </span>
+       </li>
        <!--<li> 
 		<span class="width_align_right">密码:</span>
          <span class="width_content">
@@ -156,7 +162,7 @@ $('.datetimepicker').click(function(){
        isShowClear: false,
        readOnly: true,
        autoPickDate: true,
-  
+       startDate:'2008-05-01',
        dateFmt:'yyyy/MM/dd'
 
 
@@ -166,6 +172,27 @@ $('.datetimepicker').click(function(){
    	});
 
    })
+$('.datetimepicker_1').click(function(){
+
+   	
+   	WdatePicker({
+
+       firstDayOfWeek: 0,
+
+       isShowClear: false,
+       readOnly: true,
+       autoPickDate: true,
+       startDate:'1985-05-01',
+       dateFmt:'yyyy/MM/dd'
+
+
+      
+
+
+   	});
+
+   })
+
 
   
 

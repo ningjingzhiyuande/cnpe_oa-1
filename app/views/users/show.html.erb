@@ -1,0 +1,94 @@
+<%=render "shared/admin_setting_left"%>
+  <%#=javascript_include_tag "/my97/WdatePicker"%>
+<%#=javascript_include_tag "jquery.datetimepicker"%>
+<%#=stylesheet_link_tag "jquery.datetimepicker"%>
+<style type="text/css">
+.registration_form ul li{margin-top: 25px;margin-bottom: 20px}
+.registration_form ul li .width_align_right{width:18%;}
+
+
+</style>
+
+<div id="main-wrapper">
+	<div id="main-content">
+		<%=render "shared/notice"%>
+        <div class="title">
+			<h3>用户信息修改</h3>
+		</div>
+	<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all form-container">
+       <div class="portlet-content">
+
+	<%#= form_for(@user, :html => { :role => 'form',:class=>"registration_form", autocomplete: "off"}) do |f| %>
+ <%#= devise_error_messages! %>
+	<form class="registration_form"	>			
+
+  <div><span class="red" style="padding-left:200px">如果要修改个人相关信息，请联系管理员</span></div>
+
+  	<ul>
+					
+    <li> 
+		<span class="width_align_right">您的RTX名字:</span>
+          <span class="width_content">
+            <%=current_user.username%>
+          </span>
+     </li>     
+     <li> 
+		<span class="width_align_right">您的邮箱:</span>
+         <span class="width_content">      
+           <%= current_user.email%>
+             </span>
+      </li>     
+     <li> 
+		<span class="width_align_right">您的名字:</span>
+         <span class="width_content">
+
+            <%= current_user.name%>
+             </span>
+            
+         </li>     
+     <li> 
+		<span class="width_align_right">科室:</span>
+         <span class="width_content">
+        
+          <%= current_user.department.try(:name)%>
+        </span>
+    </li>
+     <li> 
+		<span class="width_align_right">职位:</span>
+         <span class="width_content">
+          <%= I18n.t("user_roles.#{current_user.rank_id}")%>
+        </span>
+       </li>
+
+        <li> 
+		<span class="width_align_right">工作起始时间:</span>
+         <span class="width_content">
+         <%= current_user.work_at%>
+        </span>
+       </li>
+       <li> 
+		<span class="width_align_right">出生时间:</span>
+         <span class="width_content">
+         <%= current_user.born_at%>
+        </span>
+       </li>
+       <!--<li> 
+		<span class="width_align_right">密码:</span>
+         <span class="width_content">
+         <%#= f.password_field :password,autocomplete: "off"   %>
+        </span>
+       </li>
+       -->
+    
+       
+      </ul>
+ </form>
+  </div>
+
+   </div>
+	</div>
+	<div class="clearfix"></div>
+
+
+</div>
+</div>

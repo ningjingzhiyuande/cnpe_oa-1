@@ -123,7 +123,10 @@ input.small, select.small{
 }
 
 input.tiny_field{
-	width:35px;
+	width:25px;
+}
+input.small_field{
+	width:70px;
 }
 
 input.medium, select.medium{
