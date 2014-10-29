@@ -301,7 +301,7 @@ function cal_days_for_chose(){
          select_for_cj_day(data_id,false);
           break;
         case "6":
-          select_for_hj_day(data_id,total_hj_day);
+          select_for_lianxu_day(data_id,total_hj_day);
           break;
         case "7":
           select_for_speical_day(data_id);
