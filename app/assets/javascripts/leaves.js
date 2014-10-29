@@ -12,6 +12,10 @@ $(function() {
    	    	alert("按照规定：必须晚婚晚育才能休含奖励的假期")
    	       $(this).prop("checked",false)
    	    }
+   	     if(total_hj_day==0 && data_id=="6"){
+   	    	alert("请找管理员设置您的出生日期")
+   	       $(this).prop("checked",false)
+   	    }
    	    $('.leave_kind:checkbox:checked').each(function () {
             ids.push($(this).attr("data-id"))
         })
