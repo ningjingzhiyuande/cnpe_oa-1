@@ -8,6 +8,10 @@ $(function() {
    	    	alert("按照规定：请事假累计14天(含),没有年休假，或者工作满1-10年，病假>=2个月的没有年休假，工作满10-20年，病假>=3个月的没有年休假，工作满20年以上，病假>=4个月的没有年休假")
    	       $(this).prop("checked",false)
    	    }
+   	     if(data_id=="0" && total_nj_day==0){
+   	    	alert("您已经没有年假了,如果有问题请联系管理员。")
+   	       $(this).prop("checked",false)
+   	    }
    	    if(total_hj_day!=7 && data_id=="4"){
    	    	alert("按照规定：必须晚婚晚育才能休含奖励的假期")
    	       $(this).prop("checked",false)
@@ -16,15 +20,14 @@ $(function() {
    	    	alert("请找管理员设置您的出生日期")
    	       $(this).prop("checked",false)
    	    }
-   	    $('.leave_kind:checkbox:checked').each(function () {
-            ids.push($(this).attr("data-id"))
-        })
-        
+   	        
 
         if($(this).prop("checked")){
           $("li.kind_"+data_id).show();
         }else{
         	 $("li.kind_"+data_id).hide();
+        	 $("#start_at_"+data_id).val("");
+             $("#end_at_"+data_id).val("");
         }        
         
    });
@@ -56,13 +59,19 @@ $(function() {
   	  	return 1
   	  }
   }
-  function cal_today_work_time_radio(data_id){
+  function cal_today_work_time_radio(data_id,is_start){
   	 var day = 0;
      var s_hour = $(".start_at_half_day_"+data_id+":radio:checked").val();
      var e_hour = $(".end_at_half_day_"+data_id+":radio:checked").val();
-     if(s_hour=="1"){day=day+1}else{day=day+0.5}
-     if(e_hour==1){day=day+0.5}else{day=day+1}
-     return day
+     if(is_start){
+     	if(s_hour=="1"){day=day+1}else{day=day+0.5}
+     	return day
+     }else{
+     	if(e_hour=="1"){day=day+0.5}else{day=day+1}
+        return day
+
+     }
+     
   	
   }
 //计算公休假和请假的时间
@@ -92,27 +101,75 @@ $(function() {
       console.log(work)
       return [rest+weekends,work]
    }
+
+   function is_work_day(date){
+   	    day = date.format("yyyy/mm/dd");
+   	    if(new Date(day).getDay()==0 || new Date(day).getDay()==6){
+         	if(jQuery.inArray(day,work_days)>=0){
+         	    return true;
+         	}  
+         	return false;          
+         }else{
+   	       if(jQuery.inArray(day, rest_days)>=0){
+         	return false
+            }
+            return true
+        }
+
+   }
  //计算请假的日期
    function cal_diff_time(data_id){
+   	    var work=0;
    	    var s_at = $(".start_at_"+data_id).val();
         var e_at = $(".end_at_"+data_id).val();
-        var start_at = new Date(s_at);
+        if(s_at!="" && e_at!=""){
+        	var start_at = new Date(s_at);
+            var end_at = new Date(e_at);
+            var	diff = end_at - start_at
+            var vdaysdiff = Math.floor(diff/1000/60/60/24);  // in days
+            console.log("vdaydiff:"+vdaysdiff)
+            for(var i=0;i<=vdaysdiff;i++){
+                  console.log("work_flag:"+is_work_day(start_at))
+                  console.log("start_at:"+start_at)
+                 if(is_work_day(start_at)){
+                 	if(i==0){
+                 		work = work+cal_today_work_time_radio(data_id,true);
+                 		start_at.setDate(start_at.getDate()+1)
+                 		continue;
+                 	}
+                 	if(i==vdaysdiff){
+                 	     work = work+cal_today_work_time_radio(data_id,false);
+                 	     break;
+                 	}
+                 	work = work+1;
+                 	
+                 }
+                start_at.setDate(start_at.getDate()+1)
+
+            }
+
+
+
+        }
+        return work
+       /* var start_at = new Date(s_at);
         var end_at = new Date(e_at);
         var s_e_hour = cal_today_work_time_radio(data_id);
         //var e_hour = cal_today_work_time_radio(data_id);
      
         //console.log("call_diff_time:"+start_at)
-        var n_s_day = new Date(start_at.getFullYear()+"/"+(start_at.getMonth()+1)+"/"+(start_at.getDate()+1)+" 00:00");
-        var p_e_day = new Date(end_at.getFullYear()+"/"+(end_at.getMonth()+1)+"/"+end_at.getDate()+" 00:00");
-       
-        var	diff = p_e_day - n_s_day
-        var vdaysdiff = Math.floor(diff/1000/60/60/24);  // in days
+        var n_s_day = start_at//.setDate(start_at.getDate()+1) //new Date(start_at.getFullYear()+"/"+(start_at.getMonth()+1)+"/"+(start_at.getDate()+1)+" 00:00");
+        var p_e_day = end_at//.setDate(start_at.getDate())  //new Date(end_at.getFullYear()+"/"+(end_at.getMonth()+1)+"/"+end_at.getDate()+" 00:00");
         
-        //console.log(n_s_day)
+       
+        
+        console.log("ns_day"+n_s_day)
         var rest_work_day= cal_rest_on_work_day(n_s_day,vdaysdiff);
         var rest_day = rest_work_day[0]
         var work_day = rest_work_day[1]
-        return vdaysdiff+s_e_hour-rest_day+work_day       
+        console.log(s_e_hour)
+        return vdaysdiff+s_e_hour-rest_day+work_day-1  
+        */     
 
    }
 //设置请假的起始和结束最大最小日期
@@ -215,7 +272,7 @@ $(function() {
 	});
  */
 
-function select_for_speical_day (data_id) {
+function select_for_speical_day(data_id) {
 	 var start_at = $(".start_at_"+data_id).val();
      var end_at = $(".end_at_"+data_id).val();
 	
@@ -271,7 +328,7 @@ function select_for_cj_day (data_id,jl) {
    // end_at = $(".end_at_"+data_id).val();
 
 }
-function select_for_lianxu_day(date_id,len) {
+function select_for_lianxu_day(data_id,len) {
 	start_at = $(".start_at_"+data_id).val();
 	if(start_at!=""){
 		date = new Date(start_at)
@@ -281,6 +338,50 @@ function select_for_lianxu_day(date_id,len) {
 	}
     
 }
+function get_checkbox_checked_values(data_id){
+	values = [];
+
+
+
+}
+
+function collection_value_for_checked(d_id){
+	var s_at =  $("#start_at_"+d_id).val();
+	var e_at =  $("#end_at_"+d_id).val();
+	var s_hour = $(".start_at_half_day_"+d_id+":radio:checked").val()=="1" ? " 12:00" : " 18:00"
+    var e_hour =  $(".end_at_half_day_"+d_id+":radio:checked").val()=="1" ? " 12:00" : " 18:00"	
+	var s_value = new Date(s_at+ s_hour);
+	var e_value = new Date(e_at+ e_hour);
+  if(s_value!="" && e_value!=""){
+	$('.leave_kind:checkbox:checked').each(function () {
+    	var data_id=$(this).attr("data-id");
+    	if(d_id!=data_id){
+            start_at =  $("#start_at_"+data_id).val();
+	        end_at =  $("#end_at_"+data_id).val();
+	        start_hour = $(".start_at_half_day_"+data_id+":radio:checked").val()=="1" ? " 12:00" : " 18:00"
+            end_hour =  $(".end_at_half_day_"+data_id+":radio:checked").val()=="1" ? " 12:00" : " 18:00"
+            start_value = new Date(start_at+ start_hour);
+	        end_value = new Date(end_at+ end_hour);
+   	        if(start_value<=s_value && end_value>=s_value){
+               alert("您选择的日期和其他请假类型重复，请检查") 
+               $("#start_at_"+d_id).val("");
+                $("#end_at_"+d_id).val("");
+            }
+
+
+	       
+    	}
+
+
+     })
+   }
+
+
+    
+
+
+}
+
 function cal_days_for_chose(){  
 	data_id = $(this).attr("data-id");
     
@@ -300,7 +401,7 @@ function cal_days_for_chose(){
           break;
         case "4":
           select_for_cj_day(data_id,true);
-          break;
+         break;
         case "5":
          select_for_cj_day(data_id,false);
           break;
@@ -327,6 +428,8 @@ function cal_days_for_chose(){
           break;
 
     }
+
+    collection_value_for_checked(data_id);
    
 
 }
@@ -430,7 +533,16 @@ jQuery.validator.addMethod("cal_nj_days", function(value,element) {
 jQuery.validator.addMethod("cal_sangj_days", function(value,element) {   
        return this.optional(element) || parseFloat(value)<=parseFloat(total_sangj_day);   
    
- }, "一年之内只能请3天丧假，您只能请"+total_sangj_day+"天，请重新选择");       
+ }, "一年之内只能请3天丧假，您只能请"+total_sangj_day+"天，请重新选择");  
+
+
+
+ jQuery.validator.addMethod("must_more_zero", function(value,element) {  
+      
+     return this.optional(element) || parseFloat(value)>parseFloat(0);   
+   
+ }, "数据有错误，请重新检查"); 
+
 
 function add_rule_to_nj(data_id){
 	if(data_id=="0"){
@@ -445,7 +557,7 @@ function add_rule_to_nj(data_id){
 }
 
 function add_rule_to_shij(data_id){
-	$("#select_days_"+date_id).rules("add", {
+	$("#select_days_"+data_id).rules("add", {
         required: true,
         cal_shij_days: true,
         messages: {
@@ -467,9 +579,23 @@ function add_rule_to_sangj (data_id) {
 }
 
 
+function add_rule_to_sangj(data_id) {
+	$("#select_days_"+data_id).rules("add", {
+        required: true,
+        cal_sangj_days: true,
+        messages: {
+            required: "一年之内只能请3天丧假，您已经请了"+total_sangj_day+"，请重新选择"
+		}
+    });
+	// body...
+}
+
+
+
 $('.new_leave').on('submit', function(e) {
     $('.leave_kind:checkbox:checked').each(function () {
  	       var d_id=$(this).attr("data-id");
+         
  	       switch (d_id)
  	       {
  	       	case "0":
@@ -481,10 +607,13 @@ $('.new_leave').on('submit', function(e) {
  	       	case "7":
  	       	  add_rule_to_sangj(d_id);
  	       	  break;
- 	       }
- 	      
-            $("#start_at_"+d_id).rules("add", {
+ 	       	
+ 	       };
+
+
+           $("#start_at_"+d_id).rules("add", {
                 required: true,
+               // date_not_in_checked: true,
                  messages: {
                   required: "请填写起始日期"
 				 }
@@ -495,12 +624,23 @@ $('.new_leave').on('submit', function(e) {
                   required: "请填写结束日期"
 				 }
             });
+
+            $("#select_days_"+d_id).rules("add", {
+                required: true,
+                 must_more_zero: true,
+                 messages: {
+                  required: "日期"
+				 }
+            });
+      
+           // 
+
   })
 });
 
   $(".new_leave").validate({ 
 	  //errorElement: "b",
-	  
+	debug:true, 
     errorElement: "b",
   	  rules:{
   	  	"leave[title]": "required",
