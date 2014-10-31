@@ -640,7 +640,7 @@ $('.new_leave').on('submit', function(e) {
 
   $(".new_leave").validate({ 
 	  //errorElement: "b",
-	debug:true, 
+	//debug:true, 
     errorElement: "b",
   	  rules:{
   	  	"leave[title]": "required",
