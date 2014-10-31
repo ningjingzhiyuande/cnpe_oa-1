@@ -17,6 +17,8 @@ namespace :user do
               hash["name"]=content.cell("B",i)
               hash["email"]=content.cell("K",i).to_s+"@cnpe.cc"
               hash["username"]=content.cell("K",i)
+              hash["born_at"]=content.cell("G",i)
+              hash["work_at"]=content.cell("H",i)
               #category = Category.find_by("item_num=?",content.cell("C",i))
               category = Category.where("name like ?","#{content.cell("C",i)[0..2]}%").first
               next unless category
