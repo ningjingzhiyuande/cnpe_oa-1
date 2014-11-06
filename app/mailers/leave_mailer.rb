@@ -18,10 +18,13 @@ class LeaveMailer < ActionMailer::Base
         
   def finished_email(obj)
   	 @leave = ActiveModel::GlobalLocator.locate(obj) 
+  	 @url = "http://cgbxm.cnpe.cc"
   	 mail(to: @leave.applicant.email, subject: @leave.applicant.name+": #{@leave.title},一共请假#{@leave.total_days}天,已经被领导审批通过")
   end
   def remind_email(obj)
-  	 #@leave = ActiveModel::GlobalLocator.locate(obj) 
+  	 @leave = ActiveModel::GlobalLocator.locate(obj) 
+  	 @url = "http://cgbxm.cnpe.cc"
+  	 mail(to: @leave.applicant.email, subject: @leave.applicant.name+": #{@leave.title},一共请假#{@leave.total_days}天,已经被审批")
   end
 
   private

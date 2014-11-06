@@ -78,12 +78,12 @@ module Approve #:nodoc:
               	   self.system_agree
               	   self.save
               	end 
-              when "last_acceptting"
+              when "last_acceptting" || "leader_agree"
               	  LeaveMailer.finished_email(self).deliver_later
               	  self.system_agree
               	  self.save
               when "last_rejectting","rejectting"
-              	 # LeaveMailer.remind_email(self).deliver_later
+              	  LeaveMailer.remind_email(self).deliver_later
               	  self.system_reject
               	  self.save
 
