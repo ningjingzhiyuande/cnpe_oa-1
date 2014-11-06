@@ -147,9 +147,6 @@ $(function() {
                 start_at.setDate(start_at.getDate()+1)
 
             }
-
-
-
         }
         return work
        /* var start_at = new Date(s_at);
@@ -345,6 +342,19 @@ function get_checkbox_checked_values(data_id){
 
 }
 
+function select_for_other_cj_day(d_id){
+	var s_at =  $("#start_at_"+d_id).val();
+	var e_at =  $("#end_at_"+d_id).val();
+	if(s_at!="" && e_at!=""){
+	var start_at = new Date(s_at);
+    var end_at = new Date(e_at);
+    var	diff = end_at - start_at
+    var vdaysdiff = Math.floor(diff/1000/60/60/24); 
+    $("#select_days_"+d_id).val(vdaysdiff+1);
+   }
+
+}
+
 function collection_value_for_checked(d_id){
 	var s_at =  $("#start_at_"+d_id).val();
 	var e_at =  $("#end_at_"+d_id).val();
@@ -403,7 +413,7 @@ function cal_days_for_chose(){
           select_for_cj_day(data_id,true);
          break;
         case "5":
-         select_for_cj_day(data_id,false);
+         select_for_other_cj_day(data_id);
           break;
         case "6":
           select_for_lianxu_day(data_id,total_hj_day);
@@ -594,8 +604,7 @@ function add_rule_to_sangj(data_id) {
 
 $('.new_leave').on('submit', function(e) {
     $('.leave_kind:checkbox:checked').each(function () {
- 	       var d_id=$(this).attr("data-id");
-         
+ 	       var d_id=$(this).attr("data-id");         
  	       switch (d_id)
  	       {
  	       	case "0":
@@ -609,8 +618,17 @@ $('.new_leave').on('submit', function(e) {
  	       	  break;
  	       	
  	       };
+           if(d_id=="4" || d_id=="5" || d_id=="6"){
+           	  $("#leave_image").rules("add", {
+                required: true,
+               // date_not_in_checked: true,
+                 messages: {
+                  required: "请提供相关材料(如结婚证，独生子，晚婚晚育证)"
+				 }
+            });
 
 
+           }
            $("#start_at_"+d_id).rules("add", {
                 required: true,
                // date_not_in_checked: true,

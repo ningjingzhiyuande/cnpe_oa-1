@@ -22,7 +22,8 @@
                <% @pending_leaves.each_with_index do |leave,i| %>
 						<tr >
 							<td><%=i+1%></td> 
-						    <td><%= leave.title %></td> 
+							 <td></td> 
+						    <td><%= leave.applicant.name %>的请假条<%#= leave.title %></td> 
 						    <td><%= leave.total_days %>天</td>    
 						    <td><%= link_to "查看详情",leave %> </td> 					   			
 						</tr> 
@@ -48,7 +49,7 @@
 				 <% @leaves.each_with_index do |leave,i| %>
 						<tr >
 							<td><%=i+1%></td> 
-						    <td><%= leave.title %></td> 
+						    <td><%= leave.applicant.name %>的请假条<%#= leave.title %></td> 
 						    <td><%= leave.total_days %>天</td> 
 						    <td><%= t leave.status %></td>  
 

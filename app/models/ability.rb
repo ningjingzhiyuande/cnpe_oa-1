@@ -22,6 +22,9 @@ class Ability
     	can :receive,Leave
     	can :auddit,Leave
     	can :auddit_from_mail,Leave
+    	can :show,User
+    	#can :index,DashBoard
+        
 
     end
     if user.is_leader
@@ -32,6 +35,8 @@ class Ability
     	can :receive,Leave
     	can :auddit,Leave
         can :auddit_from_mail,Leave
+        can :show,User
+        #can :index,DashBoard
     end
     if user.is_admin?
     	can :manage, :all
