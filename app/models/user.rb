@@ -74,13 +74,13 @@ class User < ActiveRecord::Base
   end
 
   def cj_days
-     if gender==2
-     	return 7 if old_year>=25
+     if gender==1
+     	return 10 if old_year>=25
      	return 3 if old_year>=22 && old_year<25
      	return 0
      end
-     if gender==1
-     	return 7 if old_year>=23
+     if gender==2
+     	return 10 if old_year>=23
      	return 3 if old_year>=20 
      	return 0
      end

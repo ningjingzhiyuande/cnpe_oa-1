@@ -31,9 +31,9 @@
 </head>
 <style type="text/css">
 .content{margin-top: 150px;}
-.two-column .first_column{width: 59%;text-align: right;}
+.two-column .first_column{width: 57%;text-align: right;}
 .two-column .first_column .back_image{margin-right: 20px;}
-.two-column .second_column{width: 40%;height: 450px;}
+.two-column .second_column{width: 42%;height: 490px;}
 .two-column .second_column h1{font-weight: bold;font-size: 3em;text-align: center;margin-top: 5px}
 .two-column .second_column input[type="text"] {height: 20px;}
 #login1{margin-top: 7px;}
@@ -78,7 +78,7 @@
   <div class="content">
 	<div class="two-column">
 	    <div class="column first_column">
-	    	<div class="back_image"><img src="/images/back.jpg" height=450/></div>
+	    	<div class="back_image"><img src="/images/back.jpg" height=490/></div>
 						
 		</div>
 					
@@ -124,6 +124,13 @@
 		<span class="width_align_right">职位:</span>
          <span class="width_content">
             <%= f.select :rank_id, User.rank_ids.collect{|k,v|[I18n.t("user_roles.#{k}"),k]}%>
+        </span>
+       </li>
+
+           <li> 
+		<span class="width_align_right">性别:</span>
+         <span class="width_content">
+            <%=f.radio_button :gender ,1,checked: true%> 男   <%=f.radio_button :gender ,2%> 女
         </span>
        </li>
 

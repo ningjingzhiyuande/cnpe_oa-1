@@ -83,6 +83,13 @@
         </span>
        </li>
 
+         <li> 
+		<span class="width_align_right">性别<%#=@user.gender%>:</span>
+         <span class="width_content">
+            <%=f.radio_button :gender ,1%> 男   <%=f.radio_button :gender ,2%> 女
+        </span>
+       </li>
+
         <li> 
 		<span class="width_align_right">工作起始时间:</span>
          <span class="width_content">

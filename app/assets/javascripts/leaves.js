@@ -12,7 +12,7 @@ $(function() {
    	    	alert("您已经没有年假了,如果有问题请联系管理员。")
    	       $(this).prop("checked",false)
    	    }
-   	    if(total_hj_day!=7 && data_id=="4"){
+   	    if(total_hj_day!=10 && data_id=="4"){
    	    	alert("按照规定：必须晚婚晚育才能休含奖励的假期")
    	       $(this).prop("checked",false)
    	    }
@@ -309,20 +309,25 @@ function work_day_from(st_at,len) {
 }
 function select_for_cj_day (data_id,jl) {
 	start_at = $(".start_at_"+data_id).val();
+
 	if(start_at!=""){
-		date = new Date(start_at)
-		date.setDate(date.getDate()+97);
+		if(user_gender=="1"){
+            date = new Date(start_at)
+		    date.setDate(date.getDate()+29);
+		    $(".end_at_"+data_id).val(date.format("yyyy/mm/dd"))
+            $("#select_days_"+data_id).val(30)
+
+		}else{
+		  date = new Date(start_at)
+		  date.setDate(date.getDate()+97);
+		  end_at = work_day_from(date,30)
+		  $(".end_at_"+data_id).val(end_at.format("yyyy/mm/dd"))
+          $("#select_days_"+data_id).val(128)
      
+		}
+		
 	}
-	if(jl){
-		end_at = work_day_from(date,30)
-		$(".end_at_"+data_id).val(end_at.format("yyyy/mm/dd"))
-        $("#select_days_"+data_id).val(128)
-	}else{
-		$(".end_at_"+data_id).val(date.format("yyyy/mm/dd"))
-        $("#select_days_"+data_id).val(98)
-	}
-   // end_at = $(".end_at_"+data_id).val();
+	
 
 }
 function select_for_lianxu_day(data_id,len) {

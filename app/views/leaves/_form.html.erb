@@ -4,7 +4,7 @@
 <script type="text/javascript">
   var total_nj_day= <%=current_user.residual_annual_days%>; //剩余年假
   var  is_annual=<%=current_user.is_annual%>//是否有年假
-  //var total_cj_day=10;//产假天数
+  var  user_gender=<%=current_user.gender%>;//产假天数
   var total_hj_day=<%=current_user.cj_days%>; //婚假天数
   var total_sj_day=<%=current_user.shijia_days%>;//事假总天数 总得减已经请的
   var total_sangj_day=<%=current_user.sangjia_days%>;//丧假假总天数 总得减已经请的
@@ -39,7 +39,7 @@
 		<span class="width_align_right">请假类型 </span>
         <span class="width_content">
             <%LeaveDetail.kinds.each do |k,v|%>
-               <%=check_box_tag "leave[leave_details_attributes][kind][]",v,false,{"data-id"=>v,class: "leave_kind"}%> <%=t("leave_details.#{k}")%>     	  
+               <%=check_box_tag "leave[leave_details_attributes][kind][]",v,false,{"data-id"=>v,class: "leave_kind"}%> <%#=v%><%=t("leave_details.#{k}")%>     	  
         	 <%end%> 							
 		</span>
 
