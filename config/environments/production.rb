@@ -83,7 +83,7 @@ CnpeNew::Application.configure do
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.smtp_settings = {
-  	:address              => "10.30.2.7",
+  	:address              => "10.30.2.111",
     :port                 => 25,
     #:domain               => "163.com",
     :user_name            => "cgboa",

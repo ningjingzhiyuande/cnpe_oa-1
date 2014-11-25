@@ -7,6 +7,8 @@ class LeaveDetail < ActiveRecord::Base
    	   LeaveDetail.where("user_id=? and (status=? or status=? or status=? or status=?) and kind=0",uid,Leave.statuses["auditting"],Leave.statuses["acceptting"],Leave.statuses["last_acceptting"],Leave.statuses["leader_agree"])    
    end
 
+  
+
   def self.apply_and_accept_shijia(uid)
    	   LeaveDetail.where("user_id=? and (status=? or status=? or status=? or status=?) and kind=1 and start_at>= #{Date.today.beginning_of_year} and start_at<= #{Date.today.end_of_year}",uid,Leave.statuses["auditting"],Leave.statuses["acceptting"],Leave.statuses["last_acceptting"],Leave.statuses["leader_agree"])    
   end

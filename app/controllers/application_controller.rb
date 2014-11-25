@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
  rescue_from CanCan::AccessDenied do |exception|
 
   flash[:notice] = "您没有相关权限,请联系管理员."
-  redirect_to root_url
+  redirect_to (request.referer || root_url)
 end
 
 

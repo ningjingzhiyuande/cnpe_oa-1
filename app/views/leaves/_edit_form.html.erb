@@ -2,16 +2,16 @@
    <%#=stylesheet_link_tag "jquery.datetimepicker" => true%>
 
 <script type="text/javascript">
-  var total_nj_day= <%=current_user.residual_annual_days%>; //剩余年假
-  var  is_annual=<%=current_user.is_annual%>//是否有年假
+  var total_nj_day= <%=current_user.residual_annual_days+@leave.leave_days("NJ")%>; //剩余年假
+  var  is_annual=true//是否有年假
   var  user_gender=<%=current_user.gender%>;//产假天数
   var total_hj_day=<%=current_user.cj_days%>; //婚假天数
-  var total_sj_day=<%=current_user.shijia_days%>;//事假总天数 总得减已经请的
-  var total_sangj_day=<%=current_user.sangjia_days%>;//丧假假总天数 总得减已经请的
-  var rest_days= "<%=rest_days%>".split(",") 
-  var work_days =  "<%=work_days%>".split(",")  //["2014-09-21"];//周末设定的上班的日期
-  var is_edit = false;
-
+  var total_sj_day=<%=current_user.shijia_days+@leave.leave_days("SJ")%>;//事假总天数 总得减已经请的
+  var total_sangj_day=<%=current_user.sangjia_days+@leave.leave_days("SAJ")%>;//丧假假总天数 总得减已经请的
+  var rest_days= "<%=rest_days%>".split(",") ;
+  var work_days =  "<%=work_days%>".split(",") ; //["2014-09-21"];//周末设定的上班的日期
+  var is_edit = true;
+  var leave_ids = <%=@leave.leave_details.map{|b|LeaveDetail.kinds[b.kind]}%>;
 
 </script>
 <%=javascript_include_tag "leaves", "data-turbolinks-track" => true%>
@@ -35,23 +35,15 @@
        	<%=f.text_field :title,class: "field error leave_title text large"%>
        </span>
     </li>
-    
-    <%= f.fields_for :leave_details,@leave.leave_details.build do |detail|%>   
-    <li> 
-		<span class="width_align_right">请假类型 </span>
-        <span class="width_content">
-            <%LeaveDetail.kinds.each do |k,v|%>
-               <%=check_box_tag "leave[leave_details_attributes][kind][]",v,false,{"data-id"=>v,class: "leave_kind"}%> <%#=v%><%=t("leave_details.#{k}")%>     	  
-        	 <%end%> 							
-		</span>
-
-    </li>
-
-     <%LeaveDetail.kinds.each do |k,v|%>
-    <li class="kind_<%=v%> date_choose">
-      <span class="width_align_right">&gt;</span>
+  
+   <%@leave.leave_details.each do |leave_detail|%>
+       <%= f.fields_for :leave_detail,leave_detail do |detail|%> 
+          <li class="">
+      <span class="width_align_right"><%=t("leave_details.#{leave_detail.kind}")%>:</span>
       <span class="width_content">
        <div>  
+       	<%v=LeaveDetail.kinds[leave_detail.kind];k=leave_detail.kind%>
+       	 
        	      <%=detail.text_field "start_at",class: "small_field start_at_#{v.to_s} datetimepicker1 " ,"data-id"=>v ,"data-value"=>"start_at_#{v.to_s}",name: "leave[leave_details_attributes][#{v}][start_at]",id: "start_at_#{v}"%>
 
        	      <%=detail.radio_button "start_at_half_day","1",{"checked"=>true,name: "leave[leave_details_attributes][#{v}][start_at_half_day]",class: "start_at_half_day_#{v.to_s} half_day_radio","data-id"=> v}%> 上午
@@ -70,8 +62,10 @@
     </li>
   
 
-    <%end%>
-<%end%> 
+       <%end%>
+
+   <%end%>
+  
     <li> 
 		<span class="width_align_right">审批 </span> 
        <span class="width_content">

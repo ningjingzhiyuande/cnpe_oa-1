@@ -1,6 +1,17 @@
-<h1>Editing Leafe</h1>
+<%=render "shared/leave_left"%>
 
-<%= render 'form' %>
+<div id="main-wrapper">
+	<div id="main-content">
+		<%=render "shared/notice"%>
+        <div class="title">
+			<h3>申请请假</h3>
+		</div>
+	<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all form-container">
+       <div class="portlet-content">
+            <%= render 'edit_form' %>
+        </div>
+	</div>
+	<div class="clearfix"></div>
 
-<%= link_to 'Show', @leafe %> |
-<%= link_to 'Back', leaves_path %>
+</div>
+</div>

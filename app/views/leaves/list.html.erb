@@ -1,0 +1,69 @@
+<%=render "shared/leave_left"%>
+
+<div id="main-wrapper">
+	<div id="main-content">
+		<%=render "shared/notice"%>
+        <div class="title">
+			<h3>请假列表(全部通过的)</h3>
+		</div>
+
+		
+	
+        <div class="hastable">
+					
+						<table id="datatable" class="display"> 
+						<thead> 
+						<tr>
+							<th>#ID</th>
+						    <th>请假标题</th> 
+						    <th>总天数</th> 
+					
+						    <th>操作</th> 
+							
+						</tr> 
+						</thead> 
+						<tbody> 
+						<% @leaves.each do |leave| %>
+						<tr class="category_row" data-id="">
+							<td class="center"><%=leave.id%></td> 
+						    <td><%= leave.applicant.name %>的请假条</td> 
+						    <td><%= leave.total_days %>天</td> 
+				
+						    <td><%= link_to "查看详情",leave %> | <%= link_to "修改请假",edit_leave_url(leave) %> </td> 					   			
+						</tr> 
+					   <%end%>			
+						</tbody>
+						</table>
+
+
+
+</div>
+</div>
+
+<script>
+$(function() {
+
+$('#datatable').dataTable({
+    "oLanguage": {
+      "sLengthMenu": "每页显示 _MENU_ 条记录",
+      "sZeroRecords": "对不起，查询不到任何相关数据",
+      "sInfo": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_ 条记录",
+      "sInfoEmtpy": "找不到相关数据",
+      "sInfoFiltered": "数据表中共为 _MAX_ 条记录)",
+      "sProcessing": "正在加载中...",
+      "sSearch": "搜索",
+      "sUrl": "", //多语言配置文件，可将oLanguage的设置放在一个txt文件中，例：Javascript/datatable/dtCH.txt
+      "oPaginate": {
+          "sFirst":    "第一页",
+          "sPrevious": " 上一页 ",
+          "sNext":     " 下一页 ",
+          "sLast":     " 最后一页 "
+      }
+  }
+
+})  
+})
+</script>
+
+
+

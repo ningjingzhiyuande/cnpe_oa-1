@@ -15,6 +15,13 @@ class Leave < ActiveRecord::Base
    def days_more_two
        total_days.to_f > 2.0 || applicant.rank_id=="chief"
    end
+
+   def leave_days(kind)
+   	  return leave_details.find_by(kind: LeaveDetail.kinds[kind]).try(:days).to_f rescue 0
+   end
+   def self.pass_leaves
+   	  where("status=? or status=?",statuses["last_acceptting"],statuses["leader_agree"])
+   end
   
    
     #发送test邮件

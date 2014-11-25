@@ -1,0 +1,49 @@
+<%=render "shared/leave_left"%>
+
+<div id="main-wrapper">
+	<div id="main-content">
+		<%=render "shared/notice"%>
+        <div class="title">
+			<h3>采购部数据导出</h3>
+		</div>
+
+		
+	
+<%=form_for "",url: export_data_leaves_url do |f|%>
+        <div class="hastable">
+					
+						<table> 
+						<thead> 
+						<tr >
+							<th colspan=6>依据月份导出数据</th>
+						   
+							
+						</tr> 
+						</thead> 
+						<tbody> 
+							<tr height=50>
+								<%m=Date.today.month%>
+								<%(1..6).each do |i|%>
+								<td><%=radio_button_tag "month",i,(m-1)==i%><%=i%>月</td>
+								<%end%>
+							</tr>
+								<tr height=50>
+								<%(7..12).each do |i|%>
+								<td><%=radio_button_tag "month",i,(m-1)==i%><%=i%>月</td>
+								<%end%>
+							</tr>
+
+							<tr >
+							<th colspan=6 text-align=center><%=f.submit "开始导出"%></th>
+						   
+							
+						</tr> 
+						
+						</tbody>
+						</table>
+
+<%end%>
+
+</div>
+</div>
+

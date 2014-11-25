@@ -43,6 +43,16 @@
 								<a class="btn_no_text btn ui-state-default ui-corner-all tooltip" title="Edit this example" href="/users/<%=user.id%>/edit">修改
 								</a>
 							    <%if user.is_approve%>
+							      <%if user.role_id!=1%>
+								    <a class="btn_no_text btn ui-state-default ui-corner-all tooltip" title="Delete this example" href="/users/<%=user.id%>/hr" > 
+									设为HR
+								   </a>
+								   <%elsif user.role_id==1%>
+								    <a class="btn_no_text btn ui-state-default ui-corner-all tooltip" title="Delete this example" href="/users/<%=user.id%>/hr" > 
+取消HR
+								   </a>
+								   <%end%>
+
 								<a class="btn_no_text btn ui-state-default ui-corner-all tooltip" title="Delete this example" href="/users/<%=user.id%>/approve" > 
 									审核不通过
 								</a>
@@ -50,6 +60,7 @@
 								   <a class="btn_no_text btn ui-state-default ui-corner-all tooltip" title="Delete this example" href="/users/<%=user.id%>/approve" > 
 									审核通过
 								   </a>
+                                 
 								<%end%>
 							</td>
 					

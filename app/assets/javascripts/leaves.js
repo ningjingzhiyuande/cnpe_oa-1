@@ -123,8 +123,8 @@ $(function() {
    	    var s_at = $(".start_at_"+data_id).val();
         var e_at = $(".end_at_"+data_id).val();
         if(s_at!="" && e_at!=""){
-        	var start_at = new Date(s_at);
-            var end_at = new Date(e_at);
+        	var start_at = new Date(new Date(s_at).format("yyyy/mm/dd"));
+            var end_at = new Date(new Date(e_at).format("yyyy/mm/dd"));
             var	diff = end_at - start_at
             var vdaysdiff = Math.floor(diff/1000/60/60/24);  // in days
             console.log("vdaydiff:"+vdaysdiff)
@@ -197,11 +197,14 @@ $(function() {
    }
 
   function test_for_minDate(input){
-  	var data_id=$(input).attr("data-id");
-  	var checked_max_date = find_max_date(input)
-  	date = new Date(checked_max_date);
+  	if(!is_edit){
+  	    var data_id=$(input).attr("data-id");
+  	    var checked_max_date = find_max_date(input)
+  	    date = new Date(checked_max_date);
+   	    return [date.format("yyyy/mm/dd")];
+  	}
 
-   	return [date.format("yyyy/mm/dd")];
+  
    }
 
    function get_speical_date(){
@@ -223,6 +226,7 @@ $(function() {
        isShowClear: false,
        readOnly: true,
        autoPickDate: true,
+       errDealMode: 2,
       // startDate: '%y/%M/{%d-2}',
        dateFmt:'yyyy/MM/dd',
       // alwaysUseStartDate:true,
@@ -351,8 +355,8 @@ function select_for_other_cj_day(d_id){
 	var s_at =  $("#start_at_"+d_id).val();
 	var e_at =  $("#end_at_"+d_id).val();
 	if(s_at!="" && e_at!=""){
-	var start_at = new Date(s_at);
-    var end_at = new Date(e_at);
+	var start_at = new Date(new Date(s_at).format("yyyy/mm/dd"));
+    var end_at = new Date(new Date(e_at).format("yyyy/mm/dd"));
     var	diff = end_at - start_at
     var vdaysdiff = Math.floor(diff/1000/60/60/24); 
     $("#select_days_"+d_id).val(vdaysdiff+1);
@@ -365,21 +369,27 @@ function collection_value_for_checked(d_id){
 	var e_at =  $("#end_at_"+d_id).val();
 	var s_hour = $(".start_at_half_day_"+d_id+":radio:checked").val()=="1" ? " 12:00" : " 18:00"
     var e_hour =  $(".end_at_half_day_"+d_id+":radio:checked").val()=="1" ? " 12:00" : " 18:00"	
-	var s_value = new Date(s_at+ s_hour);
-	var e_value = new Date(e_at+ e_hour);
+	var s_value = new Date(new Date(s_at).format("yyyy/mm/dd")+ s_hour);
+	var e_value = new Date(new Date(e_at).format("yyyy/mm/dd")+ e_hour);
   if(s_value!="" && e_value!=""){
 	$('.leave_kind:checkbox:checked').each(function () {
     	var data_id=$(this).attr("data-id");
     	if(d_id!=data_id){
-            start_at =  $("#start_at_"+data_id).val();
-	        end_at =  $("#end_at_"+data_id).val();
-	        start_hour = $(".start_at_half_day_"+data_id+":radio:checked").val()=="1" ? " 12:00" : " 18:00"
-            end_hour =  $(".end_at_half_day_"+data_id+":radio:checked").val()=="1" ? " 12:00" : " 18:00"
-            start_value = new Date(start_at+ start_hour);
-	        end_value = new Date(end_at+ end_hour);
+            var start_at =  $("#start_at_"+data_id).val();
+	        var end_at =  $("#end_at_"+data_id).val();
+	        var start_hour = $(".start_at_half_day_"+data_id+":radio:checked").val()=="1" ? " 12:00" : " 18:00"
+            var end_hour =  $(".end_at_half_day_"+data_id+":radio:checked").val()=="1" ? " 12:00" : " 18:00"
+            var start_value = new Date(new Date(start_at).format("yyyy/mm/dd")+ start_hour);
+	        var end_value = new Date(new Date(end_at).format("yyyy/mm/dd")+ end_hour);
+	        var end_value = new Date(end_at+ end_hour);
    	        if(start_value<=s_value && end_value>=s_value){
                alert("您选择的日期和其他请假类型重复，请检查") 
                $("#start_at_"+d_id).val("");
+               
+            }
+            if(e_value>=start_value){
+               alert("您选择的日期和其他请假类型重复，请检查") 
+              
                 $("#end_at_"+d_id).val("");
             }
 
@@ -390,12 +400,49 @@ function collection_value_for_checked(d_id){
 
      })
    }
-
-
-    
-
-
 }
+
+function collection_value_for_edit(d_id){
+	var s_at =  $("#start_at_"+d_id).val();
+	var e_at =  $("#end_at_"+d_id).val();
+	var s_hour = $(".start_at_half_day_"+d_id+":radio:checked").val()=="1" ? " 12:00" : " 18:00"
+    var e_hour =  $(".end_at_half_day_"+d_id+":radio:checked").val()=="1" ? " 12:00" : " 18:00"	
+	var s_value = new Date(new Date(s_at).format("yyyy/mm/dd")+ s_hour);
+	var e_value = new Date(new Date(e_at).format("yyyy/mm/dd")+ e_hour);
+  if(s_value!="" && e_value!=""){
+	 leave_ids.forEach(function (data_id) {
+	 	//alert(data_id)
+    
+    	if(d_id!=data_id){
+            var start_at =  $("#start_at_"+data_id).val();
+	        var end_at =  $("#end_at_"+data_id).val();
+	        var start_hour = $(".start_at_half_day_"+data_id+":radio:checked").val()=="1" ? " 12:00" : " 18:00"
+            var end_hour =  $(".end_at_half_day_"+data_id+":radio:checked").val()=="1" ? " 12:00" : " 18:00"
+   
+           var start_value = new Date(new Date(start_at).format("yyyy/mm/dd")+ start_hour);
+           console.log(end_value>=s_value)
+	       var end_value = new Date(new Date(end_at).format("yyyy/mm/dd")+ end_hour);
+	      
+   	        if(start_value<=s_value && end_value>=s_value){
+               alert("您选择的日期和其他请假类型重复，请检查") 
+               $("#start_at_"+d_id).val("");
+               
+            }
+            if(e_value>=start_value){
+               alert("您选择的日期和其他请假类型重复，请检查") 
+              
+                $("#end_at_"+d_id).val("");
+            }
+
+
+	       
+    	}
+
+
+     })
+   }
+}
+
 
 function cal_days_for_chose(){  
 	data_id = $(this).attr("data-id");
@@ -443,8 +490,13 @@ function cal_days_for_chose(){
           break;
 
     }
-
-    collection_value_for_checked(data_id);
+    if(is_edit){
+      collection_value_for_edit(data_id)
+    }else{
+      collection_value_for_checked(data_id);
+    }
+   
+    //
    
 
 }
@@ -623,7 +675,7 @@ $('.new_leave').on('submit', function(e) {
  	       	  break;
  	       	
  	       };
-           if(d_id=="4" || d_id=="5" || d_id=="6"){
+          /* if(d_id=="4" || d_id=="5" || d_id=="6"){
            	  $("#leave_image").rules("add", {
                 required: true,
                // date_not_in_checked: true,
@@ -633,7 +685,7 @@ $('.new_leave').on('submit', function(e) {
             });
 
 
-           }
+           }*/
            $("#start_at_"+d_id).rules("add", {
                 required: true,
                // date_not_in_checked: true,

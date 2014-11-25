@@ -1,8 +1,15 @@
 CnpeNew::Application.routes.draw do
  
+  namespace :statistic do
+  get 'leaves/index'
+  end
+
   resources :leaves do 
      collection do 
        get :receive
+       get :list
+       get :export
+       post :export_data
 
      end
      member do 
@@ -32,6 +39,8 @@ CnpeNew::Application.routes.draw do
   resources :users do 
      member do 
         get :approve
+        get :hr
+        get :unhr
      end
   end
   # The priority is based upon order of creation: first created -> highest priority.

@@ -63,6 +63,7 @@ module Approve #:nodoc:
      	 end
 
      	 def add_to_approve
+     	 	 return if admin_modify
              begin 
      	 	 return if status=="leader_agree" || status== "leader_reject"
      	 	 method = self.class.class_variable_get("@@need_chairman_approve")

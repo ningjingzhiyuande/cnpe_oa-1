@@ -30,6 +30,18 @@ class UsersController < ApplicationController
       redirect_to users_path, :alert => "Unable to update user."
     end
   end
+
+  def hr
+  	 @user = User.find params[:id]
+  	 @user.update_attributes(role_id: 1)
+  	 redirect_to :back, :notice => "修改成功"
+  end
+
+  def unhr
+  	 @user = User.find params[:id]
+  	 @user.update_attributes(role_id: 0)
+  	 redirect_to :back, :notice => "修改成功"
+  end
     
   def destroy
     authorize! :destroy, @user, :message => 'Not authorized as an administrator.'

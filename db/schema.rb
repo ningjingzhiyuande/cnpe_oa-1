@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141028020111) do
+ActiveRecord::Schema.define(version: 20141124102724) do
 
   create_table "categories", force: true do |t|
     t.integer  "kind",       default: 0
@@ -86,8 +86,9 @@ ActiveRecord::Schema.define(version: 20141028020111) do
     t.string   "image"
     t.integer  "reporter1_id"
     t.integer  "reporter2_id"
-    t.datetime "created_at",                                       null: false
-    t.datetime "updated_at",                                       null: false
+    t.datetime "created_at",                                           null: false
+    t.datetime "updated_at",                                           null: false
+    t.boolean  "admin_modify",                         default: false
   end
 
   add_index "leaves", ["user_id"], name: "index_leaves_on_user_id", using: :btree
@@ -118,6 +119,7 @@ ActiveRecord::Schema.define(version: 20141028020111) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.date     "born_at"
+    t.integer  "role_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

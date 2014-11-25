@@ -15,15 +15,15 @@ class Ability
     can :update,User, :id => user.id
 
     if user.is_approve
-    	can :read,Leave#,:user_id => user.id,:reporter1_id =>user.id,:reporter2_id => user.id
+    	can :index,Leave#,:user_id => user.id,:reporter1_id =>user.id,:reporter2_id => user.id
     	can :create ,Leave
     	can :destroy,Leave
-    	can :update,Leave
+    	
     	can :receive,Leave
     	can :auddit,Leave
     	can :auddit_from_mail,Leave
     	can :show,User
-    	#can :index,DashBoard
+
         
 
     end
@@ -36,7 +36,15 @@ class Ability
     	can :auddit,Leave
         can :auddit_from_mail,Leave
         can :show,User
+        can :list,Leave
+    	can :export_data,Leave
         #can :index,DashBoard
+    end
+    if user.role_id==1
+    	#can :update,Leave
+    	can :read,Leave
+    	can :list,Leave
+    	can :export_data,Leave
     end
     if user.is_admin?
     	can :manage, :all
