@@ -18,7 +18,6 @@ class Ability
     	can :index,Leave#,:user_id => user.id,:reporter1_id =>user.id,:reporter2_id => user.id
     	can :create ,Leave
     	can :destroy,Leave
-    	
     	can :receive,Leave
     	can :auddit,Leave
     	can :auddit_from_mail,Leave
@@ -31,12 +30,13 @@ class Ability
     	can :read,Leave#,:user_id => user.id,:reporter1_id =>user.id,:reporter2_id => user.id
     	can :create ,Leave
     	can :destroy,Leave
-    	can :update,Leave
+    	#can :update,Leave
     	can :receive,Leave
     	can :auddit,Leave
         can :auddit_from_mail,Leave
         can :show,User
         can :list,Leave
+        can :export,Leave
     	can :export_data,Leave
         #can :index,DashBoard
     end
@@ -44,6 +44,7 @@ class Ability
     	#can :update,Leave
     	can :read,Leave
     	can :list,Leave
+    	can :export,Leave
     	can :export_data,Leave
     end
     if user.is_admin?

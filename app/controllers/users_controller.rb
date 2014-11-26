@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   load_and_authorize_resource
 
   def index
-  	users = User.order("id desc")
+  	users = User.includes(:department).order("id desc")
   	if params[:is_approve] 
        is_approve = params[:is_approve] == "yes" ? 1 : 0
        users = users.where("is_approve=?",is_approve)

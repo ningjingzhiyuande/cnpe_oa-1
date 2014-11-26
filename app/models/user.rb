@@ -28,6 +28,10 @@ class User < ActiveRecord::Base
   	["chief","chairman"].include? rank_id
   end
 
+  def is_hr?
+  	role_id==1
+  end
+
   def residual_annual_days
      days = nj_days 
      return 0 if days<=0

@@ -102,64 +102,57 @@ class LeavesController < ApplicationController
   
 
  def export_data
+    hash = {}
+    y = Date.today.year
+ 	month=params["month"].to_i || Date.today.mon
+ 	d = Date.new(y,month,1)
+ 	#加上审批的
+ 	details = LeaveDetail.where("status=? or status=?",Leave.statuses["last_acceptting"],Leave.statuses["leader_agree"]).where('(start_at>=? and start_at<=?) or (end_at>=? and start_at<=?)',d,d.end_of_month,d,d)
+    details.each do |detail|
+    	k = detail.kind
 
+    	n = detail.user.name
+    	(hash.key? n) ? ((hash[n].key? k) ?  hash[n][k]=hash[n][k].concat(detail.month_static(y,month)) : hash[n].merge!({k=>detail.month_static(y,month)})) : hash[n]={k=>detail.month_static(y,month)}
+    end
+
+    #return render :text=> hash.inspect
  	Spreadsheet.client_encoding = "UTF-8"
     bookString = StringIO.new
     book = Spreadsheet::Workbook.new("#{Rails.root}/public/leaves_10.xls")
-    #binding.pry
-    leaves = Leave.order("user_id asc")
     sheet1 =  book.create_worksheet
-
-
-   # timer = 1
-   
-    sheet1.row(0).push "采购请假表"
-  #  sheet1[1,0] = "姓名日期"
-   # (0..31).each do |i|
-   #sheet1.row(2).replace [ 'Daniel J. Berger', 'U.S.A.',
-      #                  'Author of original code for Spreadsheet::Excel' ]
-    sheet1.row(1).replace ("0".."31").to_a 
-
+    sheet1.row(0).push "采购请假表(√ 表示一天,△代表上午▽代表下午)"
+    diff = d.end_of_month.mday
+    sheet1.row(1).replace ("0".."#{diff}").to_a 
     sheet1.row(1).insert 1 ,"姓名\\日期"
     sheet1[1,0]="序号"
-    sheet1.row(1).push("年假","事假")
-    hash = {}
-
-
-   # end
-    leaves.each_with_index do |leave,index|
-       name = leave.applicant.name
-    #	binding.pry
-     # sheet1[index+2,0] = index+1
-   	 # sheet1[index+2,1] = leave.applicant.name
-      leave.leave_details.each do |detail|
-      	start_at = detail.start_at
-      	end_at = detail.end_at
-      	next if start_at.blank? || end_at.blank?
-      	diff=(end_at-start_at)
-      	(0..diff.to_i/86400).each do |i|
-      	   date = start_at.since(i*86400).to_date.day
-
-      	   (hash.key? name) ? hash[name]<<date.to_s : hash[name]=[date.to_s]
-      	 # leave.applicant.name=[date.to_s]
-      	end
-         
-      end
-    #  timer +=1
-    end
-   
+    LeaveDetail.kinds.each do |k,v|
+      sheet1.row(1).push(I18n.t("leave_details.#{k}"))
+    end 
     hash.keys.each_with_index do |key,i|
-    #	 binding.pry
     	sheet1[i+2,0] = i+1
     	sheet1[i+2,1] = key.to_s
-    	hash[key].uniq.each do |v|
-           sheet1[i+2,1+v.to_i]=v
-    	end
-    	#sheet1.row(i+2).push(hash[key].uniq.join(","))
+        h=hash[key]
+        h.each do |k,v|
+           t_days = 0
+           v.each do |num|
+           	  if num.integer?
+           	  	t_days=t_days+1
+           	  	sheet1[i+2,1+num.to_i]="√"
+           	  elsif (num*10%10).to_i==1
+                sheet1[i+2,1+num.to_i]="△"
+                t_days=t_days+0.5
+              elsif (num*10%10).to_i==2
+              	sheet1[i+2,1+num.to_i]="▽"
+              	t_days=t_days+0.5
+           	  end
+           	  	
+           end
+           sheet1[i+2,LeaveDetail.kinds[k]+2+diff]=t_days.to_s
+        end
     end
 
     book.write bookString
-    send_data bookString.string,:filename => '123.xls'
+    send_data bookString.string,:filename => "采购部#{month}月份考勤.xls"
 
  end
 

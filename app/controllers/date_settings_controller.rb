@@ -38,6 +38,7 @@ class DateSettingsController < AdminController
 
   def destroy
     @date_setting.destroy
+    binding.pry
     respond_with(@date_setting,:status => :deleted, :location => "/date_settings/is_work/#{@date_setting.work_status}")
   end
 

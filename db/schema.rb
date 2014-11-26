@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141124102724) do
+ActiveRecord::Schema.define(version: 20141125135631) do
 
   create_table "categories", force: true do |t|
     t.integer  "kind",       default: 0
@@ -74,6 +74,17 @@ ActiveRecord::Schema.define(version: 20141124102724) do
   add_index "leave_details", ["kind"], name: "index_leave_details_on_kind", using: :btree
   add_index "leave_details", ["leave_id"], name: "index_leave_details_on_leave_id", using: :btree
   add_index "leave_details", ["user_id"], name: "index_leave_details_on_user_id", using: :btree
+
+  create_table "leave_statistics", force: true do |t|
+    t.string   "user_id"
+    t.integer  "kind"
+    t.integer  "month"
+    t.integer  "year"
+    t.string   "data"
+    t.decimal  "total_days", precision: 5, scale: 1
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
 
   create_table "leaves", force: true do |t|
     t.integer  "user_id"

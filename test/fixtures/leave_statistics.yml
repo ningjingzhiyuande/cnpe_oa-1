@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: MyString
+  kind: 1
+  month: 1
+  year: 1
+  data: MyString
+  total_days: MyString
+
+two:
+  user_id: MyString
+  kind: 1
+  month: 1
+  year: 1
+  data: MyString
+  total_days: MyString

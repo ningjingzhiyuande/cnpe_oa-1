@@ -18,7 +18,7 @@
 					</div>
 				</div>
 			</div>
-
+          <%if current_user.is_leader || current_user.is_hr? || current_user.is_admin?%>
 			<div class="side-col ui-sortable">
 				<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">
 					<div class="portlet-header ui-widget-header">请假管理</div>
@@ -28,11 +28,12 @@
 								<a class="set_theme" id="default" href="/leaves/list" title="Default Theme">请假列表</a>
 							</li>
 							<li>
-								<a class="set_theme" id="light_blue" href="/leaves/export" title="Light Blue Theme">请教导出</a>
+								<a class="set_theme" id="light_blue" href="/leaves/export" title="Light Blue Theme">请假导出</a>
 							</li>
 							
 						</ul>
 					</div>
 				</div>
 			</div>
+			<%end%>
     </div>
