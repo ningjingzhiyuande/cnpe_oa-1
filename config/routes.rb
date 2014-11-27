@@ -4,12 +4,14 @@ CnpeNew::Application.routes.draw do
   get 'leaves/index'
   end
 
+  #match 'leaves/export_data', to: 'leaves#export_data', via: [:get, :post]
+
   resources :leaves do 
      collection do 
        get :receive
        get :list
        get :export
-       post :export_data
+       get :export_data
 
      end
      member do 
