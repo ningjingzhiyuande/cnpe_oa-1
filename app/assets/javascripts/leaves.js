@@ -383,16 +383,11 @@ function collection_value_for_checked(d_id){
 	        var end_value = new Date(new Date(end_at).format("yyyy/mm/dd")+ end_hour);
 	        var end_value = new Date(end_at+ end_hour);
    	        if(start_value<=s_value && end_value>=s_value){
-               alert("您选择的日期和其他请假类型重复，请检查") 
+               alert("您选择的日期和其他请假类型重复，请检查!") 
                $("#start_at_"+d_id).val("");
                
             }
-            if(e_value>=start_value){
-               alert("您选择的日期和其他请假类型重复，请检查") 
-              
-                $("#end_at_"+d_id).val("");
-            }
-
+           
 
 	       
     	}
@@ -428,11 +423,11 @@ function collection_value_for_edit(d_id){
                $("#start_at_"+d_id).val("");
                
             }
-            if(e_value>=start_value){
-               alert("您选择的日期和其他请假类型重复，请检查") 
+          //  if(e_value>=start_value){
+           //   alert("您选择的日期和其他请假类型重复，请检查") 
               
-                $("#end_at_"+d_id).val("");
-            }
+            //    $("#end_at_"+d_id).val("");
+            //}
 
 
 	       

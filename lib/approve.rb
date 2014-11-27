@@ -13,7 +13,7 @@ module Approve #:nodoc:
           include AASM
           enum status: ["auditting","acceptting","rejectting","last_acceptting","last_rejectting","leader_agree","leader_reject"]
            
-          after_save  :add_to_approve,:if => Proc.new{|c| Rails.env=="production"}
+         # after_save  :add_to_approve,:if => Proc.new{|c| Rails.env=="production"}
           after_save :sync_to_leave_detail
           aasm :column => :status, :enum => true do
            # state :applying
