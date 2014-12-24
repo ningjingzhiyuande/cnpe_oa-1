@@ -337,12 +337,24 @@ function select_for_cj_day (data_id,jl) {
 function select_for_lianxu_day(data_id,len) {
 	start_at = $(".start_at_"+data_id).val();
 	if(start_at!=""){
-		date = new Date(start_at)
+		date = new Date(start_at)	
 		date.setDate(date.getDate()+len-1);
         $(".end_at_"+data_id).val(date.format("yyyy/mm/dd"))
         $("#select_days_"+data_id).val(len)
 	}
     
+}
+
+function select_for_work_day_type(data_id,len){
+    start_at = $(".start_at_"+data_id).val();
+	if(start_at!=""){
+		date = new Date(start_at)	
+		;
+		end_at = work_day_from(date,len-1)
+		$(".end_at_"+data_id).val(end_at.format("yyyy/mm/dd"))
+        $("#select_days_"+data_id).val(10)
+	}
+
 }
 function get_checkbox_checked_values(data_id){
 	values = [];
@@ -463,7 +475,7 @@ function cal_days_for_chose(){
          select_for_other_cj_day(data_id);
           break;
         case "6":
-          select_for_lianxu_day(data_id,total_hj_day);
+          select_for_work_day_type(data_id,total_hj_day);
           break;
         case "7":
           select_for_speical_day(data_id);
