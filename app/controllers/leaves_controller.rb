@@ -86,7 +86,7 @@ class LeavesController < ApplicationController
       detail = @leave.leave_details.find_by("kind=?",k)
       detail.start_at=obj["start_at"]
       detail.end_at = obj["end_at"]
-      detail.user_id = current_user.id
+      #detail.user_id = current_user.id
       detail.days = obj["days"]
       detail.start_at_half_day = obj["start_at_half_day"]
       detail.end_at_half_day = obj["end_at_half_day"] 
