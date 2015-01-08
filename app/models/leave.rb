@@ -1,5 +1,5 @@
 class Leave < ActiveRecord::Base
-   has_many :leave_details
+   has_many :leave_details,dependent: :destroy
    accepts_nested_attributes_for :leave_details, allow_destroy: true
 
    mount_uploader :image, AttacheUploader
