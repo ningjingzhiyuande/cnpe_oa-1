@@ -103,7 +103,7 @@ class LeavesController < ApplicationController
 
  def export_data
     hash = {}
-    y = Date.today.year
+    y = params["year"].to_i || Date.today.year
  	month=params["month"].to_i || Date.today.mon
  	d = Date.new(y,month,1)
  	#加上审批的

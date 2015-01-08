@@ -15,12 +15,17 @@
 						<table> 
 						<thead> 
 						<tr >
-							<th colspan=6>依据月份导出数据</th>
-						   
-							
+							<th colspan=6>依据月份导出数据</th>			
 						</tr> 
 						</thead> 
 						<tbody> 
+							<tr height=50>
+								<%y=Date.today.year%>
+								<td colspan=3><%=radio_button_tag "year",y-1%><%=y-1%>年</td>
+								<td colspan=3><%=radio_button_tag "year",y,true%><%=y%>年</td>
+								
+							</tr>
+
 							<tr height=50>
 								<%m=Date.today.month%>
 								<%(1..6).each do |i|%>
