@@ -13,6 +13,8 @@ class Ability
     end
 
     can :update,User, :id => user.id
+    can :show,Leave,:user_id=>user.id
+    can :destroy,Leave,:user_id=>user.id
 
     if user.is_approve
     	can :index,Leave#,:user_id => user.id,:reporter1_id =>user.id,:reporter2_id => user.id

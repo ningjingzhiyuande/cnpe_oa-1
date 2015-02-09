@@ -1,8 +1,9 @@
 require "spreadsheet"
 class LeavesController < ApplicationController
-   load_and_authorize_resource
-   before_action :set_leave, only: [:show, :destroy,:auddit]
-
+  
+   before_action :set_leave, only: [:show, :destroy,:auddit,:auddit_from_mail]
+   skip_before_filter :verify_authenticity_token, :only => [:destroy]
+    load_and_authorize_resource
   def index
     @leaves = current_user.apply_leaves
     respond_with(@leaves)
@@ -158,13 +159,18 @@ class LeavesController < ApplicationController
 
 
   def destroy
-   # @leafe.destroy
-   # respond_with(@leave)
+    @leave.destroy
+    respond_with(@leave,notice: "删除成功")
   end
 
   private
     def set_leave
-      @leave = Leave.find(params[:id])
+    	
+    	begin
+          @leave = Leave.find(params[:id])
+        rescue ActiveRecord::RecordNotFound => e
+          return redirect_to leaves_url , notice: '该假条已经删除 :)'
+        end
     end
 
     def leave_params

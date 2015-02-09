@@ -29,7 +29,7 @@
 						    <td><%= leave.title %></td> 
 						    <td><%= leave.total_days %>天</td> 
 						    <td><%=t(leave.status)%></td>
-						    <td><%= link_to "查看详情",leave %> </td> 					   			
+						    <td><%= link_to "查看详情",leave %>  | <%= link_to_if leave.status=="auditting", '删除', leave, method: :delete, data: { confirm: 'Are you sure?' } %>   </td> 					   			
 						</tr> 
 					   <%end%>			
 						</tbody>
