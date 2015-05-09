@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Good:</strong>
+  <%= @goods_apply.good_id %>
+</p>
+
+<p>
+  <strong>Apply num:</strong>
+  <%= @goods_apply.apply_num %>
+</p>
+
+<%= link_to 'Edit', edit_goods_apply_path(@goods_apply) %> |
+<%= link_to 'Back', goods_applies_path %>

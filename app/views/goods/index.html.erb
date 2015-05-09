@@ -1,0 +1,86 @@
+
+<%=render "shared/goods"%>
+
+<div id="main-wrapper">
+	<div id="main-content">
+		<%=render "shared/notice"%>
+        <div class="title">
+			<h3>物品列表</h3>
+		</div>
+
+		
+	
+        <div class="hastable">
+					
+						<table> 
+						<thead> 
+						<tr>
+							<th>#ID</th>
+						    <th>名称</th> 
+						    
+						    <th>借出数量</th>
+						    <th>库存数量</th>
+						    <th>申请数量</th>
+						    <th>描述</th> 
+						    <th>入库审核</th> 
+						    <th>出库库审核</th> 
+						    <th>操作</th> 
+							
+						</tr> 
+						</thead> 
+						<tbody> 
+							<%@review = Review.new%>
+							<%@apply = GoodsApply.new%>
+						<% @goods.each do |good| %>
+     					<tr>
+        					<td><%=good.id %></td>
+        					<td><%=good.name %></td>
+        					<td><%=good.loan_num %></td>
+        					<td><%=good.stock_num%></td>
+        					<td><%=good.apply_num %></td>
+        					<td><%=good.descript %></td>
+        					<td><%=good.reviews.where("kind=?",'apply').map{|r| r.user.name} %></td>
+							<td><%=good.reviews.where("kind=?",'loan').map{|r| r.user.name} %></td>
+       						<td><%#= link_to '再次入库', edit_good_path(good) %> 
+       							<a href="javascript:void(0)" data-url=<%= new_polymorphic_url([good,@review],review_type: "apply")%> class="add_review">申请审核设置</a>
+       							<%= link_to '入库申请', new_polymorphic_url([good,@apply])%>
+       							  <a href="javascript:void(0)" data-url=<%= new_polymorphic_url([good,@review],review_type: "loan")%> class="add_review"> 出库审核设置</a>
+      					</td>
+      					</tr>
+    					<% end %>
+
+						
+						</tbody>
+						</table>
+
+
+
+</div>
+</div>
+
+<script type="text/javascript">
+$(function(){
+    $(".add_review").click(function(){
+    	//alert($(this).attr("data-url"))
+    	$.layer({
+    		type: 2,
+   			shadeClose: true,
+    		title: "设置审批流程",
+    		closeBtn: [0, false],
+    		shade: [0.8, '#000'],
+    		border: [0],
+    		offset: ['20px',''],
+    		area: ['1000px', ($(window).height() - 50) +'px'],
+    		iframe: {src: $(this).attr("data-url")},
+    		end: function(){ window.location.reload();}
+}); 
+
+    })
+
+})
+  
+</script>
+
+
+
+

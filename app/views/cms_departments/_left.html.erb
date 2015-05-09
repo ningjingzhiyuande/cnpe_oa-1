@@ -1,0 +1,19 @@
+	<div id="sidebar">
+			<div class="side-col ui-sortable">
+				<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">
+					<div class="portlet-header ui-widget-header">部门管理</div>
+					<div class="portlet-content">
+						<ul class="side-menu">
+                            <% dps = CmsDepartment.all%>
+                            <%dps.each do |dp|%>
+							<li>
+								<a class="set_theme" id="default" href="/cms_departments/<%=dp.id%>/edit" title="Default Theme">编辑<%=dp.title%></a>
+							</li>
+							<%end%>
+		
+						</ul>
+					</div>
+				</div>
+			</div>
+
+    </div>

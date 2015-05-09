@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Good:</strong>
+  <%= @loan_good.good_id %>
+</p>
+
+<p>
+  <strong>Start at:</strong>
+  <%= @loan_good.start_at %>
+</p>
+
+<p>
+  <strong>End at:</strong>
+  <%= @loan_good.end_at %>
+</p>
+
+<p>
+  <strong>Loan info:</strong>
+  <%= @loan_good.loan_info %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @loan_good.user_id %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @loan_good.status %>
+</p>
+
+<%= link_to 'Edit', edit_loan_good_path(@loan_good) %> |
+<%= link_to 'Back', loan_goods_path %>

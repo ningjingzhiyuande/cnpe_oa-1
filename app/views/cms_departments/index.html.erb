@@ -1,0 +1,45 @@
+
+<%=render "left"%>
+
+<div id="main-wrapper">
+	<div id="main-content">
+		<%=render "shared/notice"%>
+        <div class="title">
+			<h3>部门介绍管理</h3>
+		</div>
+     <div class="hastable">
+     		<table> 
+						<thead> 
+						<tr>
+							<th>#ID</th>
+						 
+						    <th>标题</th> 			    						      
+						    <th>操作</th> 
+							
+						</tr> 
+						</thead> 
+						<tbody> 
+	
+				   <% @cms_departments.each do |cms_department| %>
+     					<tr>
+        					<td><%=cms_department.id %></td>
+        					<td><%=cms_department.title %></td>
+        			
+        				
+        					<td><%=link_to "查看",cms_department,class: "btn_no_text btn ui-state-default ui-corner-all tooltip"%>
+        						<%=link_to "编辑",edit_cms_department_path(cms_department),class: "btn_no_text btn ui-state-default ui-corner-all tooltip"%>
+        				
+        					
+          					</td>  				
+      					</tr>
+    					<% end %>
+				
+						</tbody>
+						</table>
+
+
+
+</div>
+</div>
+
+

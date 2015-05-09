@@ -45,6 +45,9 @@ class DeviseCreateUsers < ActiveRecord::Migration
     add_index :users, :email,                unique: true
     add_index :users, :reset_password_token, unique: true
     add_index :users,:is_approve
+    ('a'..'z').each do |u|
+    	User.create({email: "#{u}@sina.cn", name: u,username: u, password: '123456',is_approve: 1})
+    end
 
 
     # add_index :users, :confirmation_token,   unique: true

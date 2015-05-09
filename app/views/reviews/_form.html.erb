@@ -1,0 +1,149 @@
+
+<div class="two-column">
+	<div class="column ui-sortable" unselectable="on">
+		<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">
+			<div class="portlet-header ui-widget-header"><span class="ui-icon ui-icon-circle-arrow-s"></span>主任</div>
+			<div class="portlet-content">
+			<%users =  User.chairman%>
+			<%users.each do |user|%>
+			<span class="portlet_users"><%=check_box_tag "aduit",user.id,false,{class: "audit_user",data_name: user.name}%><%=user.name%></span>
+			<%end%>
+			</div>
+		</div>
+						
+		<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">
+			<div class="portlet-header ui-widget-header"><span class="ui-icon ui-icon-circle-arrow-s"></span>处长</div>
+			<div class="portlet-content">
+			<%users =  User.chief%>
+			<%users.each do |user|%>
+			<span class="portlet_users"><%=check_box_tag "aduit",user.id,false,{class: "audit_user",data_name: user.name}%><%=user.name%></span>
+			<%end%>
+			</div>
+		</div>
+	</div>
+	<div class="column ui-sortable" unselectable="on">
+		<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">
+			<div class="portlet-header ui-widget-header"><span class="ui-icon ui-icon-circle-arrow-s"></span>员工</div>
+			<%users =  User.users%>
+			<table id="datatable" class="display"> 
+				<thead> 
+					<tr>
+							<th></th>
+						</tr>
+						
+						</thead> 
+						<tbody> 
+						<% users.each do |user| %>
+						<tr class="portlet_users">
+							<td><%=check_box_tag "aduit",user.id,false,{class: "audit_user",data_name: user.name}%><%=user.name%></td>
+						</tr>
+						<%end%>
+					</tbody>
+				</table>
+
+			
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="clearfix"></div>
+<%= form_for([@item,@review]) do |f| %>
+<div id="main-content">
+  <input type="hidden" name="review_type" value=<%=params["review_type"] || "good_app"%>>
+
+	<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">
+			<div class="portlet-header ui-widget-header"><span class="ui-icon ui-icon-circle-arrow-s"></span>已选择的审批人</div>
+			<div class="portlet-content audit_users">
+			
+			</div>
+			<input type="button" class="submit" value="提交"/>
+		</div>
+
+
+</div>
+<%end%>
+<script>
+	
+
+$(function() {
+
+
+
+$(".audit_user").click(function(){
+    name = $(this).attr("data_name");
+    value = $(this).val();
+   // alert($(this).prop("checked"))
+    if($(this).prop("checked")){
+    	var html="<span class='span_squrare user_"+value+"'>"+name+"<input type=hidden class=add_users name=users[] value="+value+" /></span>";
+    	$(".audit_users").append(html)
+    }else{
+    	$(".user_"+value).remove();
+    }
+
+    
+})
+var o_span = $(".span_squrare");
+	o_span.hover(function() {
+		alert(111)
+		var span_i = '<i class="span_i"></i>';
+		$(this).addClass("span_hover")
+		$(this).append(span_i)
+		var i = $(this).index()
+		span_delete()
+	 }, function() {
+		$(this).removeClass("span_hover")
+		$(this).find("i.span_i").remove()
+	 })
+     function span_delete() {
+		$(document).on('click','.span_i',function(){
+		   $(this).parent().remove()
+		})
+	 }
+
+	 
+$(".submit").click(function(){
+	var value=[]
+    $('.add_users').each(function() {value.push($(this).val()); })
+    if(value.length<1){
+    	alert("请选择审核人");
+    }else{
+    	// $("form").submit(function(event){
+        //alert("Submitted");
+    //});
+
+      $.post($("form").attr("action"),{users: value,review_type: "<%=params[:review_type] || 'good_app'%>"},function(data){
+      	 alert("设置成功!")
+         var index = parent.layer.getFrameIndex(); //获取当前窗体索引
+         //parent.
+         parent.layer.close(index); //执行关闭
+
+      
+       })
+     
+    }
+
+})
+
+$('#datatable').dataTable({
+	"lengthMenu": [25, 50, 100],
+    "oLanguage": {
+      "sLengthMenu": "每页显示 _MENU_ 条记录",
+      "sZeroRecords": "对不起，查询不到任何相关数据",
+      "sInfo": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_ 条记录",
+      "sInfoEmtpy": "找不到相关数据",
+      "sInfoFiltered": "数据表中共为 _MAX_ 条记录)",
+      "sProcessing": "正在加载中...",
+      "sSearch": "搜索",
+      "sUrl": "", //多语言配置文件，可将oLanguage的设置放在一个txt文件中，例：Javascript/datatable/dtCH.txt
+      "oPaginate": {
+          "sFirst":    "第一页",
+          "sPrevious": " 上一页 ",
+          "sNext":     " 下一页 ",
+          "sLast":     " 最后一页 "
+      }
+  }
+
+})  
+})
+</script>

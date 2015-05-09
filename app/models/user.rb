@@ -5,10 +5,17 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   enum rank_id: {user: 1,chief:100, chairman: 200}
+  scope :chairman, -> { where(rank_id: 200) }
+  scope :chief, -> { where(rank_id: 100) }
+  scope :users, -> { where(rank_id: 1) }
   belongs_to :department,class_name: "Category"#,foreign_key: ""
   #belongs_to :rank,class_name: "Category"#,foreign_key: "item_num"
 
   has_many :apply_leaves ,class_name: "Leave"
+
+  has_many :entretains
+  
+  has_many :report_entretains, foreign_key: "reporter_id",class_name: "Entretain"
 
 
   #enum department: {caigou: 6100, zongguan: 6101,jihua: 6102,\

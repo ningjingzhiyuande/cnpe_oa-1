@@ -1,0 +1,107 @@
+<%= render 'shared/entretains_left'%>
+
+<div id="main-wrapper">
+	<div id="main-content">
+				<%=render "shared/notice"%>
+       
+	<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all form-container">
+       <div class="portlet-content">
+
+<h3 class='center margintop15'><%=@entretain.title%></h3>
+<div class="order_number">
+  <table class="grid_order print_content" id="print_content">
+    <tbody>
+      <tr height="35">
+        <td class="td01">所属项目：</td>
+        <td colspan="3">
+          <%= @entretain.title%>
+        </td>
+      </tr>
+      <tr height="35">
+        <td class="td01">用餐费用：</td>
+        <td colspan="3">
+          <%= @entretain.fee%> 元
+        </td>
+      </tr>
+      <tr height="35">
+        <td class="td01">文件标号：</td>
+        <td colspan="3">
+	    <%= @entretain.num%>
+        </td>
+      </tr>
+      <tr height="35">
+        <td class="td01">审批者：</td>
+        <td>
+          一级<%=@entretain.report_user.try(:name)%>  ----> 二级 <%=@entretain.last_report_user.try(:name)%>
+        </td>
+        </tr>
+      <tr>
+        <td class="td01">申请者：</td>
+        <td>
+          <%= @entretain.user.try(:name) %>
+        </td>
+      </tr>
+       <tr>
+        <td class="td01">登录时间：</td>
+        <td>
+          <%= @entretain.created_at.to_s %>
+        </td>
+      </tr>
+    
+      
+      <tr height="35">
+        <td class="td01">内容</td>
+        <td colspan="3"><div style="padding:20px 10px;"><%=raw @entretain.content %></div>
+        </td>
+      </tr>
+
+      <tr height="35">
+        <td class="td01"><b></b>附件：</td>
+        <td colspan="3"><div style="padding:20px 10px;">
+         <%unless @entretain.attache_url.blank?%>
+          <img src="<%=@entretain.attache_url%>" width=100 height=100/>
+          <%end%>
+          </div>
+        </td>
+      </tr>
+
+      <tr height="35">
+        <td class="td01">申请状态</td>
+        <td colspan="3"><div style="padding:20px 10px;"><%=I18n.t @entretain.aasm_state %></div>
+        </td>
+      </tr>
+
+     </tbody>
+     </table>
+     </div>
+
+
+
+     <h3 class='center margintop15 print'><a href="javascript:;" class="printdiv">打印</a></h3>
+ </div>
+	</div>
+	<div class="clearfix"></div>
+
+</div>
+</div>
+
+
+     <script language=javascript> 
+     $(".printdiv").click(function(){
+     	 
+     	 var $print = $(".print_content")
+        .clone()
+        .addClass('print')
+        .replaceAll('body');
+
+    //window.print() stops JS execution
+    window.print();
+
+    //Remove div once printed
+      location.reload()
+     })
+
+</script> 
+
+
+

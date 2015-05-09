@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title></title>
+  <%= stylesheet_link_tag    "cms", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "cms", "data-turbolinks-track" => true %>
+  <%#=javascript_include_tag "/layer/layer.min"%>
+   <%#=stylesheet_link_tag "datatable"%>
+  <%#= yield :header %>
+
+
+	<!--[if IE 6]>
+	<%= stylesheet_link_tag "ie6", "data-turbolinks-track" => true %>
+	<%= javascript_include_tag    "pngfix",  "data-turbolinks-track" => true %>
+
+	<script>
+	  /* EXAMPLE */
+	  DD_belatedPNG.fix('.logo, .other ul#dashboard-buttons li a');
+
+	</script>
+	<![endif]-->
+	<!--[if IE 7]>
+	<%= stylesheet_link_tag "ie7", "data-turbolinks-track" => true %>
+	
+	<![endif]-->
+
+</head>
+<body>
+<div class="top_wz">
+		<div class="index_box">
+			<span class="right"><a href="javascript:AddFavorite(document.location.href,document.title);">加入收藏</a>|<a href="javascript:void(0);" onClick="SetHome(this);">设为首页</a>|<a href="contact.html">联系我们</a></span>您好，欢迎来到中国核电工程有限公司采购部！
+		</div>
+	</div>
+	<div class="top_box">
+		<div class="index_box">
+			<h1><a href="index.html"><img src="/images/home/logo.png" alt="" /></a></h1>
+			<ul class="nav">
+				<li><a href="/">公司首页</a></li>
+				<li class="current"><a href="/departments/bumenjieshao">部门简介</a></li>
+				<li><a href="/department_articles">部门动态</a></li>
+				<li><a href="/dang_articles">党群建设</a></li>
+				<li><a href="">行政办公</a></li>
+			</ul>
+		</div>
+	</div>
+
+
+  <%=yield%>
+	<div class="blank20"></div>
+	<div class="footer tac">
+		<div class="wz_1"><a href="about.html">部门简介</a>|<a href="news.html">部门动态</a>|<a href="news.html">党群建设</a>|<a href="news.html">行政办公</a></div>
+		<div class="wz_2">Copyright All Rights Reserved 版权所有 中国核电工程有限公司<br />传真：010-68415086 邮箱：cnpe@cnpe.cc 京ICP备08007046号 京公网安备11040102100175号<br />公司地址：北京市海淀区西三环北路117号 技术支持：核工业计算机应用研究所</div>
+	</div>
+
+</body>
+
+
+</html>
+

@@ -59,6 +59,8 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
+    acts_as_list (0.6.0)
+      activerecord (>= 3.0)
     arel (6.0.0.beta1)
     bcrypt (3.1.7)
     builder (3.2.2)
@@ -171,8 +173,6 @@ GEM
       thor (>= 0.18.1, < 2.0)
     raindrops (0.13.0)
     rake (10.3.2)
-    ranked-model (0.4.0)
-      activerecord (>= 3.1.12)
     rdoc (4.1.2)
       json (~> 1.4)
     responders (2.0.0)
@@ -237,6 +237,7 @@ PLATFORMS
 DEPENDENCIES
   aasm
   activemodel-globalid
+  acts_as_list
   cancancan
   capistrano
   capistrano-bundler
@@ -261,7 +262,6 @@ DEPENDENCIES
   rails-i18n
   rails_config
   rails_kindeditor
-  ranked-model
   responders
   rolify
   roo

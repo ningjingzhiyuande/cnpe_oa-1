@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title></title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%=javascript_include_tag "/layer/layer.min"%>
+   <%=stylesheet_link_tag "datatable"%>
+  <%= yield :header %>
+
+
+	<!--[if IE 6]>
+	<%= stylesheet_link_tag "ie6", "data-turbolinks-track" => true %>
+	<%= javascript_include_tag    "pngfix",  "data-turbolinks-track" => true %>
+
+	<script>
+	  /* EXAMPLE */
+	  DD_belatedPNG.fix('.logo, .other ul#dashboard-buttons li a');
+
+	</script>
+	<![endif]-->
+	<!--[if IE 7]>
+	<%= stylesheet_link_tag "ie7", "data-turbolinks-track" => true %>
+	
+	<![endif]-->
+
+</head>
+<body>
+
+
+
+  <%=yield%>
+
+
+</body>
+
+
+</html>
+

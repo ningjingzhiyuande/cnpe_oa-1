@@ -1,0 +1,72 @@
+<%= form_for(@cms_article,url: @cms_article.new_record? ? cms_dang_articles_url : cms_dang_article_url(@cms_article),class: "article_form") do |f| %>
+  <% if @cms_article.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@cms_article.errors.count, "error") %> prohibited this cms_article from being saved:</h2>
+
+      <ul>
+      <% @cms_article.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <ul>
+
+
+    <li> 
+		<span class="width_align_right">标题 </span>
+		 <span class="width_content">
+           <%=f.text_field :title,class: "field error goods_title text large "%> 
+            <%=f.hidden_field :kind,value: 100%> 
+       </span>
+    </li>
+
+    <li> 
+		<span class="width_align_right">内容 </span>
+		<div><%=f.kindeditor :content, :simple_mode => true, :width => 600, :height => 300 %></div>   
+    </li>
+
+     <li> 
+		<span class="width_align_right">是否推荐到首页 </span>
+		<div><%=f.check_box :is_recommend,class: "is_recommend"%></div>   
+    </li>
+
+
+
+    
+</ul>
+ <div class="actions">
+   <input type="submit" class="submit" value="提交"/>
+  </div>
+ <%end%>
+ <script type="text/javascript">
+$(document).ready(function(){
+
+   
+            jQuery('.article_form').validate({
+ 
+                rules: {
+                    "cms_article[title]": {
+                        minlength: 2,
+                        required: true
+                    },
+                    "cms_article[content]": {
+                        minlength: 2,
+                        required: true
+                    }
+                },
+
+            
+
+                submitHandler: function (form) {
+                //alert(111)
+                	$(form).submit();
+                   // success1.show();
+                    //error1.hide();
+                }
+            });
+});
+</script>
+
+
+

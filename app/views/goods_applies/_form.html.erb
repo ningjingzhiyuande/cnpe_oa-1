@@ -1,0 +1,40 @@
+<%= form_for([@item,@goods_apply]) do |f| %>
+ 
+<ul>
+	<li> 
+	   <span class="width_align_right">物品名称 </span> 
+       <span class="width_content">
+       	<%=@item.name%>
+       </span>
+    </li>
+    <li> 
+		<span class="width_align_right">物品属性 </span>
+        <div><%=@item.is_consume ? "是" : "不是"%> 消耗品
+       </div>
+    </li>
+
+    <li> 
+		<span class="width_align_right">申请数量 </span>
+		 <span class="width_content">
+           <%=f.text_field :apply_num,class: "field error goods_title text large",value: 0%> 
+       </span>
+    </li>
+
+    <li> 
+		<span class="width_align_right">申请说明 </span>
+		<div><%=f.text_area :apply_info , :cols => 73, :height => 300 %></div>   
+    </li>
+
+    <li> 
+		<span class="width_align_right">入库 </span>
+        <div><%=check_box_tag :is_storage%> 是否直接将物品入库，不需要审批
+       </div>
+    </li>
+
+    
+</ul>
+ 
+  <div class="actions">
+    <%= f.submit '提交申请'%>
+  </div>
+<% end %>

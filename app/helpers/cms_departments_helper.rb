@@ -1,0 +1,2 @@
+module CmsDepartmentsHelper
+end

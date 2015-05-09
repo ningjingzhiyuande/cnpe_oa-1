@@ -1,0 +1,52 @@
+<%= form_for(@good) do |f| %>
+  <% if @good.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@good.errors.count, "error") %> prohibited this good from being saved:</h2>
+
+      <ul>
+      <% @good.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+<ul>
+	<li> 
+	   <span class="width_align_right">物品名称 </span> 
+       <span class="width_content">
+       	<%=f.text_field :name,class: "field error goods_title text large"%>
+       </span>
+    </li>
+    <li> 
+		<span class="width_align_right">物品属性 </span>
+        <div><%=f.check_box :is_consume%> 是否消耗品
+       </div>
+    </li>
+<!--
+    <li> 
+		<span class="width_align_right">物品数量 </span>
+		 <span class="width_content">
+           <%=text_field_tag :apply_num,0,{class: "field error goods_title text large"}%> 
+       </span>
+    </li>
+-->
+    <li> 
+		<span class="width_align_right">物品说明 </span>
+		<div><%=f.text_area :descript , :cols => 85, :height => 300 %></div>   
+    </li>
+<!--
+    <li> 
+		<span class="width_align_right">入库 </span>
+        <div><%=check_box_tag :is_storage%> 是否直接将物品入库，不需要审批
+       </div>
+    </li>
+-->
+    
+</ul>
+ 
+  <div class="actions">
+    <%= f.submit '提交申请'%>
+  </div>
+<% end %>

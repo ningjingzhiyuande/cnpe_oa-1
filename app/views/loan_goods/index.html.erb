@@ -1,0 +1,56 @@
+
+<%=render "shared/loan_left"%>
+
+<div id="main-wrapper">
+	<div id="main-content">
+		<%=render "shared/notice"%>
+        <div class="title">
+			<h3>物品列表</h3>
+		</div>
+     <div class="hastable">
+					
+						<table> 
+						<thead> 
+						<tr>
+							<th>#ID</th>
+						    <th>名称</th> 
+						    
+						    <th>借出数量</th>
+						   
+						    <th>描述</th> 
+						   
+						    <th>操作</th> 
+							
+						</tr> 
+						</thead> 
+						<tbody> 
+							<%@review = Review.new%>
+							<%@apply = GoodsApply.new%>
+						<% @loan_goods.each do |loan_good| %>
+     					<tr>
+        					<td><%=loan_good.id %></td>
+        					<td><%=loan_good.good.name %></td>
+        					<td><%=loan_good.apply_num %></td>
+        					<td><%=loan_good.loan_info %></td>
+        					<td><%=link_to "查看",loan_good,class: "btn_no_text btn ui-state-default ui-corner-all tooltip"%>
+        					<%if loan_good.can_review_apply?(current_user)%>	
+								<%['accept','reject'].each do |e|%>
+              					
+              						<%=form_for :loan_good,:url=>auddit_loan_good_url(loan_good,e: e) do |f|%>
+                  				    <%=f.submit "#{t(e)}",class: "btn_no_text btn ui-state-default ui-corner-all tooltip" %>
+                                    <%end%>  
+           						 <%end%>
+           					 <%end%>
+          					</td>  				
+      					</tr>
+    					<% end %>
+				
+						</tbody>
+						</table>
+
+
+
+</div>
+</div>
+
+

@@ -1,0 +1,2 @@
+module CmsArticlesHelper
+end

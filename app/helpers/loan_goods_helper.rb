@@ -1,0 +1,2 @@
+module LoanGoodsHelper
+end

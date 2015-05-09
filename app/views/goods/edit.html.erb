@@ -1,0 +1,17 @@
+<%=render "shared/goods"%>
+
+<div id="main-wrapper">
+	<div id="main-content">
+		<%=render "shared/notice"%>
+        <div class="title">
+			<h3>添加物品:<%=@good.name%></h3>
+		</div>
+	<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all form-container">
+       <div class="portlet-content">
+            <%= render 'form' %>
+        </div>
+	</div>
+	<div class="clearfix"></div>
+
+</div>
+</div>

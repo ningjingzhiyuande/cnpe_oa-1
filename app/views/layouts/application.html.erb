@@ -5,6 +5,7 @@
 <title></title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%=javascript_include_tag "/layer/layer.min"%>
   <%= yield :header %>
 
 
@@ -83,6 +84,37 @@
 				<a href="/users">用户管理</a>
 				
 			</li>
+
+			<li>
+				<a href="/goods">物品管理</a>
+				
+			</li>
+
+			<li>
+				<a href="/loan_goods/goods">物品出库</a>		
+			</li>
+
+			<li>
+				<a href="/entretains">宴请管理</a>		
+			</li>
+			<li>
+				<a href="/cms_homes">部门首页管理</a>		
+			</li>
+			<li>
+				<a href="/cms_departments">部门简介管理</a>		
+			</li>
+			<li>
+				<a href="/cms_articles">部门动态管理</a>		
+			</li>
+			<li>
+				<a href="/cms_dang_articles">党群管理</a>		
+			</li>
+
+			<li>
+				<a href="/cms_dangquns">廉洁从政管理</a>		
+			</li>
+
+
 		</ul>
 	</div>	<!--<div id="welcome" title="Welcome to JsAdmin">
 		<p><b>JsAdmin</b> is a <b>lightweight</b>, fully and easily customisable <b>administration user interface</b>. Please proceed to the actual demo by clicking the button below. Enjoy !</p>

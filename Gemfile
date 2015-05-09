@@ -6,13 +6,14 @@ gem 'rails', '4.2.0.beta1'
 # Use mysql as the database for Active Record
 gem 'mysql2'
 
-gem 'ranked-model'
+gem 'acts_as_list'
 
 
 gem 'rails_kindeditor'
 gem 'roo'
 gem 'kaminari'
 gem 'cancancan'
+
 #gem 'delayed_job_active_record'
 # gem 'daemons'
 
@@ -21,7 +22,7 @@ gem 'devise', :git => 'http://github.com/plataformatec/devise.git', :branch => '
 gem 'responders'
 
 gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
- gem 'jquery-ui-rails'
+gem 'jquery-ui-rails'
 
 gem 'mail'
 

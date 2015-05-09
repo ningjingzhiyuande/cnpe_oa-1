@@ -1,0 +1,98 @@
+  <%=javascript_include_tag "/my97/WdatePicker"%>
+<%= form_for([@goods,@loan_good]) do |f| %>
+  <% if @loan_good.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@loan_good.errors.count, "error") %> prohibited this loan_good from being saved:</h2>
+
+      <ul>
+      <% @loan_good.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <ul>
+	<li> 
+	   <span class="width_align_right">物品名称 </span> 
+       <span class="width_content">
+       	<%=@goods.name%>
+       </span>
+    </li>
+    <li> 
+		<span class="width_align_right">物品属性 </span>
+        <div><%=@goods.is_consume ? "是" : "不是"%> 消耗品
+       </div>
+    </li>
+    <%unless @goods.is_consume%>
+     <li> 
+		<span class="width_align_right">归还时间 </span>
+        <div><%=f.text_field :end_at,class:  "field error goods_title text small datetimepicker"%>
+       </div>
+    </li>
+    <%end%>
+
+    <li> 
+		<span class="width_align_right">审核员 </span>
+        <div><%=(@goods.reviews.where("kind=?",'loan').map{|r| r.user.name}).join("--->") %>
+       </div>
+    </li>
+
+    <li> 
+		<span class="width_align_right">申请数量 </span>
+		 <span class="width_content">
+           <%=f.text_field :apply_num,class: "field error goods_title text large apply_num",value: 1%> 
+       </span>
+    </li>
+
+    <li> 
+		<span class="width_align_right">申请说明 </span>
+		<div><%=f.text_area :loan_info , :cols => 94, :rows => 20 ,class: "loan_info"%></div>   
+    </li>
+
+
+    
+</ul>
+ 
+
+
+  <div class="actions">
+   <input type="button" class="submit" value="提交"/>
+  </div>
+<% end %>
+<script type="text/javascript">
+$(".submit").click(function(){
+	var apply_num = $('.apply_num').val();
+	var loan_info = $('.loan_info').val();
+	
+    //$('.add_users').each(function() {value.push($(this).val()); })
+    if(parseInt(apply_num)<1){
+    	alert("请填写正确的申请数量");
+    }else
+      $.post($("form").attr("action"),{apply_num: apply_num,loan_info: loan_info},function(data){
+      	 alert("设置成功!")
+         var index = parent.layer.getFrameIndex(); //获取当前窗体索引
+         //parent.
+         parent.layer.close(index); //执行关闭
+
+      
+       })
+     
+    }
+)
+
+
+    $('.datetimepicker').click(function(){  	
+   	WdatePicker({
+       firstDayOfWeek: 0,
+       isShowClear: false,
+       readOnly: true,
+       autoPickDate: true,       
+       dateFmt:'yyyy/MM/dd'
+
+   	});
+   })
+
+
+</script>
+
+

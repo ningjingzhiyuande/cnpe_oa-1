@@ -1,0 +1,77 @@
+
+<%=render "shared/goods"%>
+
+<div id="main-wrapper">
+	<div id="main-content">
+		<%=render "shared/notice"%>
+        <div class="title">
+			<h3>物品列表</h3>
+		</div>
+
+		
+	
+        <div class="hastable">
+					
+						<table> 
+						<thead> 
+						<tr>
+							<th>#ID</th>
+						    <th>名称</th> 
+						    
+						   
+						    <th>申请数量</th>
+						    <th>描述</th> 
+						    <th>审核流程</th> 
+						    <th>当前状态</th>
+						   
+						    <th>操作</th> 
+							
+						</tr> 
+						</thead> 
+						<tbody> 
+							
+						<% @goods_applies.each do |apply| %>
+     					<tr>
+        					<td><%=apply.id %></td>
+        					<td><%=apply.good.try(:name) %></td>
+        				
+        				
+        					<td><%=apply.apply_num %></td>
+        					<td><%=apply.apply_info %></td>
+        					<td><%=apply.good.reviews.where("kind=?",'apply').map{|r| r.user.name} rescue nil%></td>
+        					<td><%= apply.status=="acceptting" && apply.is_review_over ? '完成' : apply.status%></th>
+							
+       						<td> 
+       		
+       		<%if apply.can_review_apply?(current_user)%>	
+
+            <%['accept','reject'].each do |e|%>
+               <div class="f1 f">  <%=form_for :apply,:url=>auddit_goods_apply_url(apply,e: e) do |f|%>
+                   <%=f.submit "#{t(e)}",class: "btn_no_text btn ui-state-default ui-corner-all tooltip" %>
+                  
+                <%end%>
+
+               		 
+                 
+                
+                </div>
+ 
+            <%end%>
+            <%end%>
+       							
+      					</td>
+      					</tr>
+    					<% end %>
+
+						
+						</tbody>
+						</table>
+
+
+
+</div>
+</div>
+
+
+
+

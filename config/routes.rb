@@ -1,9 +1,56 @@
 CnpeNew::Application.routes.draw do
- 
+
+  get "about_us"=>"home#about_us"
+  CmsDepartment.kinds.each do |k,v|
+  	get "departments/:kind",to: "home_departments#show"
+  end
+  resources :cms_dang_articles
+
+  resources :cms_dangquns do
+  	get :download,on: :member
+  end
+
+  resources :cms_departments
+  resources :cms_articles
+
+ resources :entretains do 
+      member do 
+        post :auddit
+        get :auddit_from_mail
+      end
+  end
+ resources :loan_goods do 
+   get :goods, on: :collection
+    member do 
+        post :auddit
+      #  get :auddit_from_mail
+     end
+ end
+
+ resources :goods_applies do
+    member do 
+        post :auddit
+      #  get :auddit_from_mail
+     end
+ end
+
+  
+
   namespace :statistic do
   get 'leaves/index'
   end
+  
+  concern :reviewable do
+  	resources :reviews 
+  end
+  concern :loanable do
+  	resources :loan_goods 
+  end
+ concern :appliable do
+  	resources :goods_applies 
+  end
 
+ resources :goods,concerns: [:reviewable,:appliable,:loanable]
   #match 'leaves/export_data', to: 'leaves#export_data', via: [:get, :post]
 
   resources :leaves do 
@@ -33,7 +80,8 @@ CnpeNew::Application.routes.draw do
 
 
   #devise_for :users
-  root 'dashboards#index'
+  root "home#index"
+  #root 'dashboards#index'
   #devise_for :users, path: "auth"#, path_names: { sign_in: 'login', sign_out: 'logout', password: 'secret', confirmation: 'verification', unlock: 'unblock', registration: 'register', sign_up: 'cmon_let_me_in' }
   devise_for :users, :controllers => {:registrations => "registrations",sessions: "sessions"},path_names: {sign_out: 'logout'}
 

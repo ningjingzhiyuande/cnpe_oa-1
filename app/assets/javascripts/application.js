@@ -13,21 +13,16 @@
 //= require jquery
 //= require jquery_ujs
 //= require kindeditor
-// require turbolinks
 //= require jquery.validate.min
-// require superfish
 //= require jquery-ui.min
 //= require date_format
-// require ./my97/WdatePicker
 //= require dataTables/jquery.dataTables 
-// require jquery.datetimepicker
-// require jquery-ui.multidatespicker
-// require jquery-ui-timepicker-addon
-// require jquery-ui-sliderAccess
-
-// require tooltip
-
 //= require cookie
+
+
+// require superfish
+// require tablesorter
+// require tablesorter-pager
 // require custom
 
 

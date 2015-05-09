@@ -1,0 +1,44 @@
+table.dataTable.row-border tbody th, table.dataTable.row-border tbody td, table.dataTable.display tbody th, table.dataTable.display tbody td {
+  border-top:0px;
+}
+table.dataTable.display tbody tr.odd > .sorting_1, table.dataTable.order-column.stripe tbody tr.odd > .sorting_1 {
+  background-color: #fff;
+}
+.dataTables_wrapper .dataTables_length,.dataTables_wrapper .dataTables_info{padding-left:10px;}
+.dataTables_wrapper .dataTables_filter{padding-right:10px;}
+table.dataTable thead .sorting_asc {
+	background: none;
+}
+table.dataTable thead th,table.dataTable thead td {
+  padding: 0px 10px;
+  border-bottom: 0px solid #111111;
+}
+table.dataTable tbody th,table.dataTable tbody td {
+  padding: 6px 10px;
+}
+
+.span_squrare {
+			display: block;
+			height: 24px;
+			line-height: 24px;
+			padding: 0px 10px;
+			font-size: 12px;
+			float: left;
+			margin: 0px 5px;
+			
+		}
+		.span_hover {
+			position: relative;
+			background: #dddddd;
+		}
+		i.span_i {
+			font-size: 2px;
+			font-style: normal;
+			width: 10px;
+			height: 10px;
+			position: absolute;
+			top: -2px;
+			right: -2px;
+			cursor: pointer;
+			background: url(/images/delete.png) no-repeat center;
+		}

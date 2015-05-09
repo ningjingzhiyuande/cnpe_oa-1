@@ -312,6 +312,8 @@ i.note {
 	color:red;
 }
 
+.portlet-content .portlet_users{width:90px;float: left;line-height: 24px;}
+
 	/* Footer */
 
 #footer {
