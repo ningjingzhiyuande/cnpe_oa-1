@@ -3,7 +3,11 @@ class CmsArticle < ActiveRecord::Base
 	#default_scope  { where("kind!=100") }
 
 	def self.articles
-		where("kind!=100")
+		where("kind=0")
+	end
+
+	def self.notices
+		where("kind=10")
 	end
 
 	def self.dang_articles

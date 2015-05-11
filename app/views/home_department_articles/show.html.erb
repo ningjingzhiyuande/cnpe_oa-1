@@ -1,0 +1,46 @@
+<div class="list_ban" style="background-image: url(/images/home/list_banner.jpg);"></div>
+	<div class="index_box list_bg">
+		<div class="menu_box left">
+			<div class="title_name">部门动态</div>
+			<div class="menu_con">
+				<ul>
+					<li ><a href="/home_dang_articles">党群建设</a></li>
+					<li ><a href="/home_notifications">重要通知</a></li>
+					<li><a href="/home_lanjies">廉洁从政</a></li>
+				</ul>
+				<div class="kj_con">
+					<p><a href="/departments/about_us"><img src="/images/home/kj_pt1.jpg" alt="" /></a></p>
+					<p><a href="/dashboards"><img src="/images/home/kj_pt2.jpg" alt="" /></a></p>
+				</div>
+			</div>
+		</div>
+		<div class="list_content right">
+			<div class="title_con"><span class="right">当前位置：<a href="/">首页</a> > <a href="/home_department_articles" class="blue_font">部门动态</a> > <span class="blue">详情</span></span><span class="name">部门动态</span></div>
+			<div class="news_detail">
+				<h2><%=@article.title%></h2>
+				<div class="time">来源：中核集团&nbsp;&nbsp;&nbsp;&nbsp;日期：<%=@article.updated_at.strftime("%Y-%m-%d")%></div>
+				<div class="wz_detail">
+					<%=raw @article.content%>
+					
+					<div class="blank10"></div>
+					<!-- JiaThis Button BEGIN -->
+					<div class="jiathis_style">
+						<span class="jiathis_txt">分享到：</span>
+						<a class="jiathis_button_qzone"></a>
+						<a class="jiathis_button_tsina"></a>
+						<a class="jiathis_button_tqq"></a>
+						<a class="jiathis_button_renren"></a>
+						<a class="jiathis_button_weixin"></a>
+						<a class="jiathis_button_xiaoyou"></a>
+						<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+						<a class="jiathis_counter_style"></a>
+					</div>
+					<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+					<!-- JiaThis Button END -->
+					<div class="blank10"></div>
+				</div>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div class="blank10"></div>

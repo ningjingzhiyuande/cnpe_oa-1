@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @cms_home.title %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @cms_home.url %>
+</p>
+
+<p>
+  <strong>Image:</strong>
+  <%= @cms_home.image %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @cms_home.content %>
+</p>
+
+<%= link_to 'Edit', edit_cms_home_path(@cms_home) %> |
+<%= link_to 'Back', cms_homes_path %>

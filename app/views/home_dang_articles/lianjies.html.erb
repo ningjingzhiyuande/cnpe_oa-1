@@ -1,0 +1,34 @@
+<div class="list_ban" style="background-image: url(/images/home/list_banner.jpg);"></div>
+	<div class="index_box list_bg">
+		<div class="menu_box left">
+			<div class="title_name">廉洁从政</div>
+			<div class="menu_con">
+				<ul>
+					<li ><a href="/home_dang_articles">党群建设</a></li>
+						<li ><a href="/home_department_articles">部门动态</a></li>
+
+					<li ><a href="/home_notifications">重要通知</a></li>
+					
+					
+				</ul>
+				<div class="kj_con">
+					<p><a href="/departments/about_us"><img src="/images/home/kj_pt1.jpg" alt="" /></a></p>
+					<p><a href="/dashboards"><img src="/images/home/kj_pt2.jpg" alt="" /></a></p>
+				</div>
+			</div>
+		</div>
+		<div class="list_content right">
+			<div class="title_con"><span class="right">当前位置：<a href="/">首页</a> > <span class="blue">廉洁从业</span></span><span class="name">廉洁从业</span></div>
+			<div class="news_list_con">
+				<ul>
+					<%@articles.each do |article|%>
+					<li><a href="/cms_dangquns/<%=article.id%>/download" class="orange_font right">【下载】</a><a  href="/cms_dangquns/<%=article.id%>/download"  ><%=article.title%></a></li>
+					<%end%>
+				
+				</ul>
+				<div class="page tac"><a href="">首页</a><a href="">上一页</a><a href="">1</a><a href="" class="current">2</a><a href="">3</a><a href="">4</a><a href="">5</a><a href="">下一页</a><a href="">尾页</a></div>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div class="blank10"></div>

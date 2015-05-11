@@ -1,2 +1,0 @@
-module Statistic::LeavesHelper
-end

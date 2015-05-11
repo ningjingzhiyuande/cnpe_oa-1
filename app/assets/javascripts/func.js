@@ -1,9 +1,12 @@
 $(function(){
 	jQuery(".slideBox").slide({mainCell:".bd ul",autoPlay:true,trigger:"click",delayTime:600});
 
+	jQuery(".announcement").slide({mainCell:".notice_con ul",autoPage:true,effect:"top",autoPlay:true});
+	
 	$("#titleMenuId>li").click(function(){
 		$(this).addClass("current").siblings().removeClass("current");
 		var index = $(this).index();
+		$(".more>a").eq(index).removeClass("dn").siblings().addClass("dn");
 		$("#mainNewsId>div").eq(index).removeClass("dn").siblings().addClass("dn");
 	});
 });

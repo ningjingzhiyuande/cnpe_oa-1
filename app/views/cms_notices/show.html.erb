@@ -1,0 +1,19 @@
+<%=render "cms_homes/left"%>
+
+<div id="main-wrapper">
+	<div id="main-content">
+		<%=render "shared/notice"%>
+  <h3 class="center">
+  <%= @cms_article.title %>
+</h3>
+
+<p>
+  <%= @cms_article.content %>
+</p>
+
+<p>
+  <%=image_tag @cms_article.image.url %>
+</p>
+
+</div>
+</div>

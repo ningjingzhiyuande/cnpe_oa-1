@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150509032143) do
+ActiveRecord::Schema.define(version: 20150510064015) do
 
   create_table "categories", force: true do |t|
     t.integer  "kind",       default: 0
@@ -54,6 +54,16 @@ ActiveRecord::Schema.define(version: 20150509032143) do
     t.integer  "kind"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
+  end
+
+  create_table "cms_homes", force: true do |t|
+    t.string   "title"
+    t.string   "url"
+    t.string   "image"
+    t.integer  "kind"
+    t.text     "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "date_settings", force: true do |t|

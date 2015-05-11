@@ -22,12 +22,12 @@ class CmsDangqunsController < ApplicationController
   def create
     @cms_dangqun = CmsDangqun.new(cms_dangqun_params)
     @cms_dangqun.save
-    respond_with(@cms_dangqun)
+    respond_with(@cms_dangqun,location: cms_dangquns_path)
   end
 
   def update
     @cms_dangqun.update(cms_dangqun_params)
-    respond_with(@cms_dangqun)
+    respond_with(@cms_dangqun,location: cms_dangquns_path)
   end
  
   def download
@@ -35,7 +35,7 @@ class CmsDangqunsController < ApplicationController
   end
   def destroy
     @cms_dangqun.destroy
-    respond_with(@cms_dangqun)
+    respond_with(@cms_dangqun,location: cms_dangquns_path)
   end
 
   private

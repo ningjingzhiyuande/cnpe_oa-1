@@ -1,6 +1,20 @@
 CnpeNew::Application.routes.draw do
 
-  get "about_us"=>"home#about_us"
+  resources :cms_notices
+
+  resources :home_notifications
+  resources :home_lianjies
+
+  get "home_lanjies" ,to: "home_dang_articles#lianjies"
+
+  resources :cms_homes
+
+  resources :home_dang_articles
+
+  
+  resources :home_department_articles
+
+  #get "about_us"=>"home#about_us"
   CmsDepartment.kinds.each do |k,v|
   	get "departments/:kind",to: "home_departments#show"
   end
@@ -69,7 +83,7 @@ CnpeNew::Application.routes.draw do
 
   get  "categories/kind/:kind/(:c_id)" => "categories#index"
 
-
+  resources :dashboards
 
   
   resources :date_settings 

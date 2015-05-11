@@ -9,7 +9,7 @@ class CreateCmsDepartments < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    name = ["部门介绍","组织结构","业务范围","人员信息","团队建设","关于我们"]
+    name = ["部门介绍","组织结构","业务范围","人员信息","团队建设","联系我们"]
     CmsDepartment.kinds.each do |k,v|
         CmsDepartment.create(title: name[v],kind: v)
     end
