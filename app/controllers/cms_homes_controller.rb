@@ -1,6 +1,7 @@
 class CmsHomesController < ApplicationController
+  load_and_authorize_resource
   before_action :set_cms_home, only: [:show, :edit, :update, :destroy]
-
+  skip_before_filter :verify_authenticity_token, :only => [:destroy]
   def index
     @cms_homes = CmsHome.where("kind=?",params[:kind].to_i)
     @cms_home = CmsHome.new
@@ -22,7 +23,7 @@ class CmsHomesController < ApplicationController
   def create
     @cms_home = CmsHome.new(cms_home_params)
     @cms_home.save
-    respond_with(@cms_home)
+    redirect_to :back
   end
 
   def update
@@ -32,7 +33,7 @@ class CmsHomesController < ApplicationController
 
   def destroy
     @cms_home.destroy
-    respond_with(@cms_home)
+    redirect_to :back
   end
 
   private

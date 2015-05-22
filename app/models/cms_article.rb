@@ -1,5 +1,5 @@
 class CmsArticle < ActiveRecord::Base
-	mount_uploader :image, AttacheUploader
+	mount_uploader :image, CmsArticleUploader
 	#default_scope  { where("kind!=100") }
 
 	def self.articles

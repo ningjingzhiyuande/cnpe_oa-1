@@ -4,4 +4,5 @@ class Good < ActiveRecord::Base
 	has_many :loan_reviews,-> { where kind: 'loan' }, class_name: 'Review',as: :item,as: :item
 	has_many :goods_applies
 	has_many :loan_goods
+	belongs_to :user
 end

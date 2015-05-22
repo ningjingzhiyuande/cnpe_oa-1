@@ -10,18 +10,8 @@
        <div class="portlet-content">
            
 
-<%= form_for(@cms_home) do |f| %>
-  <% if @cms_home.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@cms_home.errors.count, "error") %> prohibited this cms_home from being saved:</h2>
-
-      <ul>
-      <% @cms_home.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+<%= form_for(@cms_home,html: {class: "form"}) do |f| %>
+  
 <ul>
   <li> 
 		<span class="width_align_right">通告标题 </span>

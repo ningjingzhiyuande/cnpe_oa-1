@@ -1,14 +1,84 @@
-<p id="notice"><%= notice %></p>
+<%#=render "shared/leave_left"%>
 
-<p>
-  <strong>Good:</strong>
-  <%= @goods_apply.good_id %>
-</p>
+<div id="main-wrapper">
+	<div id="main-content">
+		<%#=render "shared/notice"%>
+        <div class="title">
+			<h3>物品申请详情单：<%=@goods_apply.good.try(:name)%></h3>
+		</div>
+	<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all show_container">
+       <div class="portlet-content">
+          <ul>
+          	<li> 
+		    <span class="width_align_right">申请者: </span> 
+            <span class="width_content">
+         	<%=@goods_apply.user.name%>
+           </span>
+    	   </li>
+    	   <div class="clearfix"></div>
+    	   
+    	   
+			<li> 
+		    <span class="width_align_right">申请物品: </span> 
+            <span class="width_content">
+         	<%=@goods_apply.good.name%>
+           </span>
+    	   </li>
+    	   <div class="clearfix"></div>
+    	   <li> 
+		    <span class="width_align_right">申请数量: </span> 
+            <span class="width_content">
+         	<%=@goods_apply.apply_num%>
+           </span>
+    	   </li>
+    	   <div class="clearfix"></div>
+    	    <li> 
+		    <span class="width_align_right">申请理由: </span> 
+            <span class="width_content">
+         	<%=@goods_apply.apply_info%>
+           </span>
+    	   </li>
+    	   <div class="clearfix"></div>
+    	   <li>
+            <span class="width_align_right">审核状态: </span> 
+    	    	
+            <span class="width_content">
+               <%= @goods_apply.status=="acceptting" && @goods_apply.is_review_over ? '完成' : t(@goods_apply.status)%>  	
+           </span>
 
-<p>
-  <strong>Apply num:</strong>
-  <%= @goods_apply.apply_num %>
-</p>
+    	    </li>
+    	     <div class="clearfix"></div>
+    	    <li>
+           
+       		<%if @goods_apply.can_review_apply?(current_user)%>	
+       		 <span class="width_align_right">审核： </span> 
+    	    	
+            <span class="width_content">
+                    		
 
-<%= link_to 'Edit', edit_goods_apply_path(@goods_apply) %> |
-<%= link_to 'Back', goods_applies_path %>
+            <%['accept','reject'].each do |e|%>
+               <div class="f1 f">  
+               	<%=form_for @goods_apply,:url=>auddit_goods_apply_url(@goods_apply,e: e),method: "post" do |f|%>
+                   <%=f.submit "#{t(e)}",class: "btn_no_text btn ui-state-default ui-corner-all tooltip" %>
+                  
+                <%end%>
+
+                </div>
+ 
+            <%end%>
+             </span>
+            <%end%>
+          
+
+    	    </li>
+
+    	</ul>
+        </div>
+
+	
+    	</div>
+
+	<div class="clearfix"></div>
+
+</div>
+</div>

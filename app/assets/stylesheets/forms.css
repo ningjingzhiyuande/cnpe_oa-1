@@ -141,6 +141,7 @@ input.full, select.full, textarea.full {
 	width:99%;
 }
 
+select.select-150{width:150px;padding-top: 30px}
 textarea.small{
 	height:5.5em;
 }

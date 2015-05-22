@@ -1,6 +1,6 @@
 class HomeDangArticlesController < HomeController
    def index
-  	@articles = CmsArticle.articles
+  	@articles = CmsArticle.articles.page(params[:page]).per(15)
   end
 
   def show

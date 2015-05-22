@@ -1,5 +1,5 @@
 
-<%= form_for(@cms_dangqun,class: "article_form") do |f| %>
+<%= form_for(@cms_dangqun,html: {class: "article_form"}) do |f| %>
    <% if @cms_dangqun.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@cms_dangqun.errors.count, "error") %> prohibited this cms_dangqun from being saved:</h2>
@@ -25,8 +25,11 @@
    
     <li> 
 		<span class="width_align_right">文件 </span>
-		<div><%=f.file_field :document%></div>   
+	   <span class="width_content">
+	   	<%=f.file_field :document%>
+	   </span>   
     </li>
+    <li></li>
 <!--
      <li> 
 		<span class="width_align_right">是否推荐到首页 </span>
@@ -38,35 +41,45 @@
   </div>
  <%end%>
  <script type="text/javascript">
-$(document).ready(function(){
 
-   
-            jQuery('.article_form').validate({
- 
-                rules: {
-                    "cms_article[title]": {
+
+   $(function() {
+
+		$(".article_form").validate({
+			ignore: "",
+			rules: {
+				"cms_dangqun[title]": {
                         minlength: 2,
                         required: true
                     },
-                    "cms_article[content]": {
-                        minlength: 2,
+                    "cms_dangqun[document]": {
+                       
                         required: true
                     }
                 },
 
-            
-
-                submitHandler: function (form) {
-                //alert(111)
-                	$(form).submit();
-                   // success1.show();
-                    //error1.hide();
+             messages: {
+                "cms_dangqun[title]": {
+                   required: "不能为空",
+                   minlength: "最少两个字符"
+                },
+                "cms_dangqun[document]": {
+                	required: "不能为空"
                 }
-            });
-});
+              },
+			errorPlacement: function(label, element) {
+				// position error label after generated textarea
+				if (element.is("textarea")) {
+				
+					label.insertAfter("#content_error");
+				} else {
+					label.insertAfter(element)
+				}
+			}
+
+		});
+		
+	})
+
+
 </script>
-
-
-
-
-

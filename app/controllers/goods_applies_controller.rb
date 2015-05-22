@@ -1,10 +1,28 @@
 class GoodsAppliesController < ApplicationController
+  load_and_authorize_resource
   before_action :set_goods_apply, only: [:show, :edit, :update, :destroy,:auddit]
   skip_before_filter :verify_authenticity_token, :only => [:destroy]
 
   def index
-    @goods_applies = GoodsApply.all
+    @goods_applies = case params["status"]
+  	when "auddit"
+      GoodsApply.where("user_id=?  and is_review_over=0 and status=?",current_user.id,0)
+  	when "need_auddit"
+  	   GoodsApply.where("current_reviewer_id=? ",current_user.id)
+  	when "finished"
+  		GoodsApply.where("user_id=?  and is_review_over=1 and status=?",current_user.id,1)
+  	when "reject"
+  		GoodsApply.where("user_id=?  and is_review_over=1 and status=?",current_user.id,2)	
+  	else	
+   		GoodsApply.where("user_id=?",current_user.id)
+	end
+	
     respond_with(@goods_applies)
+  end
+
+  def list
+  	 @goods_applies = GoodsApply.all
+  	 render "index"
   end
 
   def show
@@ -28,8 +46,8 @@ class GoodsAppliesController < ApplicationController
     ids = item.reviews.where("kind=?",'apply').map(&:user_id)
     apply.reviewer_ids = ids.join(',')
     apply.current_reviewer_id=ids.first  
-    apply.save
-    respond_with(apply,:location=>goods_url,notice: "申请成功")
+   flash[:notice] = '物品申请成功.'  if  apply.save
+    respond_with(apply,:location=>goods_url)
   end
 
   def update

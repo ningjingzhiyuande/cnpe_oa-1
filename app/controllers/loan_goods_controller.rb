@@ -1,11 +1,29 @@
 class LoanGoodsController < ApplicationController
+ # load_and_authorize_resource
   layout "application_no_header",only: [:new,:create]
   before_action :set_loan_good, only: [:show, :edit, :update, :destroy,:auddit]
   skip_before_filter :verify_authenticity_token,only: [:create]
 
   def index
-    @loan_goods = LoanGood.all
+  	@loan_goods = case params["status"]
+  	when "auddit"
+      LoanGood.where("(user_id=? or current_reviewer_id=?)  and is_review_over=0",current_user.id,current_user.id)
+  	when "finished"
+  		LoanGood.where("user_id=?  and is_review_over=1 and status=?",current_user.id,1)
+  	when "reject"
+  		LoanGood.where("user_id=?  and is_review_over=1 and status=?",current_user.id,2)
+  	when "return"
+  		LoanGood.where("user_id=?  and is_review_over=1 and status=? and end_at>=?",current_user.id,1,Time.now)
+  	else	
+   		LoanGood.where("user_id=?",current_user.id)
+	end
     respond_with(@loan_goods)
+  end
+
+  def list
+  		@loan_goods =LoanGood.all
+  		render "index"
+
   end
 
   def goods
@@ -31,6 +49,7 @@ class LoanGoodsController < ApplicationController
   	loan_goods.apply_num = params["apply_num"]
   	loan_goods.loan_info = params["loan_info"]
   	loan_goods.is_consume = item.is_consume
+  	loan_goods.end_at = params[:end_at]
   	ids = item.loan_reviews.map(&:user_id)
     loan_goods.reviewer_ids = ids.join(',')
     loan_goods.current_reviewer_id=ids.first  
@@ -39,6 +58,8 @@ class LoanGoodsController < ApplicationController
     return render json: {data: "ok"} if loan_goods.save
 
   end
+
+  
 
   def auddit
   	 @loan_good.send(params[:e])

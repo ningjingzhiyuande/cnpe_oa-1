@@ -1,16 +1,6 @@
 
-<%= form_for(@cms_department,class: "article_form") do |f| %>
-   <% if @cms_department.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@cms_department.errors.count, "error") %> prohibited this cms_department from being saved:</h2>
-
-      <ul>
-      <% @cms_department.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+<%= form_for(@cms_department,html: {class: "article_form"}) do |f| %>
+  
 
   <ul>
 
@@ -28,39 +18,70 @@
 		<div><%=f.kindeditor :content, :simple_mode => true, :width => 600, :height => 500  %></div>   
     </li>
 
+     <li> 
+		<span class="width_align_right">&nbsp; </span>
+		 <span class="width_content content_error" id="content_error">
+           
+       </span> 
+    </li>
+
     
 </ul>
  <div class="actions">
    <input type="submit" class="submit" value="提交"/>
   </div>
  <%end%>
- <script type="text/javascript">
-$(document).ready(function(){
 
-   
-            jQuery('.article_form').validate({
- 
-                rules: {
-                    "cms_article[title]": {
+ <script type="text/javascript">
+
+
+   $(function() {
+
+		$(".article_form").validate({
+			ignore: "",
+			rules: {
+				"cms_department[title]": {
                         minlength: 2,
                         required: true
                     },
-                    "cms_article[content]": {
-                        minlength: 2,
-                        required: true
+                "cms_department[content]": {
+                       required:  function(textarea){
+                    	if (typeof KindEditor !== "undefined" && KindEditor.instances) {
+    						$.each(KindEditor.instances, function() {
+        						this.sync();
+   						 	});
+						}
+
+                    	var editorcontent = textarea.value.replace(/<[^>]*>/gi, ''); 
+                    	
+                        return editorcontent.length === 0;
+
                     }
+                  }
                 },
 
-            
-
-                submitHandler: function (form) {
-                //alert(111)
-                	$(form).submit();
-                   // success1.show();
-                    //error1.hide();
+             messages: {
+                "cms_department[title]": {
+                   required: "不能为空",
+                   minlength: "最少两个字符"
+                },
+                "cms_department[content]": {
+                	required: "不能为空"
                 }
-            });
-});
+              },
+			errorPlacement: function(label, element) {
+				// position error label after generated textarea
+				if (element.is("textarea")) {
+				
+					label.insertAfter("#content_error");
+				} else {
+					label.insertAfter(element)
+				}
+			}
+
+		});
+		
+	})
+
+
 </script>
-
-

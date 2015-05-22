@@ -76,10 +76,18 @@
           <%= f.select :department_id, Category.departments.map{|c|[c.name,c.id]}%>
         </span>
     </li>
+
      <li> 
 		<span class="width_align_right">职位:</span>
          <span class="width_content">
           <%= f.select :rank_id, User.rank_ids.collect{|k,v|[I18n.t("user_roles.#{k}"),k]}%>
+        </span>
+       </li>
+
+          <li> 
+		<span class="width_align_right">权限:</span>
+         <span class="width_content">
+          <%= f.select :role_id, User.role_ids.collect{|k,v|[I18n.t("#{k}"),k]},{include_blank: true }%>
         </span>
        </li>
 

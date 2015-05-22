@@ -63,13 +63,14 @@
 $(".submit").click(function(){
 	var apply_num = $('.apply_num').val();
 	var loan_info = $('.loan_info').val();
+	var end_at = $('.datetimepicker').val();
 	
     //$('.add_users').each(function() {value.push($(this).val()); })
     if(parseInt(apply_num)<1){
     	alert("请填写正确的申请数量");
     }else
-      $.post($("form").attr("action"),{apply_num: apply_num,loan_info: loan_info},function(data){
-      	 alert("设置成功!")
+      $.post($("form").attr("action"),{apply_num: apply_num,loan_info: loan_info,end_at: end_at},function(data){
+      	 alert("申请成功!")
          var index = parent.layer.getFrameIndex(); //获取当前窗体索引
          //parent.
          parent.layer.close(index); //执行关闭

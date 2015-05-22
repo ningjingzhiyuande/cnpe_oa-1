@@ -8,15 +8,50 @@
 								<a class="set_theme" id="default" href="/goods/new" title="Default Theme">添加物品</a>
 							</li>
 							<li>
-								<a class="set_theme" id="light_blue" href="/goods_applies" title="Light Blue Theme">申请列表</a>
+								<a class="set_theme" id="light_blue" href="/goods" title="Light Blue Theme">物品列表</a>
 							</li>
 							<li>
-								<a class="set_theme" id="light_blue" href="/loan_goods" title="Light Blue Theme">出库列表</a>
+								<a class="set_theme" id="light_blue" href="/goods_applies?status=auddit" title="Light Blue Theme">我的申请列表</a>
+							</li>
+							<li>
+								<a class="set_theme" id="light_blue" href="/goods_applies?status=finished" title="Light Blue Theme">审核通过的物品列表</a>
+							</li>
+							<li>
+								<a class="set_theme" id="light_blue" href="/goods_applies?status=reject" title="Light Blue Theme">审核不通过的物品列表</a>
+							</li>
+							<li>
+								<a class="set_theme" id="light_blue" href="/goods_applies?status=need_auddit" title="Light Blue Theme">待审核物品列表</a>
+							</li>
+							<li>
+								<a class="set_theme" id="light_blue" href="/goods_applies/list" title="Light Blue Theme">申请列表</a>
+							</li>
+							<li>
+								<a class="set_theme" id="light_blue" href="/loan_goods/list" title="Light Blue Theme">出库列表</a>
 							</li>
 							
 						</ul>
 					</div>
 				</div>
 			</div>
+
+				<div class="side-col ui-sortable">
+				<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">
+					<div class="portlet-header ui-widget-header">物品统计</div>
+					<div class="portlet-content">
+						<ul class="side-menu">
+						
+							<li>
+								<a class="set_theme" id="light_blue" href="/goods/apply_analysis" title="Light Blue Theme">物品入库统计</a>
+							</li>
+
+							<li>
+								<a class="set_theme" id="light_blue" href="/goods/loan_analysis" title="Light Blue Theme">物品出库统计</a>
+							</li>
+							
+						</ul>
+					</div>
+				</div>
+			</div>
+
 
     </div>

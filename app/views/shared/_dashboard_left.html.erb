@@ -19,7 +19,10 @@
 					<div class="portlet-header ui-widget-header">内部要闻</div>
 					<div class="portlet-content">
 						<ul class="side-menu">
-							
+							<%ts = CmsHome.where("kind=1")%>
+					<%ts.each do |t|%>
+					<li><a href="<%=t.url%>" target="blank"><%=t.title%></a></li>
+					<%end%>
 							
 							
 						</ul>

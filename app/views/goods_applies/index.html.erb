@@ -11,8 +11,7 @@
 		
 	
         <div class="hastable">
-					
-						<table> 
+					<table id="datatable" class="display"> 
 						<thead> 
 						<tr>
 							<th>#ID</th>
@@ -39,21 +38,18 @@
         					<td><%=apply.apply_num %></td>
         					<td><%=apply.apply_info %></td>
         					<td><%=apply.good.reviews.where("kind=?",'apply').map{|r| r.user.name} rescue nil%></td>
-        					<td><%= apply.status=="acceptting" && apply.is_review_over ? '完成' : apply.status%></th>
+        					<td><%= apply.status=="acceptting" && apply.is_review_over ? '完成' : t(apply.status)%></th>
 							
-       						<td> 
+       						<td> <%=link_to  "查看详情",goods_apply_path(apply)%>  
        		
        		<%if apply.can_review_apply?(current_user)%>	
 
             <%['accept','reject'].each do |e|%>
-               <div class="f1 f">  <%=form_for :apply,:url=>auddit_goods_apply_url(apply,e: e) do |f|%>
-                   <%=f.submit "#{t(e)}",class: "btn_no_text btn ui-state-default ui-corner-all tooltip" %>
+               <div class="f1 f">  <%=form_for :apply,:url=>auddit_goods_apply_url(apply,e: e),method: "post" do |f|%>
+                   |  <%=f.submit "#{t(e)}",class: "btn_no_text btn ui-state-default ui-corner-all tooltip" %>
                   
                 <%end%>
 
-               		 
-                 
-                
                 </div>
  
             <%end%>

@@ -33,13 +33,13 @@ class UsersController < ApplicationController
 
   def hr
   	 @user = User.find params[:id]
-  	 @user.update_attributes(role_id: 1)
+  	 @user.update_attributes(is_admin: 1)
   	 redirect_to :back, :notice => "修改成功"
   end
 
   def unhr
   	 @user = User.find params[:id]
-  	 @user.update_attributes(role_id: 0)
+  	 @user.update_attributes(is_admin: 0)
   	 redirect_to :back, :notice => "修改成功"
   end
     
@@ -56,6 +56,6 @@ class UsersController < ApplicationController
    private
   
     def user_params
-      params.require(:user).permit(:name, :username, :rank_id, :department_id, :email, :password, :password_confirmation,:work_at,:born_at,:gender)
+      params.require(:user).permit(:name, :username, :rank_id, :department_id, :email, :password, :password_confirmation,:work_at,:born_at,:gender,:role_id)
     end
 end

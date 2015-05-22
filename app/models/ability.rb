@@ -12,6 +12,8 @@ class Ability
         return
     end
 
+
+
     can :update,User, :id => user.id
     can :show,Leave,:user_id=>user.id
     can :destroy,Leave,:user_id=>user.id
@@ -24,10 +26,27 @@ class Ability
     	can :auddit,Leave
     	can :auddit_from_mail,Leave
     	can :show,User
-
-        
-
+    	can :manage,LoanGood
+    	can :manage,GoodsApply 
+    	can :goods,LoanGood
+    	can :list,LoanGood
     end
+
+     if user.hr?
+    	can :read,Leave
+    	can :list,Leave
+    	can :export,Leave
+    	can :export_data,Leave
+    end
+
+    if user.cms_manager?
+    	can :manage,[CmsArticle,CmsDangqun,CmsDepartment,CmsHome]
+    end
+
+    if user.good_manager?
+    	can :manage,[Good,GoodsApply,LoanGood]
+    end
+
     if user.is_leader
     	can :read,Leave#,:user_id => user.id,:reporter1_id =>user.id,:reporter2_id => user.id
     	can :create ,Leave
@@ -40,15 +59,11 @@ class Ability
         can :list,Leave
         can :export,Leave
     	can :export_data,Leave
+    	#can :manage,[CmsArticle,CmsDangqun,CmsDepartment,CmsHome]
+    	can :manage,[Good,GoodsApply,LoanGood]
         #can :index,DashBoard
     end
-    if user.role_id==1
-    	#can :update,Leave
-    	can :read,Leave
-    	can :list,Leave
-    	can :export,Leave
-    	can :export_data,Leave
-    end
+   
     if user.is_admin?
     	can :manage, :all
     end

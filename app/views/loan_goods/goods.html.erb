@@ -12,7 +12,7 @@
 	
         <div class="hastable">
 					
-						<table> 
+					<table id="datatable" class="display"> 
 						<thead> 
 						<tr>
 							<th>#ID</th>
@@ -36,9 +36,14 @@
         					<td><%=good.is_consume ? "是" : "不是"%></td>
         					
         					<td><%=good.stock_num%></td>
-        				    
-							<td><%=good.reviews.where("kind=?",'loan').map{|r| r.user.name} %></td>
-       						<td> <a href="javascript:void(0)" data-url=<%= new_polymorphic_url([good,@loan])%> class="add_review"> 出库申请</a>
+        				    <%reviews=good.reviews.where("kind=?",'loan').map{|r| r.user.name}  %>
+        					<td><%=reviews%></td> 
+							
+       						<td> <%if reviews.blank?%>
+       							请找管理员设置出库审核人
+								<%else%>
+       							<a href="javascript:void(0)" data-url=<%= new_polymorphic_url([good,@loan])%> class="add_review"> 出库申请</a>
+       							<%end%>
        							
       					</td>
       					</tr>
@@ -59,7 +64,7 @@ $(function(){
     	$.layer({
     		type: 2,
    			shadeClose: true,
-    		title: "设置审批流程",
+    		title: "物品出库申请",
     		closeBtn: [0, false],
     		shade: [0.8, '#000'],
     		border: [0],

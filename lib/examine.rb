@@ -32,7 +32,7 @@ module Examine #:nodoc:
 
        
       	def init_and_send_mail
-
+      		(self.class.name+"Mailer").constantize.send_mail(self).deliver_later 
       	end
 
       	def need_review

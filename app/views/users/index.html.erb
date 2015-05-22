@@ -15,7 +15,7 @@
 						<thead> 
 						<tr>
 							<th>#ID</th>
-							<th>审核</th>
+						
 							<th>邮件</th>
 						    <th>姓名</th> 
 						    <th>部门</th> 
@@ -30,11 +30,11 @@
 						<% @users.each do |user| %>
 						<tr>
 							<td class="center"><%=user.id%></td> 
-							<td><%=user.is_approve ? "通过" : "未审核"%></td> 
+							
 						    <td><%= user.email %></td> 
 						    <td><%= user.name %></td> 
 						    <td><%= user.department.try(:name) %></td>
-						    <td><%= t("user_roles.#{user.rank_id}") %></td>
+						    <td><%= t("user_roles.#{user.rank_id}")%>-<%=user.role_id.blank? ? "" : t("#{user.role_id}") %></td>
 						    <td><%= user.work_at %></td> 
 						    <td><%= user.born_at %></td> 
 											    
@@ -42,14 +42,14 @@
 						    <td>
 								<a class="btn_no_text btn ui-state-default ui-corner-all tooltip" title="Edit this example" href="/users/<%=user.id%>/edit">修改
 								</a>
-							    <%if user.is_approve%>
-							      <%if user.role_id!=1%>
+							  <%if user.is_approve%>
+							      <%if !user.is_admin%>
 								    <a class="btn_no_text btn ui-state-default ui-corner-all tooltip" title="Delete this example" href="/users/<%=user.id%>/hr" > 
-									设为HR
+									设为超级管理员
 								   </a>
-								   <%elsif user.role_id==1%>
+								   <%elsif user.is_admin%>
 								    <a class="btn_no_text btn ui-state-default ui-corner-all tooltip" title="Delete this example" href="/users/<%=user.id%>/unhr" > 
-取消HR
+取消超级管理员
 								   </a>
 								   <%end%>
 
@@ -77,32 +77,6 @@
 </div>
 
 </div>
-
-	
-<script>
-$(function() {
-
-$('#datatable').dataTable({
-    "oLanguage": {
-      "sLengthMenu": "每页显示 _MENU_ 条记录",
-      "sZeroRecords": "对不起，查询不到任何相关数据",
-      "sInfo": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_ 条记录",
-      "sInfoEmtpy": "找不到相关数据",
-      "sInfoFiltered": "数据表中共为 _MAX_ 条记录)",
-      "sProcessing": "正在加载中...",
-      "sSearch": "搜索",
-      "sUrl": "", //多语言配置文件，可将oLanguage的设置放在一个txt文件中，例：Javascript/datatable/dtCH.txt
-      "oPaginate": {
-          "sFirst":    "第一页",
-          "sPrevious": " 上一页 ",
-          "sNext":     " 下一页 ",
-          "sLast":     " 最后一页 "
-      }
-  }
-
-})  
-})
-</script>
 
 
 

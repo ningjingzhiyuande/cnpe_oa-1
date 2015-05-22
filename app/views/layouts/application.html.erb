@@ -34,8 +34,9 @@
 			| <a href="/users/logout" title="Logout">退出</a>
 		</div>
 		<div id="sitename">
-			<!--<a href="index.html" class="logo float-left" title="JsAdmin">JsAdmin</a>
-			<div class="button float-right">
+
+			<a href="/" class="logo float-left" title="中国核电">中国核电采购部内部后台管理系统</a>
+			<!--<div class="button float-right">
 				<a href="#" id="dialog_link" class="btn ui-state-default ui-corner-all"><span class="ui-icon ui-icon-newwin"></span>打开对话框</a>
 				<a href="#" id="login_dialog" class="btn ui-state-default ui-corner-all"><span class="ui-icon ui-icon-image"></span>登录框</a>
 			</div>
@@ -67,7 +68,7 @@
 		</div>
 		<ul id="navigation" class="sf-navbar">
 			<li>
-				<a href="/">控制台</a>
+				<a href="/dashboards">控制台</a>
 				
 			</li>
 		
@@ -124,12 +125,40 @@
 
 
 <div id="page-wrapper">
+	
 
   <%=yield%>
 
 </div>
 </body>
 <%=yield :footer%>
+
+	
+<script>
+$(function() {
+
+$('#datatable').dataTable({
+    "oLanguage": {
+      "sLengthMenu": "每页显示 _MENU_ 条记录",
+      "sZeroRecords": "对不起，查询不到任何相关数据",
+      "sInfo": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_ 条记录",
+      "sInfoEmtpy": "找不到相关数据",
+      "sInfoFiltered": "数据表中共为 _MAX_ 条记录)",
+      "sProcessing": "正在加载中...",
+      "sSearch": "搜索",
+      "sUrl": "", //多语言配置文件，可将oLanguage的设置放在一个txt文件中，例：Javascript/datatable/dtCH.txt
+      "oPaginate": {
+          "sFirst":    "第一页",
+          "sPrevious": " 上一页 ",
+          "sNext":     " 下一页 ",
+          "sLast":     " 最后一页 "
+      }
+  }
+
+})  
+})
+</script>
+
 
 </html>
 

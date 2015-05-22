@@ -4,7 +4,7 @@
 	<div id="main-content">
 		<%#=render "shared/notice"%>
         <div class="title">
-			<h3>物品申请详情单：<%=@loan_good.good.try(:name)%></h3>
+			<h3>物品申请详情单：<%=@obj.good.try(:name)%></h3>
 		</div>
 	<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all show_container">
        <div class="portlet-content">
@@ -12,66 +12,49 @@
           	<li> 
 		    <span class="width_align_right">申请者: </span> 
             <span class="width_content">
-         	<%=@loan_good.user.name%>
+         	<%=@obj.user.name%>
            </span>
     	   </li>
     	   <div class="clearfix"></div>
-    	   
-    	   
+    	 
 			<li> 
 		    <span class="width_align_right">申请物品: </span> 
             <span class="width_content">
-         	<%=@loan_good.good.name%>
+         	<%=@obj.good.name%>
            </span>
     	   </li>
-    	   <div class="clearfix"></div>
     	   <li> 
 		    <span class="width_align_right">申请数量: </span> 
             <span class="width_content">
-         	<%=@loan_good.apply_num%>
+         	<%=@obj.apply_num%>
            </span>
     	   </li>
-    	   <div class="clearfix"></div>
     	    <li> 
 		    <span class="width_align_right">申请理由: </span> 
             <span class="width_content">
-         	<%=@loan_good.apply_info%>
+         	<%=@obj.apply_info%>
            </span>
     	   </li>
     	   <div class="clearfix"></div>
-    	   <li>
             <span class="width_align_right">审核状态: </span> 
     	    	
             <span class="width_content">
-               <%= @loan_good.status=="acceptting" && @loan_good.is_review_over ? '完成' : t(@loan_good.status)%>  	
+                 <%= @obj.status=="acceptting" && @obj.is_review_over ? '完成' : t(@obj.status)%>  	 	
            </span>
 
     	    </li>
-    	     <div class="clearfix"></div>
+    	      <div class="clearfix"></div>
+    	      <% unless @obj.is_review_over%>
     	    <li>
-           
-       		<%if @loan_good.can_review_apply?(current_user)%>	
-       		 <span class="width_align_right">审核： </span> 
+            <span class="width_align_right">审核: </span> 
     	    	
             <span class="width_content">
-                    		
 
-            <%['accept','reject'].each do |e|%>
-               <div class="f1 f">  
-               	<%=form_for @loan_good,:url=>auddit_loan_good_url(@loan_good,e: e),method: "post" do |f|%>
-                   <%=f.submit "#{t(e)}",class: "btn_no_text btn ui-state-default ui-corner-all tooltip" %>
-                  
-                <%end%>
-
-                </div>
- 
-            <%end%>
-             </span>
-            <%end%>
-          
+                 <%= link_to "点击查看",@url+goods_apply_path(@obj,token: @reviewer.try(:email))%>   	
+           </span>
 
     	    </li>
-
+    	    <%end%>
     	</ul>
         </div>
 
@@ -82,4 +65,3 @@
 
 </div>
 </div>
-

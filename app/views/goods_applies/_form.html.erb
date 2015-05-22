@@ -1,4 +1,4 @@
-<%= form_for([@item,@goods_apply]) do |f| %>
+<%= form_for([@item,@goods_apply],html: {class: "apply_form"}) do |f| %>
  
 <ul>
 	<li> 
@@ -38,3 +38,13 @@
     <%= f.submit '提交申请'%>
   </div>
 <% end %>
+<script>
+$(".apply_form").validate({
+  rules: {
+    "goods_apply[apply_num]": {
+      required: true,
+      number: true
+    }
+  }
+});
+</script>

@@ -8,11 +8,11 @@
 </h3>
 
 <p>
-  <%= @cms_article.content %>
+  <%=raw @cms_article.content %>
 </p>
 
 <p>
-  <%=image_tag @cms_article.image.url %>
+  <%=image_tag @cms_article.image.url unless @cms_article.image.blank? %>
 </p>
 
 </div>

@@ -1,9 +1,10 @@
 class CmsArticlesController < ApplicationController
+  load_and_authorize_resource
   before_action :set_cms_article, only: [:show, :edit, :update, :destroy]
   skip_before_filter :verify_authenticity_token, :only => [:destroy]
 
   def index
-    @cms_articles = CmsArticle.articles
+    @cms_articles = CmsArticle.articles#.page(params[:page]).per(10)
     respond_with(@cms_articles)
   end
 

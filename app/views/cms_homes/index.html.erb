@@ -1,3 +1,53 @@
 <%=render "left"%>
 <%=render   CmsHome.kinds.key(params[:kind].to_i) %>
+<script type="text/javascript">
+   $(function() {
+
+		$(".form").validate({
+			ignore: "",
+			rules: {
+				"cms_home[url]": {
+                        minlength: 2,
+                        required: true
+                    },
+                "cms_home[image]": {
+                       required: true 
+                 
+                  },
+                 "cms_home[title]": {
+                       required: true 
+                 
+                  }
+
+                },
+
+             messages: {
+                "cms_home[url]": {
+                   required: "不能为空",
+                   minlength: "最少两个字符"
+                },
+                "cms_home[image]": {
+                	required: "不能为空"
+                },
+                 "cms_home[title]": {
+                	required: "不能为空"
+                }
+              },
+			errorPlacement: function(label, element) {
+				// position error label after generated textarea
+				if (element.is("textarea")) {
+				
+					label.insertAfter("#content_error");
+				} else {
+					label.insertAfter(element)
+				}
+			}
+
+		});
+		
+	})
+
+
+</script>
+
 

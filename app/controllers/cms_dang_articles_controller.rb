@@ -1,4 +1,5 @@
 class CmsDangArticlesController < ApplicationController
+  load_and_authorize_resource :class => "CmsArticle"
   before_action :set_cms_article, only: [:show, :edit, :update, :destroy]
   skip_before_filter :verify_authenticity_token, :only => [:destroy]
 

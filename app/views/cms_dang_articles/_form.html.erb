@@ -1,4 +1,4 @@
-<%= form_for(@cms_article,url: @cms_article.new_record? ? cms_dang_articles_url : cms_dang_article_url(@cms_article),class: "article_form") do |f| %>
+<%= form_for(@cms_article,url: @cms_article.new_record? ? cms_dang_articles_url : cms_dang_article_url(@cms_article),html: {class: "article_form"}) do |f| %>
   <% if @cms_article.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@cms_article.errors.count, "error") %> prohibited this cms_article from being saved:</h2>
@@ -25,7 +25,12 @@
 		<span class="width_align_right">内容 </span>
 		<div><%=f.kindeditor :content, :simple_mode => true, :width => 600, :height => 300 %></div>   
     </li>
-
+   <li> 
+		<span class="width_align_right">&nbsp; </span>
+		 <span class="width_content content_error" id="content_error">
+           
+       </span> 
+    </li>
      <li> 
 		<span class="width_align_right">是否推荐到首页 </span>
 		<div><%=f.check_box :is_recommend,class: "is_recommend"%></div>   
@@ -39,33 +44,58 @@
    <input type="submit" class="submit" value="提交"/>
   </div>
  <%end%>
- <script type="text/javascript">
-$(document).ready(function(){
+<script type="text/javascript">
 
-   
-            jQuery('.article_form').validate({
- 
-                rules: {
-                    "cms_article[title]": {
+
+   $(function() {
+
+		$(".article_form").validate({
+			ignore: "",
+			rules: {
+				"cms_article[title]": {
                         minlength: 2,
                         required: true
                     },
-                    "cms_article[content]": {
-                        minlength: 2,
-                        required: true
+                "cms_article[content]": {
+                       required:  function(textarea){
+                    	if (typeof KindEditor !== "undefined" && KindEditor.instances) {
+    						$.each(KindEditor.instances, function() {
+        						this.sync();
+   						 	});
+						}
+
+                    	var editorcontent = textarea.value.replace(/<[^>]*>/gi, ''); 
+                    	
+                        return editorcontent.length === 0;
+
                     }
+                  }
                 },
 
-            
-
-                submitHandler: function (form) {
-                //alert(111)
-                	$(form).submit();
-                   // success1.show();
-                    //error1.hide();
+             messages: {
+                "cms_article[title]": {
+                   required: "不能为空",
+                   minlength: "最少两个字符"
+                },
+                "cms_article[content]": {
+                	required: "不能为空"
                 }
-            });
-});
+              },
+			errorPlacement: function(label, element) {
+				// position error label after generated textarea
+				if (element.is("textarea")) {
+				
+					label.insertAfter("#content_error");
+				} else {
+					label.insertAfter(element)
+				}
+			}
+
+		});
+		
+	})
+
+
 </script>
 
 

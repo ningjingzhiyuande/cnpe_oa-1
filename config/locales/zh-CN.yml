@@ -55,20 +55,27 @@ zh-CN:
 
 
 
-  acceptting: "处长已同意,请等待主任审批"
+  acceptting: "已同意,请等待其他人审核"
   applying: "申请状态"
   auditting: "等待审核"
-  rejectting: "处长拒绝"
-  last_acceptting: "主任已同意"
-  last_rejectting: "主任拒绝"
+  rejectting: "拒绝"
+  last_acceptting: "已同意"
+  last_rejectting: "拒绝"
   finished: "完成"
   leader_agree: "您的请假条已被领导批准"  
   leader_reject: "您的请假条已被领导拒绝"
+
 
   accept: "同意"
   reject: "拒绝"
   last_accept: "同意"
   last_reject: "拒绝"
+
+  hr: "HR"
+  cms_manager: "新闻动态部门管理"
+  good_manager: "物品管理员"
+  
+
 
   views:
     pagination:

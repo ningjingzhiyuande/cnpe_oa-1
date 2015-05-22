@@ -1,4 +1,5 @@
 class ReviewsController < ApplicationController
+	#load_and_authorize_resource
 	layout "application_no_header"
 	#before_action :find_item,only: [:new]
 	skip_before_filter :verify_authenticity_token,only: [:create]#, :if => Proc.new { |c| c.request.format == 'application/json' }

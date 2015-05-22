@@ -137,8 +137,8 @@
 			<div class="about_con right">
 				<div class="title">部门简介</div>
 				<%dp = CmsHome.where("kind=2").first%>
-				<p class="pt"><img src="<%=dp.image.url%>" alt="" /></p>
-				<p class="wz"><%=dp.title%>..<a href="/departments/bumenjieshao" class="orange_font">详情</a></p>
+				<p class="pt"><img src="<%=dp.try(:image).try(:url)%>" alt="" /></p>
+				<p class="wz"><%=dp.try(:title)%><a href="/departments/bumenjieshao" class="orange_font">详情</a></p>
 			</div>
 		</div>
 		<div class="blank15"></div>

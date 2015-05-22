@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  enum role_id: ["hr","cms_manager","good_manager"]
+
   enum rank_id: {user: 1,chief:100, chairman: 200}
   scope :chairman, -> { where(rank_id: 200) }
   scope :chief, -> { where(rank_id: 100) }

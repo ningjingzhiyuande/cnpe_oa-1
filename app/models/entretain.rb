@@ -64,18 +64,18 @@ class Entretain < ActiveRecord::Base
 
     def send_apply_mail
     	#binding.pry
-    	EntretainMail.send_apply_mail(self).deliver
+    	EntretainMail.send_apply_mail(self).deliver_later
     end
     def send_superior_mail
-    	EntretainMail.send_superior_mail(self).deliver
+    	EntretainMail.send_superior_mail(self).deliver_later
     end
     def send_finished_mail
-    	EntretainMail.send_finished_mail(self).deliver
+    	EntretainMail.send_finished_mail(self).deliver_later
     end
 
 
     def self.report_user(user)
-    	User.where(role_id: 100).where(department: [user.department, 6100]).select(:id,:name).collect{|u|[u.name,u.id]}   	
+    	User.where(rank_id: 100).where(department: [user.department, 6100]).select(:id,:name).collect{|u|[u.name,u.id]}   	
     end
     def is_reporter?(user_id)
     	reporter_id==user_id
@@ -83,7 +83,7 @@ class Entretain < ActiveRecord::Base
 
 
     def self.last_report_user(user)
-      User.where(role_id: 200).select(:id,:name).collect{|u|[u.name,u.id]}    
+      User.where(rank_id: 200).select(:id,:name).collect{|u|[u.name,u.id]}    
     end
     def is_last_reporter?(user_id)
       last_reporter_id==user_id

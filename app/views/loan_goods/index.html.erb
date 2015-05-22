@@ -8,17 +8,14 @@
 			<h3>物品列表</h3>
 		</div>
      <div class="hastable">
-					
-						<table> 
+					<table id="datatable" class="display"> 
 						<thead> 
 						<tr>
 							<th>#ID</th>
-						    <th>名称</th> 
-						    
+						    <th>名称</th> 		    
 						    <th>借出数量</th>
-						   
 						    <th>描述</th> 
-						   
+						    <th>状态</th>					   
 						    <th>操作</th> 
 							
 						</tr> 
@@ -31,7 +28,8 @@
         					<td><%=loan_good.id %></td>
         					<td><%=loan_good.good.name %></td>
         					<td><%=loan_good.apply_num %></td>
-        					<td><%=loan_good.loan_info %></td>
+        					<td><%=loan_good.loan_info %><%="归还日期：#{loan_good.end_at.to_date}" if loan_good.end_at.present?%></td>
+        					<td><%= loan_good.status=="acceptting" && loan_good.is_review_over ? '完成' : t(loan_good.status)%></td>
         					<td><%=link_to "查看",loan_good,class: "btn_no_text btn ui-state-default ui-corner-all tooltip"%>
         					<%if loan_good.can_review_apply?(current_user)%>	
 								<%['accept','reject'].each do |e|%>
