@@ -94,16 +94,16 @@
 			<div class="administrative right">
 				<div class="title orange">行政办公</div>
 				<ul>
-					<li><a href=""><img src="/images/home/xz_pt1.jpg" alt="" /></a></li>
-					<li><a href=""><img src="/images/home/xz_pt2.jpg" alt="" /></a></li>
-					<li><a href=""><img src="/images/home/xz_pt3.jpg" alt="" /></a></li>
+					<li><a href="/leaves"><img src="/images/home/xz_pt1.jpg" alt="" /></a></li>
+					<li><a href="/entretains"><img src="/images/home/xz_pt2.jpg" alt="" /></a></li>
+					<li><a href="loan_goods/goods"><img src="/images/home/xz_pt3.jpg" alt="" /></a></li>
 				</ul>
 			</div>
 		</div>
 		<div class="blank20"></div>
 		<div>
 			<div class="news_box left">
-				<div class="title yahei"><a href="" class="more_btn right">更多</a><div class="name"><span class="ic_1">党群建设</span></div></div>
+				<div class="title yahei"><a href="/home_dang_articles" class="more_btn right">更多</a><div class="name"><span class="ic_1">党群建设</span></div></div>
 				<div>
 					<%@dqs = CmsArticle.dang_articles.order("is_recommend desc").limit(7)%>
 						<%f_article = @dqs.first%> 
@@ -123,7 +123,7 @@
 				</div>
 			</div>
 			<div class="news_box left">
-				<div class="title yahei"><a href="ljcy_list.html" class="more_btn right">更多</a><div class="name"><span class="ic_1">廉洁从业</span></div></div>
+				<div class="title yahei"><a href="/home_lanjies" class="more_btn right">更多</a><div class="name"><span class="ic_1">廉洁从业</span></div></div>
 				<div>
 					<ul class="news_2">
 						<%@lianjies = CmsDangqun.order("is_recommend desc").limit(9)%>

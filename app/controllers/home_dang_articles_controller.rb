@@ -8,6 +8,6 @@ class HomeDangArticlesController < HomeController
   end
 
   def lianjies
-  	 @articles = CmsDangqun.all
+  	 @articles = CmsDangqun.all.page(params[:page]).per(15)
   end
 end
