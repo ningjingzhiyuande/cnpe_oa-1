@@ -5,4 +5,10 @@ class Good < ActiveRecord::Base
 	has_many :goods_applies
 	has_many :loan_goods
 	belongs_to :user
+
+	#before_save :noconsume_must_return
+
+	def noconsume_must_return
+		
+	end
 end

@@ -9,7 +9,7 @@ class EntretainsController < ApplicationController
   		@entretains = current_user.entretains
 
   	elsif params[:q]=="report"
-        @entretains =Entretain.where(["last_reporter_id=? or reporter_id=?", current_user.id,current_user.id])
+        @entretains =Entretain.where(["reporter_id=?",current_user.id])
     else
         @entretains = Entretain.where(["user_id=? or reporter_id=?", current_user.id,current_user.id])
     end
@@ -43,7 +43,7 @@ class EntretainsController < ApplicationController
 
     respond_to do |format|
       if @entretain.save
-        format.html { redirect_to @entretain, notice: 'Entretain was successfully created.' }
+        format.html { redirect_to @entretain, notice: '宴请单申请成功，等待审核.' }
         format.json { render action: 'show', status: :created, location: @entretain }
       else
         format.html { render action: 'new' }
@@ -62,13 +62,17 @@ class EntretainsController < ApplicationController
      email =  Base64.decode64(params["token"])
      motion =  Base64.decode64(params["e"])
      user = User.find_by(email: email)
-      
+
      return render :text => "error" unless user 
-     return render :text => "bushi " unless  [@entretain.reporter_id, @entretain.last_reporter_id].include? user.id 
+     return render :text => "您没有审核权限 " unless  [@entretain.reporter_id, @entretain.last_reporter_id].include? user.id 
      sign_in user  
 
      @entretain.send(motion)
      redirect_to entretains_url if  @entretain.save
+  end
+
+  def statistics
+  	
   end
 
   private

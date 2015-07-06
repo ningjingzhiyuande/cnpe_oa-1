@@ -1,0 +1,67 @@
+<style type="text/css">
+.right{text-align: right}
+.center{text-align: center;}
+.center button{color: blue;font-size: 14px;}
+</style>
+<%= form_for(@pre_good) do |f| %>
+  <% if @pre_good.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@pre_good.errors.count, "error") %> prohibited this pre_good from being saved:</h2>
+
+      <ul>
+      <% @pre_good.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<table>
+	<tr>
+ 		<td class="right"> 物品名称</td>
+  		<td><%= f.text_field :name %></td>
+    </tr>
+    <tr>
+ 		<td class="right"> 数量</td>
+  		<td> <%= f.number_field :num %></td>
+    </tr>
+    <tr>
+ 		<td class="right">单价</td>
+  		<td><%= f.text_field :price %></td>
+    </tr>
+    <tr>
+ 		<td class="right"> 是否消耗品</td>
+  		<td> <%= f.check_box :is_consume %></td>
+    </tr>
+    <tr>
+         <td colspan="2" class="center"> <input type="button" class="submit" value="提交"/></td>
+    </tr>
+</table>
+ 
+<% end %>
+
+<script type="text/javascript">
+$(".submit").click(function(){
+
+	var name = $('#pre_good_name').val();
+	var num = $('#pre_good_num').val();
+	var price = $('#pre_good_price').val();
+	var is_consume = $('#pre_good_is_consume').prop("checked") ? '1' : "0";
+
+	
+    //$('.add_users').each(function() {value.push($(this).val()); })
+    if(parseInt(num)<1 || name=="" || price==""){
+    	alert("请填写正确!");
+    	return false
+    }else
+
+      $.post($("form").attr("action"),{name: name,num: num,price: price,is_consume: is_consume},function(data){
+      	 alert("申请成功!")
+         var index = parent.layer.getFrameIndex(); //获取当前窗体索引
+         //parent.
+         parent.layer.close(index); //执行关闭
+
+      
+       })
+     
+    })
+</script

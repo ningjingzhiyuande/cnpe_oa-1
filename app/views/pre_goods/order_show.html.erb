@@ -1,0 +1,70 @@
+<%=render "shared/goods"%>
+
+<div id="main-wrapper">
+	<div id="main-content">
+		<%=render "shared/notice"%>
+        <div class="title">
+			<h3>物品申请审核详情单</h3>
+		</div>
+	<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all show_container">
+		<div class="title" style="text-align:center"><h3>订单号：<%=params["order_key"]%></h3></div>
+       <div class="portlet-content hastable">
+        
+					
+						<table id="" class="display"> 
+						<thead> 
+						<tr>
+							<th>物品名称</th> 
+						    <th>数量</th>  
+						    <th>价钱</th> 
+						     	   			
+						</tr> 
+						</thead> 
+						<tbody> 
+							<%num=0;price=0.0%>
+    			    <% @orders.each do |order| %>
+     					<tr>
+                         <%num += order.num%>
+                         <%price += order.price.to_f%>
+        					<td><%=order.pre_good.name %> </td>
+        					<td ><%= order.num%></td>
+        					<td ><%= order.price %></td>
+      					
+  	</tr>
+      					
+    					<% end %>	
+    					<tr>
+    						<td>汇总</td>
+    						<td><%=num%>件</td>
+    						<td><%=price%>元</td>
+
+    					</tr>
+						</tbody>
+						
+
+						</table>
+						
+
+
+				
+   <div class="title" ><h3>审核状态：<%= I18n.t("order.#{@orders.first.status}")%><%if @orders.first.status=="auditting"%><%['accept','reject'].each do |e|%>
+             
+              
+                   <span class= "btn_no_text btn ui-state-default ui-corner-all tooltip" ><%=link_to "#{t(e)}" ,auddit_pre_goods_path(order_key: params[:order_key],e: e)%></span>
+              
+            
+            <%end%>
+
+         </h3>
+   <%end%>
+     </div>
+
+        </div>
+
+	
+    	</div>
+
+	<div class="clearfix"></div>
+
+</div>
+</div>

@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  enum role_id: ["hr","cms_manager","good_manager"]
+  enum role_id: ["hr","cms_manager","good_manager","consume_good_manger"]
 
   enum rank_id: {user: 1,chief:100, chairman: 200}
   scope :chairman, -> { where(rank_id: 200) }
@@ -18,6 +18,12 @@ class User < ActiveRecord::Base
   has_many :entretains
   
   has_many :report_entretains, foreign_key: "reporter_id",class_name: "Entretain"
+
+  before_save :syn_department_num
+
+  def syn_department_num
+  	self.department_num = department.item_num
+  end
 
 
   #enum department: {caigou: 6100, zongguan: 6101,jihua: 6102,\

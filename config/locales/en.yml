@@ -20,6 +20,63 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  helpers:
+      label:
+        date_setting:
+          year: "选在设定的年份："
+
+  user_roles:
+      user: "员工"
+      chief: "处长"
+      chairman: "主任"
+  category_status:
+      disenable: "禁用"
+      enable: "启用"
+
+  user_departments:
+      caigou: "采购部"
+      zongguan: "综合管理处"
+      jihua: "计划处"
+      hetong: "合同管理处"
+      jiyi: "机械一处"
+      jier:  "机械二处"
+      yikong: "仪控处"
+      dianqi: "电气处"
+      jianzao: "监造处"
+      zhibao: "质量保证处"
+      xitong: "系统设备及大宗材料处"
+  order:
+      acceptting: "已同意"
+      auditting: "等待审核"
+      rejectting: "已拒绝"
+
+
+  category_title:
+      dept_title: "部门组织图列表"
+      rank_title: "职位设定列表"
+
+  category_kinds:
+      dept: "部门"
+      rank: "职位"
+
+  date_settings_title:
+      rest_title: "设定在工作日休息的日期列表"
+      work_title: "设定在周末上班的日期列表"
+  leave_details:
+       NJ: "年假"
+       SJ: "事假"
+       BJ: "病假"
+       GJ: "公假"
+       JSJJL: "计生假(含奖励假)"
+       QTJSJ: "其他计划生育假"
+       HJ: "婚假"
+       SAJ: "丧假"
+       WHTQJ: "未婚一年一次探父母"
+       YHSYTQJ: "已婚四年一次探父母"
+       YHYTQJ: "已婚一年探配偶"
+       GWTQJ: "国外探亲假"
+       OTHER: "其他"
+
   models:
     user: "User"
     attendance: "Attendance"
@@ -36,13 +93,3 @@ en:
       new_attendance: 'New Attendance'
       workflow_state: "Workflow State"
       awaiting_review_by_1: "Awaiting Review by 1"
-
-
-
-
-
-
-
-
-
-

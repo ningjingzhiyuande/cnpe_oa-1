@@ -18,6 +18,7 @@
 //= require date_format
 //= require dataTables/jquery.dataTables 
 //= require cookie
+//= require best_in_place
 
 
 // require superfish

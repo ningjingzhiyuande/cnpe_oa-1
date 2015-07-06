@@ -1,5 +1,12 @@
 CnpeNew::Application.routes.draw do
 
+  resources :pre_goods do 
+  	post :order ,on: :collection
+  	get :orders,on: :collection
+  	get :order_show,on: :collection
+  	get :auddit,on: :collection
+  end
+
   resources :cms_notices
 
   resources :home_notifications
@@ -32,6 +39,7 @@ CnpeNew::Application.routes.draw do
         post :auddit
         get :auddit_from_mail
       end
+      get :statistics,on: :collection
   end
  resources :loan_goods do 
    get :goods,:list, on: :collection

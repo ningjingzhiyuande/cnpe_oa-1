@@ -37,19 +37,21 @@ $(function(){
       </tr>
 
 
-      <tr height="35">
+ 
+        <%#=f.hidden_field :reporter_id,:value=>current_user.id%>
+        <%if current_user.rank_id!="user"%>
+          <%=f.hidden_field :reporter_id,:value=>current_user.id%>
+          <%#= f.select :last_reporter_id, Entretain.last_report_user(current_user) %>
+        <%else%>
+        <tr height="35">
         <td class="td01">审批者：</td>
         <td>
-        <%#=f.hidden_field :reporter_id,:value=>current_user.id%>
-        <%if current_user.rank_id.to_i==100%>
-          <%=f.hidden_field :reporter_id,:value=>current_user.id%>
-          <%= f.select :last_reporter_id, Entretain.last_report_user(current_user) %>
-        <%else%>
-         <%= f.select :reporter_id, Entretain.report_user(current_user) %> -------> 
-          <%= f.select :last_reporter_id, Entretain.last_report_user(current_user) %>
+         <%= f.select :reporter_id, Entretain.report_user(current_user) %>
+          <%#= f.select :last_reporter_id, Entretain.last_report_user(current_user) %>
+             </td>
+         </tr>
           <%end%>
-        </td>
-      </tr>
+     
       
       <tr height="35">
         <td class="td01"><b></b>附件：</td>

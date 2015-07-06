@@ -1,0 +1,127 @@
+
+<%=render "shared/goods"%>
+
+<div id="main-wrapper">
+	<div id="main-content">
+		<%=render "shared/notice"%>
+        <div class="title">
+			<h3>预购申请物品列表
+			<span style="float:right" class="add_pre_goods" data-url="/pre_goods/new">添加</span>
+		</h3>
+		</div>
+        <div class="hastable">
+					<%=form_for :goods,url: :order_pre_goods,method: "post" do |f|%>
+						<table id="datatable" class="display"> 
+						<thead> 
+						<tr>
+							<th></th>
+							<th>#ID</th>
+						    <th>名称</th> 
+						    <th>数量</th>  
+						    <th>价钱</th>  
+						    <th>是否消耗品</th> 			
+						</tr> 
+						</thead> 
+						<tbody> 
+					
+						<% @pre_goods.each do |good| %>
+     					<tr>
+     						<td><%=check_box_tag "ids[]" ,good.id,false,class: "checked_id"%></td>
+        					<td><%=good.id %></td>
+        					<td><%= best_in_place good, :name, :type => :input, :nil => "Click me to edit content!" %> </td>
+        					<td id=<%="num_#{good.id}"%>><%= best_in_place good, :num, :type => :input, :nil => "Click me to edit content!", :classes => 'custom_class'%></td>
+        					<td id=<%="price_#{good.id}"%>><%= best_in_place good, :price, :type => :input, :nil => "Click me to edit content!" %></td>
+        					<td><%= best_in_place good, :is_consume, :type => :checkbox, :collection => ["是", "否"] , :nil => "Click me to edit content!" %></td>
+        					
+        				  
+      					</td>
+      					</tr>
+    					<% end %>		
+						</tbody>
+						<tr>
+                          <td>汇总：</td>
+                           <td colspan=2>数量:</td>
+                           <td><span class="goods_num"></span></td>
+                           <td>总价:</td>
+                           <td><span class="goods_total_price"></span></td>
+						</tr>
+
+						</table>
+						
+
+
+						<div class="clear">
+                           <!-- <span><%=check_box_tag :choose_all,false,false,{class: "selectAll"}%> 全选</span>-->
+                            <span><input type="submit" value="提交订单"/> </span>
+    					</div>
+         <%end%>
+
+</div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  /* Activating Best In Place */
+  jQuery(".best_in_place").best_in_place(
+        
+  	);
+  
+//全选
+ $(".selectAll").click(function() {
+
+ $(".checked_id").each(function() { 
+    
+     $(this).prop("checked",  $(".selectAll").prop( "checked" ));
+  });
+ });
+ 
+ $(".checked_id").click(function(){
+ 	 var total_num=0
+     var total_price = 0.0
+     $(".checked_id:checked").each(function(){
+     	 vid = $(this).val();
+     num =  parseInt($($("#num_"+vid+" span")[0]).html())	
+     price =  parseFloat($($("#price_"+vid+" span")[0]).html())	
+     total_num=total_num+num
+     total_price = total_price+num*price
+     //$(".goods_num").html(total_num)
+     //$(".goods_total_price").html(total_price)
+
+     })
+     $(".goods_num").html(total_num)
+     $(".goods_total_price").html(total_price)
+    
+
+ })
+});
+
+$(function(){
+    $(".add_pre_goods").click(function(){
+    	//alert($(this).attr("data-url"))
+    	$.layer({
+    		type: 2,
+   			shadeClose: true,
+    		title: "添加预购物品",
+    		closeBtn: [0, false],
+    		shade: [0.8, '#000'],
+    		border: [0],
+    		offset: ['200px',''],
+    		area: ['500px', '200px'],
+    		iframe: {src: $(this).attr("data-url")},
+    		end: function(){ window.location.reload();}
+}); 
+
+    })
+
+})
+
+  
+</script>
+
+
+
+
+
+
+
+

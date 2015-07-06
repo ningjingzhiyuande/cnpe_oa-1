@@ -15,6 +15,8 @@ class GoodsApply < ActiveRecord::Base
 	end
 
 	
+
+	
 	
 
 	def set_apply_num_for_goods

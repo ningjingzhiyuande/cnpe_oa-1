@@ -75,15 +75,15 @@ class Entretain < ActiveRecord::Base
 
 
     def self.report_user(user)
-    	User.where(rank_id: 100).where(department: [user.department, 6100]).select(:id,:name).collect{|u|[u.name,u.id]}   	
+    	User.chief.where(department_num: [user.department_num, 6100]).select(:id,:name).collect{|u|[u.name,u.id]}   	
     end
+
     def is_reporter?(user_id)
     	reporter_id==user_id
     end
-
-
+    
     def self.last_report_user(user)
-      User.where(rank_id: 200).select(:id,:name).collect{|u|[u.name,u.id]}    
+      User.chairman.select(:id,:name).collect{|u|[u.name,u.id]}    
     end
     def is_last_reporter?(user_id)
       last_reporter_id==user_id

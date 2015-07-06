@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @pre_good.name %>
+</p>
+
+<p>
+  <strong>Num:</strong>
+  <%= @pre_good.num %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @pre_good.price %>
+</p>
+
+<p>
+  <strong>Is consume:</strong>
+  <%= @pre_good.is_consume %>
+</p>
+
+<%= link_to 'Edit', edit_pre_good_path(@pre_good) %> |
+<%= link_to 'Back', pre_goods_path %>

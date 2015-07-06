@@ -1,4 +1,4 @@
-zh-CN:
+en:
   helpers:
       label:
         date_setting:
@@ -37,6 +37,8 @@ zh-CN:
   date_settings_title:
       rest_title: "设定在工作日休息的日期列表"
       work_title: "设定在周末上班的日期列表"
+
+
   leave_details:
        NJ: "年假"
        SJ: "事假"
@@ -53,8 +55,6 @@ zh-CN:
        OTHER: "其他"
 
 
-
-
   acceptting: "已同意,请等待其他人审核"
   applying: "申请状态"
   auditting: "等待审核"
@@ -64,6 +64,7 @@ zh-CN:
   finished: "完成"
   leader_agree: "您的请假条已被领导批准"  
   leader_reject: "您的请假条已被领导拒绝"
+  
 
 
   accept: "同意"
@@ -74,7 +75,7 @@ zh-CN:
   hr: "HR"
   cms_manager: "新闻动态部门管理"
   good_manager: "物品管理员"
-  
+  consume_good_manger: "消耗物品申请专员"
 
 
   views:
@@ -84,6 +85,3 @@ zh-CN:
       previous: "&laquo; 上一页"
       next: "下一页 &raquo;"
       truncate: "..."
-
-
-      

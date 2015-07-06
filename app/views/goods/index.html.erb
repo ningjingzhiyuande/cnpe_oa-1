@@ -16,10 +16,9 @@
 						<thead> 
 						<tr>
 							<th>#ID</th>
-						    <th>名称</th>  
-						    <th>描述</th> 
-						    <th>入库审核</th> 
-						    <th>出库库审核</th> 
+						    <th>名称</th> 
+						    <th>库存</th> 
+						    <th>是否为消耗品</th> 
 						    <th>操作</th> 
 							
 						</tr> 
@@ -31,17 +30,9 @@
      					<tr>
         					<td><%=good.id %></td>
         					<td><%=good.name %></td>
-        					<td><%=good.descript %></td>
-        					<%reviews=good.reviews.where("kind=?",'apply').map{|r| r.user.name}  %>
-        					<td><%=reviews%></td>
-							<td><%=good.reviews.where("kind=?",'loan').map{|r| r.user.name} %></td>
-       						<td><%#= link_to '再次入库', edit_good_path(good) %> 
-       							<a href="javascript:void(0)" data-url=<%= new_polymorphic_url([good,@review],review_type: "apply")%> class="add_review">申购物品设置(找领导申购)</a> ｜ 
-       							<%= link_to_unless  reviews.blank? ,(reviews.blank? ? '先设置申购审核人' : "入库申请"), new_polymorphic_url([good,@apply])%> ｜ 
-       							  <a href="javascript:void(0)" data-url=<%= new_polymorphic_url([good,@review],review_type: "loan")%> class="add_review"> 出库审核设置(物品外借)</a>
-
-
-       					| <%=link_to "编辑",edit_good_url(good)%>
+        					<td><%=good.stock_num.to_i-good.loan_num.to_i %></td>
+        				    <td><%=good.is_consume ? "是" : "不是"%></td>			
+       						<td><%=link_to "编辑",edit_good_url(good)%>
       					</td>
       					</tr>
     					<% end %>

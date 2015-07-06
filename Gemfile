@@ -14,6 +14,8 @@ gem 'roo'
 gem 'kaminari'
 gem 'cancancan'
 
+gem 'best_in_place',git: "https://github.com/MarxGames/best_in_place.git"
+
 #gem 'delayed_job_active_record'
 # gem 'daemons'
 

@@ -19,6 +19,14 @@ GIT
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
 
+GIT
+  remote: https://github.com/MarxGames/best_in_place.git
+  revision: 4bfa5a56c31d0494a904549679a66d65f571869e
+  specs:
+    best_in_place (2.0.3)
+      jquery-rails
+      rails (~> 4)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -238,6 +246,7 @@ DEPENDENCIES
   aasm
   activemodel-globalid
   acts_as_list
+  best_in_place!
   cancancan
   capistrano
   capistrano-bundler

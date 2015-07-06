@@ -20,16 +20,16 @@ class GoodsController < ApplicationController
   end
 
   def apply_analysis
-   @title = "物品入库统计"
-  	@applies = GoodsApply.all
+    @title = "物品入库统计"
+  	@applies = Order.where("status=?",1)
   #	binding.pry
-  	@applies = @applies.where("good_id=?",params[:good_id]) unless params["good_id"].blank?
+  	@applies = @applies.where("name=?",params[:name]) unless params["name"].blank?
   #	@applies = @applies.where("status=?",params[:status]) unless params["status"].blank?
   	@applies = @applies.where("created_at>=?",params[:start_at]) unless params["start_at"].blank? || params["start_at"].to_time.blank?
   	@applies = @applies.where("created_at<=?",params[:end_at]) unless params["end_at"].blank? || params["end_at"].to_time.blank?
-    @applies = @applies.where("status=2")if !params["status"].blank? && params["status"]=="2"
-    @applies = @applies.where("is_review_over=0 and status!=2") if !params["status"].blank? && params["status"]=="0"
-    @applies = @applies.where("is_review_over=1 and status=1") if !params["status"].blank? && params["status"]=="1"
+   # @applies = @applies.where("status=2")if !params["status"].blank? && params["status"]=="2"
+   # @applies = @applies.where("is_review_over=0 and status!=2") if !params["status"].blank? && params["status"]=="0"
+   # @applies = @applies.where("is_review_over=1 and status=1") if !params["status"].blank? && params["status"]=="1"
 
     
   end
@@ -44,7 +44,7 @@ class GoodsController < ApplicationController
     @applies = @applies.where("status=2")if !params["status"].blank? && params["status"]=="2"
     @applies = @applies.where("is_review_over=0 and status!=2") if !params["status"].blank? && params["status"]=="0"
     @applies = @applies.where("is_review_over=1 and status=1") if !params["status"].blank? && params["status"]=="1"
-    render "goods/apply_analysis"
+    #render "goods/apply_analysis"
   end
 
   def create

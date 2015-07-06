@@ -27,7 +27,7 @@ module Examine #:nodoc:
       	 end
 
         def can_review_apply?(user)
-        	user.id == current_reviewer_id && !is_review_over
+        	(self.class.auddit_user_ids.include? user.id)  && !is_review_over
         end
 
        
@@ -50,6 +50,10 @@ module Examine #:nodoc:
 	end
 
 	class_methods do 
+
+		def auddit_user_ids
+			[]
+		end
 		def accept_status
 			"acceptting"	   		
       	end

@@ -19,9 +19,7 @@
 
 						    <th>名称</th> 
 						    <th>是否消耗品</th> 
-						    <th>库存数量</th>
-					
-						    <th>出库库审核</th> 
+						    <th>库存数量</th>> 
 						    <th>操作</th> 
 							
 						</tr> 
@@ -36,11 +34,9 @@
         					<td><%=good.is_consume ? "是" : "不是"%></td>
         					
         					<td><%=good.stock_num%></td>
-        				    <%reviews=good.reviews.where("kind=?",'loan').map{|r| r.user.name}  %>
-        					<td><%=reviews%></td> 
-							
-       						<td> <%if reviews.blank?%>
-       							请找管理员设置出库审核人
+        			
+       						<td> <%if good.stock_num<1%>
+       							请找物品管理员采买,在申请。
 								<%else%>
        							<a href="javascript:void(0)" data-url=<%= new_polymorphic_url([good,@loan])%> class="add_review"> 出库申请</a>
        							<%end%>

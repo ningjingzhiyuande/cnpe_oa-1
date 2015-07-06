@@ -3,31 +3,36 @@ class LoanGoodsController < ApplicationController
   layout "application_no_header",only: [:new,:create]
   before_action :set_loan_good, only: [:show, :edit, :update, :destroy,:auddit]
   skip_before_filter :verify_authenticity_token,only: [:create]
+  before_action :check_auddit_user
 
   def index
   	@loan_goods = case params["status"]
   	when "auddit"
-      LoanGood.where("(user_id=? or current_reviewer_id=?)  and is_review_over=0",current_user.id,current_user.id)
+        LoanGood.where("is_review_over=0")
   	when "finished"
-  		LoanGood.where("user_id=?  and is_review_over=1 and status=?",current_user.id,1)
+  		LoanGood.where("is_review_over=1 and status=?",1)
   	when "reject"
-  		LoanGood.where("user_id=?  and is_review_over=1 and status=?",current_user.id,2)
+  		LoanGood.where("is_review_over=1 and status=?",2)
   	when "return"
-  		LoanGood.where("user_id=?  and is_review_over=1 and status=? and end_at>=?",current_user.id,1,Time.now)
+  		LoanGood.where("is_review_over=1 and status=? and end_at>=?",1,Time.now)
   	else	
-   		LoanGood.where("user_id=?",current_user.id)
+   		LoanGood.all
 	end
+    @loan_goods = @loan_goods.where("user_id=?",current_user.id) unless LoanGood.auddit_user_ids.include? current_user.id
+
     respond_with(@loan_goods)
   end
 
   def list
   		@loan_goods =LoanGood.all
   		render "index"
-
   end
 
   def goods
-  	@goods = Good.all
+  	@goods = Good
+  	@goods = @goods.where(is_consume: true) if params["is_consume"].to_i==1
+  	@goods = @goods.where(is_consume: false) if params["is_consume"].to_i==0
+
   end
 
   def show
@@ -63,18 +68,18 @@ class LoanGoodsController < ApplicationController
 
   def auddit
   	 @loan_good.send(params[:e])
-  	 if params["e"]=="reject"
-  	 	@loan_good.is_review_over=true
+     @loan_good.is_review_over=true
+     redirect_to loan_goods_url if  @loan_good.save
   	 	#@loan_good.current_reviewer_id=nil
-  	 else
-     	review = @loan_good.good.loan_reviews.where("user_id=?",@loan_good.current_reviewer_id).first.lower_item
+  #	 else
+  #   	review = @loan_good.good.loan_reviews.where("user_id=?",@loan_good.current_reviewer_id).first.lower_item
  
-     	@loan_good.current_reviewer_id=review.try(:user_id)
-
-     	@loan_good.is_review_over=true if review.nil?
-     end
+   #  	@loan_good.current_reviewer_id=review.try(:user_id)
+#
+ #    	@loan_good.is_review_over=true if review.nil?
+  #   end
   	 #@goods_apply.current_reviewer_id=
-  	 redirect_to loan_goods_url if  @loan_good.save
+  	 
   end
 
   def update
@@ -102,7 +107,9 @@ class LoanGoodsController < ApplicationController
   		end
   		nil
 	end
-
+   def check_auddit_user
+   	  return render text:  "没有设定物品外借审核人员，请联系管理员" if LoanGood.auddit_users.count==0
+   end
 
 end
 

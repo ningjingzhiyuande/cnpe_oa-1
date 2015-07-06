@@ -1,0 +1,2 @@
+module PreGoodsHelper
+end

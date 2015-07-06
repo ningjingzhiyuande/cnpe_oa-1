@@ -11,6 +11,23 @@ class LoanGood < ActiveRecord::Base
 		#self.good.increment!(:apply_num,self.apply_num) if init?
 	end
 
+
+	def self.auddit_users
+		User.where(role_id: User.role_ids["good_manager"])
+	end
+
+	def self.auddit_users_mail
+		self.auddit_users.map(&:email)
+	end
+
+	def self.auddit_user_ids
+		self.auddit_users.map(&:id)
+	end
+
+
+
+
+
 	def apply_info
         loan_info
 	end

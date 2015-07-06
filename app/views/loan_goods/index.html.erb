@@ -12,6 +12,7 @@
 						<thead> 
 						<tr>
 							<th>#ID</th>
+							<th>申请者</th>
 						    <th>名称</th> 		    
 						    <th>借出数量</th>
 						    <th>描述</th> 
@@ -26,6 +27,7 @@
 						<% @loan_goods.each do |loan_good| %>
      					<tr>
         					<td><%=loan_good.id %></td>
+        				    <td><%=loan_good.user.name %></td>
         					<td><%=loan_good.good.name %></td>
         					<td><%=loan_good.apply_num %></td>
         					<td><%=loan_good.loan_info %><%="归还日期：#{loan_good.end_at.to_date}" if loan_good.end_at.present?%></td>
