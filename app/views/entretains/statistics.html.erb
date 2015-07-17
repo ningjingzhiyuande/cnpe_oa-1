@@ -1,0 +1,100 @@
+
+<%=render "shared/entretains_left"%>
+<%=javascript_include_tag "/my97/WdatePicker"%>
+<div id="main-wrapper">
+	<div id="main-content">
+		<%=render "shared/notice"%>
+        <div class="title">
+			<h3>宴请单统计</h3>
+		</div>
+	<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all form-container">
+       <div class="portlet-content">
+         <%= form_for("",html: {class: "form",method: :get}) do |f| %>
+           <ul><li>
+            <div class="float-left">
+                 <span>选择物品:<%= select_tag :name, options_for_select(Entretain::TITLE),class: "select select-150",include_blank: true%></span>
+            </div>
+            <!-- <div class="float-left">
+                 <span>审核状态:<%=select_tag :status, options_for_select([["未审核完成",0],["已审核完成",1],["已拒绝",2]]),class: "select select-150",include_blank: true%></span>
+            </div>
+            -->
+            <div class="float-left">
+                 <span>申请日期: 从<input type="text" name="start_at" class="field text datetimepicker"  value="起始时间"/>到<input type="text" name="end_at" class="field text datetimepicker" value="结束时间"/></span>
+            </div>
+            
+              
+           
+            <div class="float-left">
+                 <span><input type="submit" class="field text" value="搜索统计"/></span>
+            </div>
+        </li>
+
+
+<% end %>
+        </div>
+	</div>
+	<div class="clearfix"></div>
+
+
+	 <div class="hastable">
+
+     		<table> 
+						<thead> 
+						<tr>
+							<th>#ID</th>
+							<th>申请者</th> 
+						    <th>标题</th> 	
+						    <th>金额</th>	
+						    <th>申请时间</th>	    						      	
+						    <th>操作</th>
+					
+						</tr> 
+						</thead> 
+						<tbody> 
+							<%@applies.each do |c|%>
+							   <tr>
+							   	<td><%=c.id%></td>
+							   	  	<td><%=c.user.name%></td>
+							   	 <td><%#=c.pre_good.name%></td>
+							   	  <td><%#=c.num%></td>
+							   	   <td><%#=c.created_at.strftime("%Y-%m-%d")%></td>
+		   	
+							   	  <td><%#= I18n.t("order.#{c.status}") %></td>
+							   </tr>
+							<%end%>
+	
+						
+				
+						</tbody>
+						</table>
+
+
+
+</div>
+
+
+</div>
+</div>
+
+<script type="text/javascript">
+$('.datetimepicker').click(function(){
+
+	$(this).val("")
+
+   	
+   	WdatePicker({
+       firstDayOfWeek: 0,
+       isShowClear: false,
+       readOnly: true,
+       autoPickDate: true,
+      // startDate:'1985-05-01',
+       dateFmt:'yyyy/MM/dd'
+
+   	});
+
+   })
+
+
+
+</script>
+

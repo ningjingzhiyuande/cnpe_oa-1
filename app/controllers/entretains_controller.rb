@@ -72,7 +72,12 @@ class EntretainsController < ApplicationController
   end
 
   def statistics
-  	
+  	@applies = Entretain.where("aasm_state in(?)",["last_acceptting","acceptting"])
+  #	binding.pry
+  	@applies = @applies.where("name=?",params[:name]) unless params["name"].blank?
+  #	@applies = @applies.where("status=?",params[:status]) unless params["status"].blank?
+  	@applies = @applies.where("created_at>=?",params[:start_at]) unless params["start_at"].blank? || params["start_at"].to_time.blank?
+  	@applies = @applies.where("created_at<=?",params[:end_at]) unless params["end_at"].blank? || params["end_at"].to_time.blank?
   end
 
   private
