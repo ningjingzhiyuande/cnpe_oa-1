@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   before_save :syn_department_num
 
   def syn_department_num
-  	self.department_num = department.item_num
+  #	self.department_num = department.item_num rescue nil
   end
 
 

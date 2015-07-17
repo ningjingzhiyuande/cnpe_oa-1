@@ -20,7 +20,7 @@ gem 'best_in_place',git: "https://github.com/MarxGames/best_in_place.git"
 # gem 'daemons'
 
 #gem 'devise'
-gem 'devise', :git => 'http://github.com/plataformatec/devise.git', :branch => 'lm-rails-4-2'
+gem 'devise'#, :git => 'http://github.com/plataformatec/devise.git', :branch => 'lm-rails-4-2'
 gem 'responders'
 
 gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'

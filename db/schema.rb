@@ -125,13 +125,13 @@ ActiveRecord::Schema.define(version: 20150701091319) do
     t.string   "name"
     t.integer  "user_id"
     t.text     "descript"
-    t.boolean  "is_consume"
-    t.boolean  "is_return"
+    t.boolean  "is_consume", default: false
+    t.boolean  "is_return",  default: false
     t.integer  "loan_num",   default: 0
     t.integer  "stock_num",  default: 0
     t.integer  "apply_num",  default: 0
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   add_index "goods", ["is_consume"], name: "index_goods_on_is_consume", using: :btree
@@ -221,14 +221,14 @@ ActiveRecord::Schema.define(version: 20150701091319) do
 
   create_table "orders", force: true do |t|
     t.string   "order_key"
+    t.string   "name"
     t.integer  "pre_good_id"
     t.integer  "num"
-    t.string   "user_id",     limit: 45
     t.float    "price",       limit: 24
-    t.integer  "status",                  default: 0
-    t.datetime "created_at",                          null: false
-    t.integer  "updated_at",                          null: false
-    t.string   "name",        limit: 155
+    t.integer  "user_id"
+    t.integer  "status",                 default: 0
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
   end
 
   add_index "orders", ["order_key"], name: "index_orders_on_order_key", using: :btree
@@ -290,6 +290,7 @@ ActiveRecord::Schema.define(version: 20150701091319) do
   end
 
   add_index "users", ["department_num"], name: "index_users_on_department_num", using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["is_approve"], name: "index_users_on_is_approve", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 

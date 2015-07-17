@@ -1,4 +1,5 @@
 $(function() {
+   $(".second_auddit").hide();
 
  	 $(".leave_kind").click(function(){   
  	 	var ids = [];
@@ -502,9 +503,27 @@ function cal_days_for_chose(){
     }else{
       collection_value_for_checked(data_id);
     }
-   
-    //
-   
+
+    check_or_hidden_second_auddit();
+ 
+
+}
+
+function check_or_hidden_second_auddit(){
+  var choose_total_day_per_leave=0;
+
+  $(".choose_days_per_leave").each(function(){
+     value = $(this).val();
+    if(value!=""){
+      choose_total_day_per_leave = choose_total_day_per_leave+parseInt(value);
+    }
+  })
+  choose_total_days=choose_total_day_per_leave;
+  if(choose_total_day_per_leave<3){
+     $(".second_auddit").hide();
+  }else{
+    $(".second_auddit").show();
+  }
 
 }
 
@@ -607,7 +626,13 @@ jQuery.validator.addMethod("cal_nj_days", function(value,element) {
 jQuery.validator.addMethod("cal_sangj_days", function(value,element) {   
        return this.optional(element) || parseFloat(value)<=parseFloat(total_sangj_day);   
    
- }, "一年之内只能请3天丧假，您只能请"+total_sangj_day+"天，请重新选择");  
+ }, "一年之内只能请3天丧假，您只能请"+total_sangj_day+"天，请重新选择"); 
+
+
+ jQuery.validator.addMethod("cal_total_per_days", function(value,element) {   
+       return choose_total_days >2;   
+   
+ }, "请假天数超过两天必须要领导审批，请选择"); 
 
 
 
@@ -714,6 +739,16 @@ $('.new_leave').on('submit', function(e) {
                   required: "日期"
 				 }
             });
+
+            $("#leave_reporter2_id").rules("add", {
+                 required: true,
+                 cal_total_per_days: true,
+                 messages: {
+                  required: "请假天数超过两天必须要领导审批"
+         }
+            });
+
+
       
            // 
 

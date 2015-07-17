@@ -11,6 +11,7 @@
   var rest_days= "<%=rest_days%>".split(",") 
   var work_days =  "<%=work_days%>".split(",")  //["2014-09-21"];//周末设定的上班的日期
   var is_edit = false;
+  var choose_total_days=0;
 
 
 </script>
@@ -64,7 +65,7 @@
        	          <%=detail.radio_button "end_at_half_day","1",{name: "leave[leave_details_attributes][#{v}][end_at_half_day]",class: "end_at_half_day_#{v.to_s} half_day_radio","data-id"=> v}%> 上午
        	      <%end%>
        	      <%=detail.radio_button "end_at_half_day","2",{"checked"=>true,name: "leave[leave_details_attributes][#{v}][end_at_half_day]",class: "end_at_half_day_#{v.to_s} half_day_radio","data-id"=> v}%> 下午
-       	      休<%=t("leave_details.#{k}")%><b class="choose_day">共计：<%=detail.text_field :days,name: "leave[leave_details_attributes][#{v}][days]",id: "select_days_#{v}",class: "field tiny_field" ,readonly: true%> 天</b><b class="errorr"></b>
+       	      休<%=t("leave_details.#{k}")%><b class="choose_day">共计：<%=detail.text_field :days,name: "leave[leave_details_attributes][#{v}][days]",id: "select_days_#{v}",class: "field tiny_field choose_days_per_leave" ,readonly: true%> 天</b><b class="errorr"></b>
       </div>
      </span>
     </li>
@@ -78,8 +79,9 @@
           <%=f.hidden_field :reporter1_id,:value=>current_user.id%>
           <%= f.select :reporter2_id,current_user.last_report_user() %>
         <%else%>
-         <%= f.select :reporter1_id, current_user.report_user %> -------> 
-          <%= f.select :reporter2_id, current_user.last_report_user%>
+         <%= f.select :reporter1_id, current_user.report_user %>
+         <b class="second_auddit"> -------> 
+          <%= f.select :reporter2_id, current_user.last_report_user,{ include_blank: true }%></b>
           <%end%>
 
        	

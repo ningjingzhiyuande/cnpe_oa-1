@@ -7,19 +7,6 @@ GIT
       sass-rails
 
 GIT
-  remote: http://github.com/plataformatec/devise.git
-  revision: 1d8890b77372b9c4fd3ec8e9b4963d76774ed33c
-  branch: lm-rails-4-2
-  specs:
-    devise (3.3.0)
-      bcrypt (~> 3.0)
-      orm_adapter (~> 0.1)
-      railties (>= 3.2.6, < 5)
-      responders
-      thread_safe (~> 0.1)
-      warden (~> 1.2.3)
-
-GIT
   remote: https://github.com/MarxGames/best_in_place.git
   revision: 4bfa5a56c31d0494a904549679a66d65f571869e
   specs:
@@ -70,7 +57,7 @@ GEM
     acts_as_list (0.6.0)
       activerecord (>= 3.0)
     arel (6.0.0.beta1)
-    bcrypt (3.1.7)
+    bcrypt (3.1.10)
     builder (3.2.2)
     cancancan (1.9.2)
     capistrano (3.2.1)
@@ -100,6 +87,13 @@ GEM
       execjs
     coffee-script-source (1.8.0)
     colorize (0.7.3)
+    devise (3.5.1)
+      bcrypt (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (>= 3.2.6, < 5)
+      responders
+      thread_safe (~> 0.1)
+      warden (~> 1.2.3)
     erubis (2.7.0)
     execjs (2.2.1)
     globalid (0.3.0)
@@ -254,7 +248,7 @@ DEPENDENCIES
   capistrano-rbenv
   carrierwave
   coffee-rails (~> 4.0.0)
-  devise!
+  devise
   jbuilder (~> 1.2)
   jquery-datatables-rails!
   jquery-rails
@@ -282,3 +276,6 @@ DEPENDENCIES
   uglifier (>= 1.3.0)
   unicorn
   workflow
+
+BUNDLED WITH
+   1.10.5
