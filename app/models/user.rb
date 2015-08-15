@@ -68,7 +68,7 @@ class User < ActiveRecord::Base
      	15
      end)
 
-    return days
+    return (days<=0 ? 0 : days)
 
      
   end
