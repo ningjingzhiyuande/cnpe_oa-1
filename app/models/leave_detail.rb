@@ -4,9 +4,9 @@ class LeaveDetail < ActiveRecord::Base
 	belongs_to :leave
 	belongs_to :user
 
-	#申请和被审批通过的请假
-   def self.apply_and_accept(uid)
-   	   LeaveDetail.where("user_id=? and (status=? or status=? or status=? or status=?) and kind=0",uid,Leave.statuses["auditting"],Leave.statuses["acceptting"],Leave.statuses["last_acceptting"],Leave.statuses["leader_agree"])    
+	#申请和被审批通过的年假
+   def self.apply_and_accept(uid,year)
+   	   LeaveDetail.where("vacation_year=? and user_id=? and (status=? or status=? or status=? or status=?) and kind=0",year,uid,Leave.statuses["auditting"],Leave.statuses["acceptting"],Leave.statuses["last_acceptting"],Leave.statuses["leader_agree"])    
    end
 
   

@@ -47,16 +47,16 @@ class User < ActiveRecord::Base
   	role_id==1
   end
 
-  def residual_annual_days
+  def residual_annual_days(year=Date.today.year)
      days = nj_days 
      return 0 if days<=0
-     apply_days = LeaveDetail.apply_and_accept(id).sum(:days).to_f 
+     apply_days = LeaveDetail.apply_and_accept(id,year).sum(:days).to_f 
      return days - apply_days
   end
 
-  def nj_days
+  def nj_days(cal_day=Date.today)
      start_work_at = work_at || Date.today
-     diff = (Date.today - start_work_at.to_date).to_i
+     diff = (cal_day - start_work_at.to_date).to_i
      
      days = (if diff<366
             (diff/365.0 * 5).to_i

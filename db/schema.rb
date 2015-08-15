@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150701091319) do
+ActiveRecord::Schema.define(version: 20150720024155) do
 
   create_table "categories", force: true do |t|
     t.integer  "kind",       default: 0
@@ -163,10 +163,12 @@ ActiveRecord::Schema.define(version: 20150701091319) do
     t.datetime "end_at"
     t.integer  "kind"
     t.integer  "status",                                    default: 0
-    t.datetime "created_at",                                            null: false
-    t.datetime "updated_at",                                            null: false
+    t.datetime "created_at",                                               null: false
+    t.datetime "updated_at",                                               null: false
     t.integer  "start_at_half_day"
     t.integer  "end_at_half_day"
+    t.integer  "leave_year",                                default: 2015
+    t.integer  "vacation_year",                             default: 2015
   end
 
   add_index "leave_details", ["kind"], name: "index_leave_details_on_kind", using: :btree
@@ -258,6 +260,16 @@ ActiveRecord::Schema.define(version: 20150701091319) do
   add_index "reviews", ["item_id", "item_type", "kind"], name: "index_reviews_on_item_id_and_item_type_and_kind", using: :btree
   add_index "reviews", ["item_id", "item_type"], name: "index_reviews_on_item_id_and_item_type", using: :btree
   add_index "reviews", ["user_id"], name: "index_reviews_on_user_id", using: :btree
+
+  create_table "user_nj_leaves", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "total_days"
+    t.integer  "leave_days"
+    t.integer  "remain_days"
+    t.integer  "year"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "",    null: false
