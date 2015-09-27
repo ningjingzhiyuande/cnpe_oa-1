@@ -21,15 +21,19 @@ $(function() {
    	    	alert("请找管理员设置您的出生日期")
    	       $(this).prop("checked",false)
    	    }
-   	        
+   	      
 
         if($(this).prop("checked")){
           $("li.kind_"+data_id).show();
         }else{
         	 $("li.kind_"+data_id).hide();
+           
         	 $("#start_at_"+data_id).val("");
              $("#end_at_"+data_id).val("");
-        }        
+             $("#select_days_"+data_id).val("");
+             check_or_hidden_second_auddit();  
+        }      
+
         
    });
 
@@ -292,6 +296,7 @@ function select_for_speical_day(data_id) {
            alert("一年之内只能请3天丧假，您还能请"+total_sangj_day+"天，请重新选择");
 
          }
+         console.log('计算')
          $("#select_days_"+data_id).val(days)
      }
 	

@@ -2,7 +2,7 @@
 	<div id="main-content">
 		<%=render "shared/notice"%>
         <div class="title">
-			<h3><%=CmsHome.kinds.key(params[:kind].to_i)%></h3>
+			<h3><%=t CmsHome.kinds.key(params[:kind].to_i)%></h3>
 		</div>
 		  <div id="main-wrapper">
 

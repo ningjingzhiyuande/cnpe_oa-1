@@ -67,6 +67,12 @@ class LeavesController < ApplicationController
           detail.start_at_half_day = hash["start_at_half_day"]
           detail.end_at_half_day = hash["end_at_half_day"]
           detail.kind=LeaveDetail.kinds.key(key.to_i)
+          #binding.pry
+          if key.to_i==0
+              last_year_days=(hash["days"].to_f-current_user.last_year_annual)>=0 ? current_user.last_year_annual : hash["days"].to_f
+              detail.last_year_days=last_year_days
+              detail.this_year_days=hash["days"].to_f-last_year_days
+          end
           @total_days +=hash["days"].to_f
           @leave.leave_details<<detail        
     	end

@@ -108,7 +108,7 @@ class LoanGoodsController < ApplicationController
   		nil
 	end
    def check_auddit_user
-   	  return render text:  "没有设定物品外借审核人员，请联系管理员" if LoanGood.auddit_users.count==0
+   	  return redirect_to :back, notice:  "没有设定物品外借审核人员，请联系管理员" if LoanGood.auddit_users.count==0
    end
 
 end

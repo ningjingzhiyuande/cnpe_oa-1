@@ -15,6 +15,8 @@ class User < ActiveRecord::Base
 
   has_many :apply_leaves ,class_name: "Leave"
 
+  has_many :user_nj_leaves
+
   has_many :entretains
   
   has_many :report_entretains, foreign_key: "reporter_id",class_name: "Entretain"
@@ -47,12 +49,29 @@ class User < ActiveRecord::Base
   	role_id==1
   end
 
+  def last_year_annual
+      year=Date.today.year-1
+      annual = user_nj_leaves.where("year=?",year).first
+      annual.remain_days.to_i
+  end
+
   def residual_annual_days(year=Date.today.year)
-     days = nj_days 
+     year_last_day = Date.parse("#{year.to_s}0101").end_of_year
+     days = nj_days(year_last_day)
      return 0 if days<=0
      apply_days = LeaveDetail.apply_and_accept(id,year).sum(:days).to_f 
      return days - apply_days
   end
+
+  def residual_annual_days(year=Date.today.year)
+     year_last_day = Date.parse("#{year.to_s}0101").end_of_year
+     days = nj_days(year_last_day)
+     return 0 if days<=0
+     apply_days = LeaveDetail.apply_and_accept(id,year).sum(:days).to_f 
+     return days - apply_days
+  end
+
+  
 
   def nj_days(cal_day=Date.today)
      start_work_at = work_at || Date.today
@@ -74,7 +93,7 @@ class User < ActiveRecord::Base
   end
 
   def is_annual
-  	return false if shijia_days.to_i==0  	
+  	return false if shijia_days.to_i<=0  	
     apply_days = LeaveDetail.apply_and_accept_bingjia(id).sum(:days).to_f
     return true if apply_days<60
     days = nj_days

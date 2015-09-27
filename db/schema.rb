@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150720024155) do
+ActiveRecord::Schema.define(version: 20150926063520) do
 
   create_table "categories", force: true do |t|
     t.integer  "kind",       default: 0
@@ -169,6 +169,8 @@ ActiveRecord::Schema.define(version: 20150720024155) do
     t.integer  "end_at_half_day"
     t.integer  "leave_year",                                default: 2015
     t.integer  "vacation_year",                             default: 2015
+    t.integer  "last_year_days",                            default: 0
+    t.integer  "this_year_days",                            default: 0
   end
 
   add_index "leave_details", ["kind"], name: "index_leave_details_on_kind", using: :btree

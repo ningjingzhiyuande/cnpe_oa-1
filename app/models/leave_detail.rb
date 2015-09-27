@@ -4,6 +4,7 @@ class LeaveDetail < ActiveRecord::Base
 	belongs_to :leave
 	belongs_to :user
 
+  after_create :cal_last_year_days
 	#申请和被审批通过的年假
    def self.apply_and_accept(uid,year)
    	   LeaveDetail.where("vacation_year=? and user_id=? and (status=? or status=? or status=? or status=?) and kind=0",year,uid,Leave.statuses["auditting"],Leave.statuses["acceptting"],Leave.statuses["last_acceptting"],Leave.statuses["leader_agree"])    
@@ -22,6 +23,13 @@ class LeaveDetail < ActiveRecord::Base
    	   LeaveDetail.where("user_id=? and (status=? or status=? or status=? or status=?) and kind=2 and start_at>= #{Date.today.beginning_of_year} and start_at<= #{Date.today.end_of_year}",uid,Leave.statuses["auditting"],Leave.statuses["acceptting"],Leave.statuses["last_acceptting"],Leave.statuses["leader_agree"])    
   end
 
+  def cal_last_year_days
+    if last_year_days>=0 && kind=="NJ"
+       year=Date.today.year-1
+       nj = user.user_nj_leaves.where('year=?',year).first
+       nj.update_attributes(leave_days: nj.leave_days+last_year_days,remain_days: (nj.total_days-nj.leave_days-last_year_days))
+     end
+  end
 
   def month_static(year=Date.today.year,month)
   	    begin_date = Date.new(year,month,1)

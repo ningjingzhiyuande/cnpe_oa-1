@@ -76,6 +76,9 @@ en:
   cms_manager: "新闻动态部门管理"
   good_manager: "物品管理员"
   consume_good_manger: "消耗物品申请专员"
+  bumenjianjie: "部门管理"
+  tonggao: "最新通告"
+  youqinglianjie: "友情链接"
 
 
   views:
