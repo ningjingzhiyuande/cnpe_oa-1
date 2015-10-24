@@ -15,7 +15,7 @@ GIT
       rails (~> 4)
 
 GEM
-  remote: https://rubygems.org/
+  remote: https://ruby.taobao.org/
   specs:
     aasm (3.4.0)
     actionmailer (4.2.0.beta1)
@@ -278,4 +278,4 @@ DEPENDENCIES
   workflow
 
 BUNDLED WITH
-   1.10.5
+   1.10.6
