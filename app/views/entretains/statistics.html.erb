@@ -4,10 +4,10 @@
 <div id="main-wrapper">
 	<div id="main-content">
 		<%=render "shared/notice"%>
-        <div class="title">
+    <div class="title">
 			<h3>宴请单统计</h3>
 		</div>
-	<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all form-container">
+    <div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all form-container">
        <div class="portlet-content">
          <%= form_for("",html: {class: "form",method: :get}) do |f| %>
            <ul><li>
@@ -28,48 +28,40 @@
                  <span><input type="submit" class="field text" value="搜索统计"/></span>
             </div>
         </li>
-
-
-<% end %>
-        </div>
+        <% end # form %>
+      </div>
 	</div>
 	<div class="clearfix"></div>
-
-
 	 <div class="hastable">
-
      		<table> 
 						<thead> 
 						<tr>
 							<th>#ID</th>
 							<th>申请者</th> 
-						    <th>标题</th> 	
-						    <th>金额</th>	
-						    <th>申请时间</th>	    						      	
-						    <th>操作</th>
-					
+              <th>标题</th> 	
+              <th>金额</th>	
+              <th>申请时间</th>	    						      	
+              <th>操作</th>
 						</tr> 
 						</thead> 
 						<tbody> 
 							<%@applies.each do |c|%>
 							   <tr>
 							   	<td><%=c.id%></td>
-							   	  	<td><%=c.user.name%></td>
-							   	 <td><%#=c.pre_good.name%></td>
-							   	  <td><%#=c.num%></td>
-							   	   <td><%#=c.created_at.strftime("%Y-%m-%d")%></td>
-		   	
-							   	  <td><%#= I18n.t("order.#{c.status}") %></td>
+							  	<td><%=c.user.name%></td>
+							  	<td><%=c.title%></td>
+							   	<td><%=c.fee%></td>
+							   	<td><%=c.created_at.strftime("%Y-%m-%d")%></td>
+							   	<td><%=t(c.aasm_state) %></td>
 							   </tr>
 							<%end%>
-	
-						
-				
+              <tr>
+                <td colspan=6 >
+                  总计:  <%=@applies.count%> 项， 共计费用<%=@applies.sum(:fee)%> 元
+                </td>
+              </tr>
 						</tbody>
-						</table>
-
-
-
+	</table>
 </div>
 
 
@@ -80,7 +72,6 @@
 $('.datetimepicker').click(function(){
 
 	$(this).val("")
-
    	
    	WdatePicker({
        firstDayOfWeek: 0,
@@ -94,7 +85,4 @@ $('.datetimepicker').click(function(){
 
    })
 
-
-
 </script>
-

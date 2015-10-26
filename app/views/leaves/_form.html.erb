@@ -1,10 +1,10 @@
-   <%=javascript_include_tag "/my97/WdatePicker"%>
-   <%#=stylesheet_link_tag "jquery.datetimepicker" => true%>
+<%=javascript_include_tag "/my97/WdatePicker"%>
+<%#=stylesheet_link_tag "jquery.datetimepicker" => true%>
 
 <script type="text/javascript">
   var total_nj_day= <%=current_user.last_year_annual.to_i+current_user.nj_days%>; //剩余年假
-  var  is_annual=<%=current_user.is_annual%>//是否有年假
-  var  user_gender=<%=current_user.gender%>;//产假天数
+  var is_annual=<%=current_user.is_annual%>//是否有年假
+  var user_gender=<%=current_user.gender%>;//产假天数
   var total_hj_day=<%=current_user.cj_days%>; //婚假天数
   var total_sj_day=<%=current_user.shijia_days%>;//事假总天数 总得减已经请的
   var total_sangj_day=<%=current_user.sangjia_days%>;//丧假假总天数 总得减已经请的
@@ -12,8 +12,6 @@
   var work_days =  "<%=work_days%>".split(",")  //["2014-09-21"];//周末设定的上班的日期
   var is_edit = false;
   var choose_total_days=0;
-
-
 </script>
 <%=javascript_include_tag "leaves", "data-turbolinks-track" => true%>
 
@@ -29,6 +27,7 @@
       </ul>
     </div>
   <% end %>
+
 <ul>
 	<li> 
 		<span class="width_align_right">标题 </span> 
@@ -89,25 +88,20 @@
 
 
     </li>
-    
-
-
      <li> 
 		<span class="width_align_right">请假说明 </span>
 		<div><%=f.kindeditor :info , :simple_mode => true, :width => 700, :height => 300 %></div>
-		
-        
-       
     </li>
      <li> 
-		<span class="width_align_right">附件 </span>
+        <span class="width_align_right">附件 </span>
         <div><%=f.file_field :image%>
        </div>
     </li>
+     <li> 
+       <span class="width_align_right">&nbsp;</span>
+       <div class="actions">
+         <%= f.submit '提交申请'%>
+       </div>
+    </li>
 </ul>
- 
-  <div class="actions">
-    <%= f.submit '提交申请'%>
-  </div>
 <% end %>
-

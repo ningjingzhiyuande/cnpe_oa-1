@@ -9,7 +9,7 @@
 
     <h3><br/>
     已经被<%=@entretain.report_user.try(:name)%>审批通过，请您二级审阅。<br/>
-     <a href="<%=@url%>/entretains/<%=@entretain.id%>/auddit_from_mail?token=<%=Base64.encode64(@entretain.last_report_user.email)%>&e=<%=Base64.encode64('last_accept')%>">同意该申请</a> 
+     <a href="<%=@url%>/entretains/<%=@entretain.id%>/auddit_from_mail?token=<%=Base64.encode64(@entretain.last_report_user.try(:email))%>&e=<%=Base64.encode64('last_accept')%>">同意该申请</a> 
 
-    <a href="<%=@url%>/entretains/<%=@entretain.id%>/auddit_from_mail?token=<%=Base64.encode64(@entretain.last_report_user.email)%>&e=<%=Base64.encode64('last_reject')%>">拒绝该申请</a>   
+    <a href="<%=@url%>/entretains/<%=@entretain.id%>/auddit_from_mail?token=<%=Base64.encode64(@entretain.last_report_user.try(:email))%>&e=<%=Base64.encode64('last_reject')%>">拒绝该申请</a>   
     </h3>

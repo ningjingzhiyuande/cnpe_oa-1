@@ -1,10 +1,10 @@
 class Entretain < ActiveRecord::Base
 	belongs_to :user
-	belongs_to :report_user,foreign_key: "reporter_id",class_name: "User"
+	belongs_to :report_user, foreign_key: "reporter_id",class_name: "User"
 	belongs_to :last_report_user,foreign_key: "last_reporter_id",class_name: "User"
 	after_save :send_apply_mail,:if => Proc.new{|r| r.aasm_state_changed? && r.aasm_state=="auditting"} 
 	#after_save :chief_report
-	after_save :send_superior_mail,:if => Proc.new{|r| r.aasm_state_changed? && r.aasm_state=="acceptting"} 
+	after_save :send_superior_mail,:if => Proc.new{|r| r.aasm_state_changed? && r.aasm_state=="acceptting" && r.last_reporter_id.present? } 
 	
 	after_save :send_finished_mail,:if => Proc.new{|r| r.aasm_state_changed? && (["last_acceptting","rejectting","last_rejectting"].include? r.aasm_state)} 
   
@@ -66,9 +66,11 @@ class Entretain < ActiveRecord::Base
     	#binding.pry
     	EntretainMail.send_apply_mail(self).deliver_later
     end
+
     def send_superior_mail
     	EntretainMail.send_superior_mail(self).deliver_later
     end
+
     def send_finished_mail
     	EntretainMail.send_finished_mail(self).deliver_later
     end
@@ -89,4 +91,21 @@ class Entretain < ActiveRecord::Base
       last_reporter_id==user_id
     end
 
+
+  #修复fee字段 string --> integer
+  def self.translate_legency_fee!
+    #check legency fee
+    find_each do |e|
+      fee = e.fee
+      if fee.to_i.to_s != fee.to_s.strip
+        raise "==find entretain id=#{e.id} fee= #{e.fee}, 
+               run: Entretain.find(#{e.id}).update_attribute(:fee, xx)  to fix
+              "
+      end
+    end
+    
+    #find_each do |e|
+      #e.update_attribute(:fee, e.to_i)
+    #end
+  end
 end

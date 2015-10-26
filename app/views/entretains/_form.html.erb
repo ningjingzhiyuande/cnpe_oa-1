@@ -1,6 +1,6 @@
 <script type="text/javascript">
 $(function(){
-	$("#entretain_location,#entretain_title").SelectExpand();
+	//$("#entretain_location,#entretain_title").SelectExpand();
 });
 </script>
 
@@ -30,13 +30,28 @@ $(function(){
 
 
       <tr height="35">
-        <td class="td01">宴请费用：</td>
+        <td class="td01">宴请费用(元)：</td>
         <td>
-          <%= f.text_field :fee%>
+          <%= f.text_field :fee%> 
+          <span style='color:red;'>*</span>
         </td>
       </tr>
 
+      <tr height="35">
+        <td class="td01">被宴请方的层级：</td>
+        <td>
+          <%= f.text_field :entertained_level%>
+          <span style='color:red;'>*</span>
+        </td>
+      </tr>
 
+      <tr height="35">
+        <td class="td01">被宴请方的人数：</td>
+        <td>
+          <%= f.text_field :entertained_num%>
+          <span style='color:red;'>*</span>
+        </td>
+      </tr>
  
         <%#=f.hidden_field :reporter_id,:value=>current_user.id%>
         <%if current_user.rank_id!="user"%>
@@ -79,36 +94,32 @@ $(function(){
 <% end %>
 <script type="text/javascript">
 $(document).ready(function(){
-   
-            jQuery('.entretain_form').validate({
- 
-                rules: {
-                    "entretain[title]": {
-                        minlength: 2,
-                        required: true
-                    },
-                    "entretain[location]": {
-                        minlength: 2,
-                        required: true
-                    } ,
-                    "entretain[fee]": {
-                        minlength: 2,
-                        number: true,
-                        required: true
-                    }
-                },
-
-            
-
-                submitHandler: function (form) {
-                //alert(111)
-                	$(form).submit();
-                   // success1.show();
-                    //error1.hide();
-                }
-            });
+    jQuery('.entretain_form').validate({
+        rules: {
+            "entretain[fee]": {
+              number: true,
+              min: 1,
+              required: true
+            },
+            "entretain[entertained_level]": {
+              required: true
+            },
+            "entretain[entertained_num]": {
+              number: true,
+              min: 1,
+              required: true
+            }
+        },
+        messages: {  
+          'entretain[fee]': { required: '请输入费用', min: '至少大于0的数字', number: '至少大于0的数字' },  
+          'entretain[entertained_level]': { required: '请输入被邀请方层级'},  
+          'entretain[entertained_num]': { required: '请输入被邀请方人数', min: '至少大于0的数字', number: '至少大于0的数字' },  
+        },  
+        submitHandler: function (form) {
+          $(form).submit();
+          //success1.show();
+          //error1.hide();
+        }
+    });
 });
 </script>
-
-
-

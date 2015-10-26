@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150926063520) do
+ActiveRecord::Schema.define(version: 20151024081216) do
 
   create_table "categories", force: true do |t|
     t.integer  "kind",       default: 0
@@ -106,7 +106,9 @@ ActiveRecord::Schema.define(version: 20150926063520) do
     t.datetime "updated_at"
     t.string   "location"
     t.integer  "last_reporter_id"
-    t.string   "fee"
+    t.integer  "fee",               default: 0
+    t.string   "entertained_level"
+    t.integer  "entertained_num",   default: 0
   end
 
   create_table "examines", force: true do |t|

@@ -63,13 +63,14 @@ class User < ActiveRecord::Base
      return days - apply_days
   end
 
-  def residual_annual_days(year=Date.today.year)
-     year_last_day = Date.parse("#{year.to_s}0101").end_of_year
-     days = nj_days(year_last_day)
-     return 0 if days<=0
-     apply_days = LeaveDetail.apply_and_accept(id,year).sum(:days).to_f 
-     return days - apply_days
-  end
+  # 与上面貌似重复啦
+  #def residual_annual_days(year=Date.today.year)
+     #year_last_day = Date.parse("#{year.to_s}0101").end_of_year
+     #days = nj_days(year_last_day)
+     #return 0 if days<=0
+     #apply_days = LeaveDetail.apply_and_accept(id,year).sum(:days).to_f 
+     #return days - apply_days
+  #end
 
   
 

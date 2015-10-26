@@ -16,11 +16,9 @@ class EntretainMail < ActionMailer::Base
   end
 
   def send_superior_mail(entretain)
-	@entretain = ActiveModel::GlobalLocator.locate(entretain) 
-	@url="http://cgboffice.cnpe.cc"
-	
-    mail to: @entretain.last_report_user.try(:email), subject: @entretain.user.try(:name)+"宴请单已被#{entretain.report_user.try(:name)}批阅,请您最终审批"
+    @entretain = ActiveModel::GlobalLocator.locate(entretain) 
+    @url="http://cgboffice.cnpe.cc"
+    
+    mail to: @entretain.last_report_user.try(:email), subject: @entretain.user.try(:name)+"宴请单已被#{@entretain.report_user.try(:name)}批阅,请您最终审批"
   end
-
-
 end
