@@ -1,25 +1,19 @@
 <%=render "shared/leave_left"%>
-
 <div id="main-wrapper">
 	<div id="main-content">
 		<%=render "shared/notice"%>
         <div class="title">
 			<h3>请假列表</h3>
 		</div>
-
-		
-	
         <div class="hastable">
-					
 						<table> 
 						<thead> 
 						<tr>
 							<th>#ID</th>
-						    <th>请假标题</th> 
-						    <th>总天数</th> 
-						    <th>审批状态</th>
-						    <th>操作</th> 
-							
+              <th>请假标题</th> 
+              <th>总天数</th> 
+              <th>审批状态</th>
+              <th>操作</th> 
 						</tr> 
 						</thead> 
 						<tbody> 
@@ -29,14 +23,10 @@
 						    <td><%= leave.title %></td> 
 						    <td><%= leave.total_days %>天</td> 
 						    <td><%=t(leave.status)%></td>
-						    <td><%= link_to "查看详情",leave %>  | <%= link_to_if leave.status=="auditting", '删除', leave, method: :delete, data: { confirm: 'Are you sure?' } %>   </td> 					   			
+                <td><%= link_to "查看详情",leave %> <%if leave.status == 'auditting'%> | <%= link_to '删除', leave, method: :delete, data: { confirm: 'Are you sure?' } %><%end%>  </td> 					   			
 						</tr> 
 					   <%end%>			
 						</tbody>
-						</table>
-
-
-
+        </table>
 </div>
 </div>
-

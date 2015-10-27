@@ -25,7 +25,7 @@ module Approve #:nodoc:
       		state :leader_agree
       		state :leader_reject
     
-           	event :audit do
+          event :audit do
          		transitions :from => :applying, :to => :auditting#, :guard => :send_apply_mail
       		end
       		event :accept do
@@ -64,45 +64,39 @@ module Approve #:nodoc:
 
      	 def add_to_approve
      	 	 return if admin_modify
-             begin 
-     	 	 return if status=="leader_agree" || status== "leader_reject"
-     	 	 method = self.class.class_variable_get("@@need_chairman_approve")
-   
-     	 	 case status 
-     	 	 when "auditting"
-                  LeaveMailer.approve_email(self).deliver_later
-              when "acceptting"  
-            
-              	if self.send(method)
-              	  LeaveMailer.chairman_approve_email(self).deliver_later 
-              	else
-              	   self.system_agree
-              	   self.save
-              	end 
-              when "last_acceptting" || "leader_agree"
-              	  LeaveMailer.finished_email(self).deliver_later
-              	  self.system_agree
-              	  self.save
-              when "last_rejectting","rejectting"
-              	  LeaveMailer.remind_email(self).deliver_later
-              	  self.system_reject
-              	  self.save
-
-              end
+         begin 
+           return if status=="leader_agree" || status== "leader_reject"
+           method = self.class.class_variable_get("@@need_chairman_approve")
+     
+           case status 
+           when "auditting"
+              LeaveMailer.approve_email(self).deliver_later
+            when "acceptting"  
+              if self.send(method)
+                LeaveMailer.chairman_approve_email(self).deliver_later 
+              else
+                self.system_agree
+                self.save
+              end 
+            when "last_acceptting" || "leader_agree"
+              self.system_agree
+              self.save
+              LeaveMailer.finished_email(self).deliver_later
+            when "last_rejectting","rejectting"
+              self.system_reject
+              self.save
+              LeaveMailer.remind_email(self).deliver_later
+            end
           rescue 
           end
-              		
-
-     	 	 #self.system_reject if ["rejectting","last_rejectting"].include? status
-
+     	 	  #self.system_reject if ["rejectting","last_rejectting"].include? status
      	 end
 
      	 def sync_to_leave_detail
-     	 	leave_details.each do |detail|
-               detail.status = Leave.statuses[status]
-               detail.save
-     	 	end
+     	 	 leave_details.each do |detail|
+           detail.status = Leave.statuses[status]
+           detail.save
+     	 	 end
      	 end
-        
      end
  end

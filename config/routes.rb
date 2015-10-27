@@ -86,12 +86,18 @@ CnpeNew::Application.routes.draw do
        get :list
        get :export
        get :export_data
+     end
 
-     end
      member do 
-        post :auddit
-        get :auddit_from_mail
+       post :auddit
+       get :auddit_from_mail
      end
+  end
+
+  resources :nj_leaves do
+    collection do
+      get :search
+    end
   end
 
   get  "categories/kind/:kind/(:c_id)" => "categories#index"

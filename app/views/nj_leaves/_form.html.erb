@@ -2,7 +2,7 @@
 <%#=stylesheet_link_tag "jquery.datetimepicker" => true%>
 
 <script type="text/javascript">
-  var total_nj_day= <%=current_user.last_year_annual.to_i + current_user.nj_unused_days%>; //剩余年假
+  var total_nj_day= <%=current_user.last_year_annual.to_i+current_user.nj_days%>; //剩余年假
   var is_annual=<%=current_user.is_annual%>//是否有年假
   var user_gender=<%=current_user.gender%>;//产假天数
   var total_hj_day=<%=current_user.cj_days%>; //婚假天数
@@ -64,7 +64,7 @@
        	          <%=detail.radio_button "end_at_half_day","1",{name: "leave[leave_details_attributes][#{v}][end_at_half_day]",class: "end_at_half_day_#{v.to_s} half_day_radio","data-id"=> v}%> 上午
        	      <%end%>
        	      <%=detail.radio_button "end_at_half_day","2",{"checked"=>true,name: "leave[leave_details_attributes][#{v}][end_at_half_day]",class: "end_at_half_day_#{v.to_s} half_day_radio","data-id"=> v}%> 下午
-              休<%=t("leave_details.#{k}")%><b class="choose_day">共计：<%=detail.text_field :days,name: "leave[leave_details_attributes][#{v}][days]",id: "select_days_#{v}",class: "field tiny_field choose_days_per_leave" ,readonly: true%> 天。</b><%if v==0 %><%if current_user.last_year_annual.to_f>0%><b>去年剩余年假：<%=current_user.last_year_annual%>天</b><%end%> &nbsp; 当年剩余年假:<%=current_user.nj_unused_days%>天<%end%><b class="errorr"></b> 
+       	      休<%=t("leave_details.#{k}")%><b class="choose_day">共计：<%=detail.text_field :days,name: "leave[leave_details_attributes][#{v}][days]",id: "select_days_#{v}",class: "field tiny_field choose_days_per_leave" ,readonly: true%> 天。</b><%if v==0 && current_user.last_year_annual.to_f>0%><b>去年年假还有：<%=current_user.last_year_annual%>天</b><%end%><b class="errorr"></b> 
       </div>
      </span>
     </li>

@@ -1,20 +1,3 @@
-<%=javascript_include_tag "/my97/WdatePicker"%>
-<%#=stylesheet_link_tag "jquery.datetimepicker" => true%>
-
-<script type="text/javascript">
-  var total_nj_day= <%=current_user.last_year_annual.to_i + current_user.nj_unused_days%>; //剩余年假
-  var is_annual=<%=current_user.is_annual%>//是否有年假
-  var user_gender=<%=current_user.gender%>;//产假天数
-  var total_hj_day=<%=current_user.cj_days%>; //婚假天数
-  var total_sj_day=<%=current_user.shijia_days%>;//事假总天数 总得减已经请的
-  var total_sangj_day=<%=current_user.sangjia_days%>;//丧假假总天数 总得减已经请的
-  var rest_days= "<%=rest_days%>".split(",") 
-  var work_days =  "<%=work_days%>".split(",")  //["2014-09-21"];//周末设定的上班的日期
-  var is_edit = false;
-  var choose_total_days=0;
-</script>
-<%=javascript_include_tag "leaves", "data-turbolinks-track" => true%>
-
 <%= form_for(@leave) do |f| %>
   <% if @leave.errors.any? %>
     <div id="error_explanation">
@@ -27,7 +10,6 @@
       </ul>
     </div>
   <% end %>
-
 <ul>
 	<li> 
 		<span class="width_align_right">标题 </span> 
@@ -35,23 +17,15 @@
        	<%=f.text_field :title,class: "field error leave_title text large"%>
        </span>
     </li>
-    
-    <%= f.fields_for :leave_details,@leave.leave_details.build do |detail|%>   
-    <li> 
-		<span class="width_align_right">请假类型 </span>
-        <span class="width_content">
-            <%LeaveDetail.kinds.each do |k,v|%>
-               <%=check_box_tag "leave[leave_details_attributes][kind][]",v,false,{"data-id"=>v,class: "leave_kind"}%> <%#=v%><%=t("leave_details.#{k}")%>     	  
-        	 <%end%> 							
-		</span>
-
-    </li>
-
-     <%LeaveDetail.kinds.each do |k,v|%>
-    <li class="kind_<%=v%> date_choose">
-      <span class="width_align_right">&gt;</span>
+  
+   <%@leave.leave_details.each do |leave_detail|%>
+       <%= f.fields_for :leave_detail,leave_detail do |detail|%> 
+          <li class="">
+      <span class="width_align_right"><%=t("leave_details.#{leave_detail.kind}")%>:</span>
       <span class="width_content">
        <div>  
+       	<%v=LeaveDetail.kinds[leave_detail.kind];k=leave_detail.kind%>
+       	 
        	      <%=detail.text_field "start_at",class: "small_field start_at_#{v.to_s} datetimepicker1 " ,"data-id"=>v ,"data-value"=>"start_at_#{v.to_s}",name: "leave[leave_details_attributes][#{v}][start_at]",id: "start_at_#{v}"%>
 
        	      <%=detail.radio_button "start_at_half_day","1",{"checked"=>true,name: "leave[leave_details_attributes][#{v}][start_at_half_day]",class: "start_at_half_day_#{v.to_s} half_day_radio","data-id"=> v}%> 上午
@@ -64,13 +38,16 @@
        	          <%=detail.radio_button "end_at_half_day","1",{name: "leave[leave_details_attributes][#{v}][end_at_half_day]",class: "end_at_half_day_#{v.to_s} half_day_radio","data-id"=> v}%> 上午
        	      <%end%>
        	      <%=detail.radio_button "end_at_half_day","2",{"checked"=>true,name: "leave[leave_details_attributes][#{v}][end_at_half_day]",class: "end_at_half_day_#{v.to_s} half_day_radio","data-id"=> v}%> 下午
-              休<%=t("leave_details.#{k}")%><b class="choose_day">共计：<%=detail.text_field :days,name: "leave[leave_details_attributes][#{v}][days]",id: "select_days_#{v}",class: "field tiny_field choose_days_per_leave" ,readonly: true%> 天。</b><%if v==0 %><%if current_user.last_year_annual.to_f>0%><b>去年剩余年假：<%=current_user.last_year_annual%>天</b><%end%> &nbsp; 当年剩余年假:<%=current_user.nj_unused_days%>天<%end%><b class="errorr"></b> 
+       	      休<%=t("leave_details.#{k}")%><b class="choose_day">共计：<%=detail.text_field :days,name: "leave[leave_details_attributes][#{v}][days]",id: "select_days_#{v}",class: "field tiny_field" ,readonly: true%> 天</b><b class="errorr"></b> 得到的
       </div>
      </span>
     </li>
+  
 
-    <%end%>
-<%end%> 
+       <%end%>
+
+   <%end%>
+  
     <li> 
 		<span class="width_align_right">审批 </span> 
        <span class="width_content">
@@ -78,9 +55,8 @@
           <%=f.hidden_field :reporter1_id,:value=>current_user.id%>
           <%= f.select :reporter2_id,current_user.last_report_user() %>
         <%else%>
-         <%= f.select :reporter1_id, current_user.report_user %>
-         <b class="second_auddit"> -------> 
-          <%= f.select :reporter2_id, current_user.last_report_user,{ include_blank: true }%></b>
+         <%= f.select :reporter1_id, current_user.report_user %> -------> 
+          <%= f.select :reporter2_id, current_user.last_report_user%>
           <%end%>
 
        	
@@ -88,20 +64,25 @@
 
 
     </li>
+    
+
+
      <li> 
 		<span class="width_align_right">请假说明 </span>
 		<div><%=f.kindeditor :info , :simple_mode => true, :width => 700, :height => 300 %></div>
+		
+        
+       
     </li>
      <li> 
-        <span class="width_align_right">附件 </span>
+		<span class="width_align_right">附件 </span>
         <div><%=f.file_field :image%>
        </div>
     </li>
-     <li> 
-       <span class="width_align_right">&nbsp;</span>
-       <div class="actions">
-         <%= f.submit '提交申请'%>
-       </div>
-    </li>
 </ul>
+ 
+  <div class="actions">
+    <%= f.submit '提交申请'%>
+  </div>
 <% end %>
+

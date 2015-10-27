@@ -13,7 +13,6 @@
 							<li>
 								<a class="set_theme" id="light_blue" href="/leaves/receive" title="Light Blue Theme">收到</a>
 							</li>
-							
 						</ul>
 					</div>
 				</div>
@@ -24,13 +23,17 @@
 					<div class="portlet-header ui-widget-header">请假管理</div>
 					<div class="portlet-content">
 						<ul class="side-menu">
+              <% if current_user.is_hr? %>
 							<li>
 								<a class="set_theme" id="default" href="/leaves/list" title="Default Theme">请假列表</a>
 							</li>
 							<li>
 								<a class="set_theme" id="light_blue" href="/leaves/export" title="Light Blue Theme">请假导出</a>
 							</li>
-							
+              <%end%>
+							<li>
+								<a class="set_theme" id="light_blue" href="/nj_leaves" title="Light Blue Theme">年假管理</a>
+							</li>
 						</ul>
 					</div>
 				</div>

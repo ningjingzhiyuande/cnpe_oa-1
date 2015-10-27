@@ -13,11 +13,10 @@ User.all.each do |user|
 	user_n = UserNjLeave.create(user_id: user.id,total_days:nj_days,leave_days: nj_days,remain_days: 0,year: year_day.year)
 
 	applied_days = LeaveDetail.where("user_id=? and leave_year=? and (status=? or status=?) and kind=0",user.id,year_day.year,Leave.statuses["last_acceptting"],Leave.statuses["leader_agree"]).sum("days").to_f
-    if applied_days>0
-       user_n.leave_days=applied_days
-       user_n.remain_days=nj_days-applied_days
-       user_n.save
-    end
-    #UserNjLevel
 
+  if applied_days>0
+     user_n.leave_days=applied_days
+     user_n.remain_days=nj_days-applied_days
+     user_n.save
+  end
 end

@@ -1,0 +1,31 @@
+<%=render "shared/leave_left"%>
+<div id="main-wrapper">
+	<div id="main-content">
+		<%=render "shared/notice"%>
+    <div class="title">
+			<h3>年假管理</h3>
+		</div>
+    <div class="hastable">
+      <%=form_tag '/nj_leaves/search', method: :get do %>
+        <label>用户名</label>
+        <%=text_field_tag :username, params[:username], placeholder: '用户名（登录名）' %>
+        <label>年份</label>
+        <%=text_field_tag :year, params[:year]||Date.today.year - 1, placeholder: '年份' %>
+        <%=submit_tag '查找'%>
+      <%end%>
+    </div>
+
+    <p>&nbsp;</p>
+      <%if @nj_leave%>
+        <div>
+          <%=form_for @nj_leave, url: "/nj_leaves/#{@nj_leave.id}?#{params.slice(:username, :year).to_query}" do |l|%>
+            <%=@year%>年假：
+            <%=l.text_field :total_days%> 天, 
+            已休： <%=l.text_field :leave_days%>天,
+            剩余: <%=@nj_leave.remain_days%>天
+            <%=l.submit '修改'%>
+          <%end%>
+        </div>
+      <%end%>
+  </div>
+</div>

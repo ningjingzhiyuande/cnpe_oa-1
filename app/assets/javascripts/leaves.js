@@ -9,9 +9,9 @@ $(function() {
    	    	alert("按照规定：请事假累计14天(含),没有年休假，或者工作满1-10年，病假>=2个月的没有年休假，工作满10-20年，病假>=3个月的没有年休假，工作满20年以上，病假>=4个月的没有年休假")
    	       $(this).prop("checked",false)
    	    }
-   	     if(data_id=="0" && total_nj_day==0){
+   	     if(data_id=="0" && total_nj_day<=0){
    	    	alert("您已经没有年假了,如果有问题请联系管理员。")
-   	       $(this).prop("checked",false)
+   	      $(this).prop("checked",false)
    	    }
    	    if(total_hj_day!=10 && data_id=="4"){
    	    	alert("按照规定：必须晚婚晚育才能休含奖励的假期")
@@ -280,7 +280,7 @@ $(function() {
 
 function select_for_speical_day(data_id) {
 	 var start_at = $(".start_at_"+data_id).val();
-     var end_at = $(".end_at_"+data_id).val();
+   var end_at = $(".end_at_"+data_id).val();
 	
 	 if(start_at!="" && end_at!=""){
          var days = cal_diff_time(data_id);
@@ -653,10 +653,10 @@ function add_rule_to_nj(data_id){
  	       $("#select_days_0").rules("add", {
                 required: true,
                 cal_nj_days: true,
-                 messages: {
+                messages: {
                   required: "一共可以请"+total_nj_day+"天"
-				 }
-            });
+				        }
+         });
  	}
 }
 

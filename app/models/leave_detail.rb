@@ -4,31 +4,57 @@ class LeaveDetail < ActiveRecord::Base
 	belongs_to :leave
 	belongs_to :user
 
+  # 更新去年年假情况(申请就被消费, 不管是否已审核批准)
   after_create :cal_last_year_days
-	#申请和被审批通过的年假
-   def self.apply_and_accept(uid,year)
-   	   LeaveDetail.where("vacation_year=? and user_id=? and (status=? or status=? or status=? or status=?) and kind=0",year,uid,Leave.statuses["auditting"],Leave.statuses["acceptting"],Leave.statuses["last_acceptting"],Leave.statuses["leader_agree"])    
-   end
+  before_destroy :give_back_last_year_nj_days, if: ->{ self.stauts != Leave.statuses[:leader_reject] } 
+  before_save :return_rejected_nj
 
-  
+  scope :working_statuses, ->{ where(status: [:auditting, :acceptting, :last_acceptting, :leader_agree].map{|s| Leave.statuses[s]}) }
+
+  def last_year_nj
+    year = start_at.year - 1
+    nj = user.user_nj_leaves.where('year=?',year).first
+  end
+
+	#申请和被审批通过的年假
+  def self.apply_and_accept(uid,year)
+    where("vacation_year=? and user_id=? and kind=0",year,uid).working_statuses
+  end
 
   def self.apply_and_accept_shijia(uid)
-   	   LeaveDetail.where("user_id=? and (status=? or status=? or status=? or status=?) and kind=1 and start_at>= #{Date.today.beginning_of_year} and start_at<= #{Date.today.end_of_year}",uid,Leave.statuses["auditting"],Leave.statuses["acceptting"],Leave.statuses["last_acceptting"],Leave.statuses["leader_agree"])    
+   	where("user_id=? and kind=1 and start_at>= #{Date.today.beginning_of_year} and start_at<= #{Date.today.end_of_year}",uid).working_statuses  
   end
 
   def self.apply_and_accept_sangjia(uid)
-   	   LeaveDetail.where("user_id=? and (status=? or status=? or status=? or status=?) and kind=7 and start_at>= #{Date.today.beginning_of_year} and start_at<= #{Date.today.end_of_year}",uid,Leave.statuses["auditting"],Leave.statuses["acceptting"],Leave.statuses["last_acceptting"],Leave.statuses["leader_agree"])    
+   	where("user_id=? and kind=7 and start_at>= #{Date.today.beginning_of_year} and start_at<= #{Date.today.end_of_year}",uid).working_statuses    
   end
-   def self.apply_and_accept_bingjia(uid)
-   	   LeaveDetail.where("user_id=? and (status=? or status=? or status=? or status=?) and kind=2 and start_at>= #{Date.today.beginning_of_year} and start_at<= #{Date.today.end_of_year}",uid,Leave.statuses["auditting"],Leave.statuses["acceptting"],Leave.statuses["last_acceptting"],Leave.statuses["leader_agree"])    
+
+  def self.apply_and_accept_bingjia(uid)
+    where("user_id=? and kind=2 and start_at>= #{Date.today.beginning_of_year} and start_at<= #{Date.today.end_of_year}",uid).working_statuses    
   end
 
   def cal_last_year_days
     if last_year_days>=0 && kind=="NJ"
-       year=Date.today.year-1
-       nj = user.user_nj_leaves.where('year=?',year).first
-       nj.update_attributes(leave_days: nj.leave_days+last_year_days,remain_days: (nj.total_days-nj.leave_days-last_year_days))
+      lnj = last_year_nj
+      used_days = lnj.leave_days + last_year_days
+      lnj.update_attributes(leave_days: used_days, remain_days: (lnj.total_days - used_days))
+    end
+  end
+
+  def give_back_last_year_nj_days
+    # 拒绝的不回收，在拒绝时就已回收(但目前逻辑是：只有auditting的才可以删除)
+    if last_year_days>=0 && kind=="NJ"
+      lnj = last_year_nj
+      used_days = lnj.leave_days - last_year_days
+      used_days = 0 if used_days < 0
+      lnj.update_attributes(leave_days: used_days, remain_days: (lnj.total_days - used_days))
      end
+  end
+
+  def return_rejected_nj
+    if self.status == Leave.statuses[:leader_reject]
+      give_back_last_year_nj_days
+    end
   end
 
   def month_static(year=Date.today.year,month)

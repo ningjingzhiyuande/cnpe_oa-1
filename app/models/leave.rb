@@ -9,7 +9,6 @@ class Leave < ActiveRecord::Base
    belongs_to :applicant, class_name: "User",:foreign_key=>"user_id"
    belongs_to :chief, class_name: "User"  ,:foreign_key=>"reporter1_id"
    belongs_to :chairman, class_name: "User"  ,:foreign_key=>"reporter2_id"
-   
  
    # 请假大于两天 或者是处长的需要二级审批
    def days_more_two
@@ -22,7 +21,6 @@ class Leave < ActiveRecord::Base
    def self.pass_leaves
    	  where("status=? or status=?",statuses["last_acceptting"],statuses["leader_agree"])
    end
-  
    
     #发送test邮件
    def send_test_mail
@@ -37,9 +35,7 @@ class Leave < ActiveRecord::Base
     	reporter1_id==user_id
     end
 
-
     def is_last_reporter?(user_id)
       reporter2_id==user_id
     end
-
 end

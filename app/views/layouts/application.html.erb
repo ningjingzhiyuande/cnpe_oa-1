@@ -72,19 +72,21 @@
 				
 			</li>
 		
+      <%if current_user.is_hr? %>
 			<li>
 				<a href="/date_settings">系统设置</a>
-				
 			</li>
+      <%end%>
 
 			<li>
 			  <a href="/leaves">请假流程</a>
-				
 			</li>
+
+      <%if current_user.is_hr? %>
 			<li>
 				<a href="/users">用户管理</a>
-				
 			</li>
+      <%end%>
 
 			<li>
 				<a href="/goods">物品管理</a>

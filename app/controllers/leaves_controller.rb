@@ -1,9 +1,10 @@
 require "spreadsheet"
 class LeavesController < ApplicationController
   
-   before_action :set_leave, only: [:show, :destroy,:auddit,:auddit_from_mail]
-   skip_before_filter :verify_authenticity_token, :only => [:destroy]
-    load_and_authorize_resource
+  before_action :set_leave, only: [:show, :destroy,:auddit,:auddit_from_mail]
+  skip_before_filter :verify_authenticity_token, :only => [:destroy]
+  load_and_authorize_resource
+
   def index
     @leaves = current_user.apply_leaves
     respond_with(@leaves)
@@ -67,11 +68,10 @@ class LeavesController < ApplicationController
           detail.start_at_half_day = hash["start_at_half_day"]
           detail.end_at_half_day = hash["end_at_half_day"]
           detail.kind=LeaveDetail.kinds.key(key.to_i)
-          #binding.pry
-          if key.to_i==0
-              last_year_days=(hash["days"].to_f-current_user.last_year_annual)>=0 ? current_user.last_year_annual : hash["days"].to_f
-              detail.last_year_days=last_year_days
-              detail.this_year_days=hash["days"].to_f-last_year_days
+          if key.to_i==0 # 年假消耗
+            last_year_days=(hash["days"].to_f-current_user.last_year_annual)>=0 ? current_user.last_year_annual : hash["days"].to_f
+            detail.last_year_days=last_year_days
+            detail.this_year_days=hash["days"].to_f-last_year_days
           end
           @total_days +=hash["days"].to_f
           @leave.leave_details<<detail        
