@@ -14,8 +14,9 @@ class Entretain < ActiveRecord::Base
      #     [:baeryi, "8", "821"],[:others, "9", "其他"]], :column => :title, :default => :fuqing12
   #has_enum :locations, :enums => [[:xiangechun, 1, "湘鄂春"], [:lingdian, 2 , "零点餐厅"],\
       #   [:others, 3, "其他"]], :column => :location, :default => :xiangechun
-  TITLE=['福清12','福清34','福清56','方家山','海南','田湾34','徐大堡','821']
-  LOCATION= ['湘鄂春','零点餐厅']
+  TITLE = $options['entertain']['projects']
+  LOCATION= $options['entertain']['locations']
+
   include AASM
 	mount_uploader :attache, AttacheUploader
 	aasm do # default column: aasm_state
