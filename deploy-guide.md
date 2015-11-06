@@ -10,8 +10,10 @@ appdir=/home/yang/Sites/cnpe_oa
 
 手动配置config/database.yml 
 
+```bash
 cd $appdir
 bundle install
+```
 
 ## Step2: 构建DB
 
@@ -63,6 +65,6 @@ sudo service nginx restart
 ## 特别提示：
 
 1. 因为当时没测试, 请检查 $appdir/config/unicorn.rb中的配置信息 和 /etc/init.d/unicorn_cnpe_oa.sh中配置时对应，否则可能导致问题  
-2. 请妥善处理之前部署的项目，以免和当前项目产生配置冲突
+2. 请妥善处理之前部署的项目(如关停，或数据如何转移到新项目中来），以免和当前项目产生配置冲突
 
 相关问题请联系国栋或老曹
