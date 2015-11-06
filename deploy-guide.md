@@ -1,6 +1,8 @@
 # 文洋测试服务器部署指南
 
+```bash
 appdir=/home/yang/Sites/cnpe_oa
+```
 
 ## Step1: 获取代码
 
@@ -13,30 +15,42 @@ bundle install
 
 ## Step2: 构建DB
 
+```bash
 rake db:create:all #第一次部署时执行
 
 bundle exec rake db:migrate
 RAILS_ENV=production bundle exec rake db:migrate
+```
 
 # 可用rails s 本地运行开发模式测试
 
 ## Step3: 编译静态资源
 
+```bash
 RAILS_ENV=production bundle exec rake assets:precompile
 RAILS_ENV=production bundle exec rake kindeditor:assets
+```
 
 ## Step4 配置unicorn
 
 仿照之前项目的unicorn的配置， 制作 /etc/init.d/unicorn_cnpe_oa.sh
 
-启动 /etc/init.d/unicorn_cnpe_oa start
+启动unicorn
+
+```bash
+/etc/init.d/unicorn_cnpe_oa start
+```
 
 有问题时查看unicorn 错误日志： log/unicorn*.log
 
 ## Step5 配置nginx
 
 仿照之前项目的nginx的配置， 制作 /etc/nginx/sites-enable/cnpe_oa.conf
-重启nginx  sudo service nginx restart
+重启nginx  
+
+```bash
+sudo service nginx restart
+```
 
 有问题时查看nginx错误日志 /var/log/nginx*
 
