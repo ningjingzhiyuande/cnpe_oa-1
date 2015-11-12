@@ -10,6 +10,8 @@ appdir=/home/yang/Sites/cnpe_oa
 
 手动配置config/database.yml 
 
+去掉 app/mailers/order_mailer.rb 第九行 emails=PreGood.这一行
+
 ```bash
 cd $appdir
 bundle install
